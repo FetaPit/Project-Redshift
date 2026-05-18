@@ -1,4 +1,4 @@
-const CACHE = 'vault-it-v1';
+const CACHE = 'vault-it-v3';
 const SHELL = [
   './vault-it.html',
   './icon-192.png',
