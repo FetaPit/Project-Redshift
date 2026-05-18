@@ -4049,8 +4049,7 @@ function init(){
   renderBizRev();renderClients();renderPipeline();
   renderAchs();renderSkills();
   drawSbHouse();
-    upXP();upHouseUI();upDash();
-  renderMtnSel();
+  upXP();upHouseUI();upDash();
   // Spot input listeners for metals page
   document.getElementById('spGold').value=S.metals.sg;
   document.getElementById('spSilver').value=S.metals.ss;
@@ -4106,7 +4105,7 @@ window.addEventListener('resize', () => {
   ro.observe(wrap);
 })();
 
-init();
+try { init(); } catch(e) { console.error('[Vault-It] init() failed:', e); }
 
 // ── Mobile sidebar toggle ──
 function toggleMobileMenu() {
