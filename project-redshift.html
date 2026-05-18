@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Project Redshift · Pareto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bh-red:#E2231A; --bh-yellow:#FFC700; --bh-black:#0B0B0B; --bh-paper:#F4F0E6; --bh-ink:#141414; --bh-line:#0B0B0B; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:var(--bh-black); color:var(--bh-paper); font-family:'IBM Plex Mono',monospace; min-height:100vh; display:flex; flex-direction:column; }
+  .topbar { display:flex; align-items:center; justify-content:space-between; border-bottom:3px solid var(--bh-paper); padding:18px 24px; }
+  .brand { font-family:'Archivo Black',sans-serif; font-size:16px; text-transform:uppercase; letter-spacing:-0.01em; }
+  .brand-mark { display:inline-block; width:24px; height:24px; background:var(--bh-red); border:2px solid var(--bh-paper); border-radius:50%; vertical-align:middle; margin-right:10px; position:relative; }
+  .back { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--bh-paper); opacity:0.4; text-decoration:none; border:1.5px solid currentColor; padding:4px 9px; }
+  .main { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; }
+  .tag { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--bh-yellow); opacity:0.7; margin-bottom:20px; }
+  h1 { font-family:'Archivo Black',sans-serif; font-size:clamp(36px,8vw,80px); text-transform:uppercase; line-height:0.95; letter-spacing:-0.02em; }
+  .sub { font-size:13px; opacity:0.45; margin-top:20px; line-height:1.6; max-width:36ch; }
+  .status { display:inline-block; margin-top:32px; border:1.5px solid var(--bh-yellow); color:var(--bh-yellow); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; padding:8px 18px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="brand-mark"></span>Pareto</div>
+  <a href="index.html" class="back">← Back to Pareto</a>
+</div>
+<div class="main">
+  <div class="tag">Sub-product · Creative</div>
+  <h1>Project<br>Redshift</h1>
+  <p class="sub">Music production, international radio airplay &amp; self-directed creative campaigns. Coming soon.</p>
+  <div class="status">In Development</div>
+</div>
+</body>
+</html>
