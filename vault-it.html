@@ -4131,6 +4131,28 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<script>
+(function(){
+  var el = document.getElementById('vi-welcome');
+  if(localStorage.getItem('vi_welcomed')){
+    if(el) el.classList.add('hidden');
+  }
+})();
+
+function viWelcomeDone(clearData){
+  if(clearData){
+    localStorage.clear();
+    localStorage.setItem('vi_welcomed','1');
+    location.reload();
+  } else {
+    localStorage.setItem('vi_welcomed','1');
+    var el = document.getElementById('vi-welcome');
+    if(el) el.classList.add('hidden');
+    if(typeof seed === 'function') seed();
+  }
+}
+</script>
+
 <!-- Vault-It welcome overlay -->
 <div id="vi-welcome">
   <div class="vi-card">
