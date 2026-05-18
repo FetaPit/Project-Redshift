@@ -12,7 +12,7 @@
 | File | Purpose |
 |------|---------|
 | `pareto.html` | **Main deliverable** — 4-tab Pareto portfolio dashboard |
-| `purposeos.html` | PurposeOS net worth OS (house savings tracker, separate product) |
+| `vault-it.html` | Vault-It net worth OS (house savings tracker, separate product) |
 
 ---
 
@@ -87,8 +87,8 @@ Build a 7th pie: **UK Dividend Pie**
 - [ ] Make the action queue items checkable (strike-through + localStorage persist)
 - [ ] Mobile layout pass for Holdings table (currently hides cols 4+)
 
-### P3 · Integration with PurposeOS
-- [ ] Pareto NAV (£2,209) should feed into PurposeOS net worth Overview as "Investments" asset line
+### P3 · Integration with Vault-It
+- [ ] Pareto NAV (£2,209) should feed into Vault-It net worth Overview as "Investments" asset line
 - [ ] Single source of truth: one JSON object, both UIs read from it
 - [ ] Consider: single HTML file with both apps accessible from top nav
 
@@ -124,11 +124,11 @@ Fonts (Google Fonts):
 
 ---
 
-## PurposeOS (purposeos.html) — Separate Product
+## Vault-It (vault-it.html) — Separate Product
 
-PurposeOS is Pete's net worth OS — isometric house builder, debt snowball, full asset/liability tracker. It has its own brand (dark teal / Syne) and localStorage keys (`pos_ov1`, `ht3`). See the `PURPOSEOS_REBUILD_PROMPT.md` context doc for full spec.
+Vault-It is Pete's net worth OS — isometric house builder, debt snowball, full asset/liability tracker. It has its own brand (dark teal / Syne) and localStorage keys (`pos_ov1`, `ht3`).
 
-**Do not mix the two design systems.** Pareto = light/Bauhaus. PurposeOS = dark/teal.
+**Do not mix the two design systems.** Pareto = light/Bauhaus. Vault-It = dark/teal.
 
 ---
 
