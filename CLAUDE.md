@@ -7,18 +7,36 @@
 
 ---
 
-## What's here
+## Product Hierarchy
 
-| File | Purpose |
-|------|---------|
-| `pareto.html` | **Main deliverable** — 4-tab Pareto portfolio dashboard |
-| `purposeos.html` | PurposeOS net worth OS (house savings tracker, separate product) |
+```
+Pareto                   ← parent OS / portfolio shell
+├── Vault-It             ← fintech SaaS · net worth OS
+└── Project Redshift     ← creative · music production project
+```
+
+**Rules:**
+- Pareto links TO both Vault-It and Project Redshift (top nav)
+- Vault-It and Project Redshift each link BACK to Pareto only
+- Vault-It and Project Redshift do **not** link to each other — they are adjacent, independent sub-products
+- Each sub-product has its own brand, design system and localStorage namespace
+
+---
+
+## Files in This Repo
+
+| File | Product | Purpose |
+|------|---------|---------|
+| `pareto.html` | **Pareto** | 4-tab portfolio dashboard — parent shell |
+| `vault-it.html` | **Vault-It** | Net worth OS — house builder, debt tracker, full asset/liability tracker |
+
+> Project Redshift files TBD — to be added as the music/creative module matures.
 
 ---
 
 ## Pareto — Product Overview
 
-Pareto is a **personal portfolio dashboard** for Pete's two T212 accounts (Stocks ISA + Live Fintech). It sits above the account-level UI and gives a hedge-fund-style view of the whole portfolio.
+Pareto is the **parent OS and portfolio dashboard** for Pete's two T212 accounts (Stocks ISA + Live Fintech). It sits above the account-level UI and gives a hedge-fund-style view of the whole portfolio. It will also serve as the navigation hub for Vault-It and Project Redshift.
 
 **Design language:** Bauhaus bento grid — light paper background (`#F4F0E6`), editorial typography (Archivo Black / Bricolage Grotesque / IBM Plex Mono), bold geometric shapes as visual shorthand.
 
@@ -87,15 +105,17 @@ Build a 7th pie: **UK Dividend Pie**
 - [ ] Make the action queue items checkable (strike-through + localStorage persist)
 - [ ] Mobile layout pass for Holdings table (currently hides cols 4+)
 
-### P3 · Integration with PurposeOS
-- [ ] Pareto NAV (£2,209) should feed into PurposeOS net worth Overview as "Investments" asset line
-- [ ] Single source of truth: one JSON object, both UIs read from it
-- [ ] Consider: single HTML file with both apps accessible from top nav
+### P3 · Sub-product Integration
+- [ ] Add Pareto top nav with links to Vault-It and Project Redshift sub-products
+- [ ] Pareto NAV (£2,209) should feed into Vault-It net worth Overview as "Investments" asset line
+- [ ] Single source of truth: one shared JSON object, all UIs read from it
+- [ ] Project Redshift module: define scope and add to repo
 
 ---
 
 ## Design System — Quick Reference
 
+### Pareto (parent)
 ```css
 --bh-red:    #E2231A   /* primary action, danger, high-conviction */
 --bh-blue:   #1B3A8C   /* passive, structural, secondary */
@@ -105,11 +125,17 @@ Build a 7th pie: **UK Dividend Pie**
 --bh-ink:    #141414   /* body text */
 --bh-green:  #137A4D   /* positive returns */
 ```
+Fonts: **Archivo Black** · **Bricolage Grotesque** · **IBM Plex Mono**
 
-Fonts (Google Fonts):
-- **Archivo Black** — headings, numbers, Bauhaus display
-- **Bricolage Grotesque** — body, sub-text
-- **IBM Plex Mono** — labels, tickers, data
+### Vault-It (sub-product)
+```css
+--em:  #44c0b9   /* primary teal */
+--go:  #c9a84c   /* gold */
+--bg:  #080808   /* app background */
+```
+Fonts: **Syne** · **DM Sans** · **Share Tech Mono**
+
+**Never mix the two design systems.**
 
 ---
 
@@ -121,14 +147,6 @@ Fonts (Google Fonts):
 | Fed Chair transition | May 2026 | Possible dovish pivot |
 | Tech concentration | 68% of FF pie | Concentration risk |
 | Defence sector | Re-rating strongly | Babcock +197% confirms |
-
----
-
-## PurposeOS (purposeos.html) — Separate Product
-
-PurposeOS is Pete's net worth OS — isometric house builder, debt snowball, full asset/liability tracker. It has its own brand (dark teal / Syne) and localStorage keys (`pos_ov1`, `ht3`). See the `PURPOSEOS_REBUILD_PROMPT.md` context doc for full spec.
-
-**Do not mix the two design systems.** Pareto = light/Bauhaus. PurposeOS = dark/teal.
 
 ---
 
