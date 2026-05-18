@@ -1160,6 +1160,105 @@ html, body { height: 100%; overflow: hidden; }
 .vi-btn-fresh:hover{border-color:rgba(224,92,92,.4);color:rgba(224,92,92,.7);}
 /* Alpha badge in nav */
 .alpha-badge{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:#c9a84c;font-family:'Syne',sans-serif;font-size:.48rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle;}
+
+/* ═══════ FFHF SUB-TAB ═══════ */
+.ffhf-subnav{display:flex;gap:0;border-bottom:1px solid var(--bd);padding:0 16px;flex-shrink:0;overflow-x:auto;background:var(--bg)}
+.ffhf-subnav::-webkit-scrollbar{display:none}
+.ffhf-sn{flex-shrink:0;height:38px;padding:0 14px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);font-family:'DM Sans',sans-serif;font-weight:500;font-size:.63rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.ffhf-sn-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.4;flex-shrink:0}
+.ffhf-sn:hover{color:var(--tx)}
+.ffhf-sn.act{color:var(--em);border-bottom-color:var(--em)}
+.ffhf-sn.act .ffhf-sn-dot{opacity:1;background:var(--em)}
+
+.ffhf-wrap{display:grid;grid-template-columns:1fr;gap:14px;padding:14px}
+.ffhf-banner{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:7px 12px;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--go);letter-spacing:.04em;margin:10px 16px 0}
+
+.ffhf-bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:110px;gap:10px}
+.ffhf-panel{background:var(--c2);border:1px solid var(--bd);border-radius:7px;padding:13px 14px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;flex-direction:column;justify-content:space-between}
+.ffhf-panel:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--bd2)}
+.ffhf-panel.is-selected{outline:1px solid var(--go);transform:scale(1.02);box-shadow:0 0 0 1px var(--go),0 4px 16px rgba(201,168,76,.18)}
+
+.ffhf-hero{grid-column:span 7;grid-row:span 3;background:linear-gradient(135deg,var(--c3),var(--c2))}
+.ffhf-action{grid-column:span 5;grid-row:span 3;background:rgba(224,92,92,.08);border-color:rgba(224,92,92,.25)}
+.ffhf-stat{grid-column:span 3;grid-row:span 1}
+.ffhf-theme{grid-column:span 3;grid-row:span 2}
+.ffhf-income{grid-column:span 6;grid-row:span 2;background:rgba(68,192,185,.05);border-color:rgba(68,192,185,.2)}
+.ffhf-movers{grid-column:span 6;grid-row:span 2}
+.ffhf-geo{grid-column:span 6;grid-row:span 2}
+.ffhf-queue{grid-column:span 12;grid-row:span 2;background:var(--c3)}
+
+.ffhf-hero-deco{position:absolute;inset:0;pointer-events:none;z-index:0}
+.ffhf-hero-deco::before{content:'';position:absolute;right:-30px;bottom:-30px;width:160px;height:160px;border-radius:50%;background:rgba(68,192,185,.06);border:1px solid rgba(68,192,185,.1)}
+.ffhf-hero-deco::after{content:'';position:absolute;right:60px;top:-20px;width:0;height:0;border-left:36px solid transparent;border-right:36px solid transparent;border-bottom:62px solid rgba(201,168,76,.07)}
+.ffhf-hero-content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+
+.ffhf-kl{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.ffhf-kv{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--tx)}
+.ffhf-kv-lg{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--em);line-height:1}
+.ffhf-kv-xl{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;line-height:.95;color:var(--em)}
+.ffhf-mono{font-family:'Share Tech Mono',monospace;font-size:.65rem}
+.ffhf-pill{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border:1px solid currentColor;border-radius:999px}
+.ffhf-pill.pos{color:var(--gr)}
+.ffhf-pill.neg{color:var(--re)}
+.ffhf-ks{font-family:'DM Sans',sans-serif;font-size:.65rem;color:var(--t2);line-height:1.4}
+
+.ffhf-hero-row{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;margin:4px 0}
+.ffhf-hero-crumbs{display:flex;gap:8px;flex-wrap:wrap}
+.ffhf-crumb{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--t3);background:var(--c3);border:1px solid var(--bd);border-radius:4px;padding:3px 7px}
+.ffhf-crumb b{color:var(--tx)}
+
+.ffhf-action-badge{display:inline-block;background:rgba(224,92,92,.2);color:var(--re);font-family:'Syne',sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;padding:3px 7px;border:1px solid rgba(224,92,92,.3);border-radius:3px}
+.ffhf-action-arrow{position:absolute;right:13px;bottom:13px;width:44px;height:44px;border:2px solid rgba(224,92,92,.4);border-radius:50%;display:grid;place-items:center;font-size:1.1rem;color:var(--re)}
+
+.ffhf-theme-bar{height:4px;background:var(--c3);border:1px solid var(--bd);border-radius:2px;margin-top:6px;position:relative;overflow:hidden}
+.ffhf-theme-bar-fill{position:absolute;left:0;top:0;bottom:0;background:var(--em);border-radius:2px}
+.ffhf-theme-shape{position:absolute;right:11px;top:11px;width:18px;height:18px;border:1.5px solid var(--bd2)}
+.ffhf-shape-sq{background:rgba(68,192,185,.25)}
+.ffhf-shape-tri{border:none;background:transparent;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:18px solid rgba(201,168,76,.4)}
+.ffhf-shape-ring{border-radius:50%;background:transparent;box-shadow:inset 0 0 0 5px rgba(68,192,185,.3)}
+.ffhf-shape-circle{border-radius:50%;background:rgba(224,92,92,.3)}
+.ffhf-shape-half{width:18px;height:9px;background:rgba(224,92,92,.3);border-radius:18px 18px 0 0;border-bottom:none}
+.ffhf-shape-hatch{background:repeating-linear-gradient(45deg,rgba(68,192,185,.1),rgba(68,192,185,.1) 2px,transparent 2px,transparent 6px)}
+
+.ffhf-income-big{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--em);line-height:1.2;margin:4px 0}
+.ffhf-candidate{display:inline-block;background:var(--c3);border:1px solid var(--bd);border-radius:3px;padding:2px 6px;font-family:'Share Tech Mono',monospace;font-size:.54rem;color:var(--t2);margin:2px 2px 0 0}
+
+.ffhf-movers-list{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.ffhf-mover{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:2px 0;border-bottom:1px solid var(--bd)}
+.ffhf-mover-name{font-weight:700;color:var(--tx)}
+.ffhf-mover-bar{height:5px;background:var(--c3);border-radius:2px;grid-column:1/-1;position:relative;overflow:hidden}
+.ffhf-mover-bar-up{position:absolute;left:50%;top:0;bottom:0;background:var(--gr);border-radius:2px}
+.ffhf-mover-bar-dn{position:absolute;right:50%;top:0;bottom:0;background:var(--re);border-radius:2px}
+
+.ffhf-geo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;height:100%;margin-top:4px}
+.ffhf-geo-cell{background:var(--c3);border:1px solid var(--bd);border-radius:5px;padding:7px 8px}
+.ffhf-geo-k{font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:2px}
+.ffhf-geo-v{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:var(--tx)}
+
+.ffhf-queue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;height:100%;margin-top:6px}
+.ffhf-queue-item{border:1px solid var(--bd);border-radius:5px;padding:10px;position:relative}
+.ffhf-queue-item.p1{background:rgba(224,92,92,.07);border-color:rgba(224,92,92,.3)}
+.ffhf-queue-n{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;line-height:1;color:var(--go)}
+.ffhf-queue-a{font-family:'DM Sans',sans-serif;font-weight:600;font-size:.72rem;margin-top:4px;color:var(--tx)}
+.ffhf-queue-c{font-family:'DM Sans',sans-serif;font-size:.6rem;color:var(--t2);margin-top:2px}
+
+.ffhf-vp-placeholder{display:none}
+
+@media(max-width:1099px){.ffhf-bento{grid-auto-rows:100px}}
+@media(max-width:799px){
+  .ffhf-hero{grid-column:span 12}
+  .ffhf-action{grid-column:span 12}
+  .ffhf-stat{grid-column:span 6}
+  .ffhf-theme{grid-column:span 6}
+  .ffhf-income,.ffhf-movers,.ffhf-geo{grid-column:span 12}
+  .ffhf-kv-xl{font-size:1.8rem}
+}
+@media(max-width:480px){
+  .ffhf-stat{grid-column:span 6}
+  .ffhf-queue-grid{grid-template-columns:1fr}
+  .ffhf-geo-grid{grid-template-columns:repeat(2,1fr)}
+  .ffhf-geo-cell:nth-child(n+3){display:none}
+}
 </style>
 </head>
 <body>
@@ -1439,7 +1538,17 @@ html, body { height: 100%; overflow: hidden; }
 </div>
 <!-- STOCKS -->
 <div class="tv" id="tab-stocks">
-  <div class="tc">
+  <!-- Sub-nav strip -->
+  <div class="ffhf-subnav">
+    <button class="ffhf-sn act" data-sv="stocks-holdings"><span class="ffhf-sn-dot"></span>Holdings</button>
+    <button class="ffhf-sn" data-sv="stocks-pies"><span class="ffhf-sn-dot"></span>Pies</button>
+    <button class="ffhf-sn" data-sv="stocks-ffhf"><span class="ffhf-sn-dot"></span>Future Focused HF</button>
+    <button class="ffhf-sn" data-sv="stocks-brokers"><span class="ffhf-sn-dot"></span>Brokers</button>
+  </div>
+
+  <!-- Holdings sub-pane (existing content) -->
+  <div class="sv act" id="sv-stocks-holdings">
+    <div class="tc">
     <div class="g4" style="margin-bottom:12px" id="stKpis"></div>
     <div class="g2" style="gap:12px;margin-bottom:12px">
       <div class="isow"><svg id="stTowerSvg" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"></svg></div>
@@ -1454,8 +1563,26 @@ html, body { height: 100%; overflow: hidden; }
       <table class="dt"><thead><tr><th>Ticker</th><th>Name</th><th>Qty</th><th>Avg Cost</th><th>Current</th><th>Value</th><th>G/L</th><th>%</th><th></th></tr></thead><tbody id="stBody"></tbody></table>
       <button class="addb" id="btnAddSt">+ Add Position</button>
     </div></div>
+    </div>
+  </div><!-- /sv-stocks-holdings -->
+
+  <!-- Pies placeholder -->
+  <div class="sv" id="sv-stocks-pies"><div class="tc" style="padding:20px;color:var(--t3);font-family:'Share Tech Mono',monospace;font-size:.65rem">PIES — coming in v0.2</div></div>
+
+  <!-- Brokers placeholder -->
+  <div class="sv" id="sv-stocks-brokers"><div class="tc" style="padding:20px;color:var(--t3);font-family:'Share Tech Mono',monospace;font-size:.65rem">BROKERS — coming in v0.2</div></div>
+
+  <!-- FFHF sub-pane -->
+  <div class="sv" id="sv-stocks-ffhf">
+    <div class="ffhf-banner" id="ffhfBanner">Showing 13 of ~26 holdings — Fully Future Focus pie contents pending wire-up</div>
+    <div class="ffhf-wrap">
+      <div class="ffhf-bento-pane">
+        <div class="ffhf-bento" id="ffhfBento"><!-- rendered by JS --></div>
+      </div>
+    </div>
   </div>
-</div>
+
+</div><!-- /tab-stocks -->
 
 <!-- CASH -->
 <div class="tv" id="tab-cash">
@@ -4166,5 +4293,262 @@ function viWelcomeDone(clearData){
     <button class="vi-btn-fresh" onclick="viWelcomeDone(true)">Start fresh — clear demo data</button>
   </div>
 </div>
+<script type="module">
+// ═══════ §A · DATA ═══════
+const HOLDINGS = [
+  { id:'vwrp',   ticker:'VWRP',  name:'Vanguard FTSE All-World',
+    account:'isa',    pie:null,               theme:'passive',
+    qty:3.09045363, avgCost:130.10, price:139.06, value:429.70,
+    plPct:0.0742,   plAbs:29.70,   targetPct:null, currentPct:null },
+  { id:'lsvisa', ticker:'2xV',   name:'Leverage Shares 2x Visa',
+    account:'isa',    pie:'ISA 212',           theme:'speculative',
+    qty:1.2,        avgCost:28.76,  price:29.35,  value:35.22,
+    plPct:0.0206,   plAbs:0.71,    targetPct:18,  currentPct:14.42 },
+  { id:'amce',   ticker:'AMC',   name:'AMC Entertainment',
+    account:'isa',    pie:'ISA 212',           theme:'speculative',
+    qty:9.5,        avgCost:4.47,   price:4.94,   value:46.89,
+    plPct:0.1028,   plAbs:4.37,    targetPct:17,  currentPct:19.20 },
+  { id:'ibm',    ticker:'IBM',   name:'IBM',
+    account:'isa',    pie:'ISA 212',           theme:'growth',
+    qty:0.21,       avgCost:159.50, price:154.19, value:32.38,
+    plPct:-0.0329,  plAbs:-1.10,   targetPct:17,  currentPct:13.26 },
+  { id:'tsla',   ticker:'TSLA',  name:'Tesla',
+    account:'isa',    pie:'ISA 212',           theme:'speculative',
+    qty:0.15,       avgCost:280.00, price:343.33, value:51.50,
+    plPct:0.2247,   plAbs:9.45,    targetPct:14,  currentPct:21.08 },
+  { id:'ma',     ticker:'MA',    name:'Mastercard',
+    account:'isa',    pie:'ISA 212',           theme:'growth',
+    qty:0.052,      avgCost:476.46, price:464.42, value:24.15,
+    plPct:-0.0231,  plAbs:-0.57,   targetPct:13,  currentPct:9.89 },
+  { id:'coin1',  ticker:'COIN',  name:'Coinbase (ISA 212)',
+    account:'isa',    pie:'ISA 212',           theme:'speculative',
+    qty:0.193,      avgCost:212.40, price:181.65, value:35.06,
+    plPct:-0.1453,  plAbs:-5.96,   targetPct:11,  currentPct:14.35 },
+  { id:'amcn',   ticker:'AMCN',  name:'AMC Networks',
+    account:'isa',    pie:'ISA 212',           theme:'speculative',
+    qty:1.5,        avgCost:16.69,  price:12.71,  value:19.06,
+    plPct:-0.2388,  plAbs:-5.98,   targetPct:10,  currentPct:7.80 },
+  { id:'sony',   ticker:'SONY',  name:'Sony',
+    account:'invest', pie:null,               theme:'growth',
+    qty:13.60212146, avgCost:16.86, price:16.85, value:229.11,
+    plPct:-0.0024,  plAbs:-0.54,   targetPct:null, currentPct:null },
+  { id:'ttwo',   ticker:'TTWO',  name:'Take-Two Interactive',
+    account:'invest', pie:'Fully Future Focus', theme:'growth',
+    qty:0.43744058, avgCost:158.50, price:181.61, value:79.38,
+    plPct:0.144,    plAbs:9.99,    targetPct:null, currentPct:null },
+  { id:'bab',    ticker:'BAB',   name:'Babcock International',
+    account:'invest', pie:null,               theme:'defence',
+    qty:2.5,        avgCost:3.22,   price:9.57,   value:23.93,
+    plPct:1.969,    plAbs:15.87,   targetPct:null, currentPct:null },
+  { id:'wbd',    ticker:'WBD',   name:'Warner Bros Discovery',
+    account:'invest', pie:null,               theme:'speculative',
+    qty:1.18234128, avgCost:0.01,   price:20.30,  value:23.95,
+    plPct:2029,     plAbs:23.94,   targetPct:null, currentPct:null },
+  { id:'coin2',  ticker:'COIN',  name:'Coinbase (loose)',
+    account:'invest', pie:null,               theme:'speculative',
+    qty:0.193,      avgCost:233.93, price:145.85, value:28.15,
+    plPct:-0.3903,  plAbs:-18.02,  targetPct:null, currentPct:null },
+];
+
+// ═══════ §B · COMPUTED ═══════
+function computeNAV(h=HOLDINGS){ return h.reduce((s,x)=>s+x.value,0); }
+function computeByTheme(h=HOLDINGS){
+  const m={};
+  for(const x of h){ if(!m[x.theme])m[x.theme]={value:0,holdings:[]};m[x.theme].value+=x.value;m[x.theme].holdings.push(x); }
+  return m;
+}
+function computeMovers(limit=6,h=HOLDINGS){
+  return [...h].sort((a,b)=>Math.abs(b.plPct)-Math.abs(a.plPct)).slice(0,limit);
+}
+function computeActionQueue(h=HOLDINGS){
+  const actions=[];const nav=computeNAV(h);if(!nav)return actions;
+  for(const x of h)if(x.plPct>1.5)actions.push({priority:1,title:`Trim ${x.ticker} 50%`,sub:`+${(x.plPct*100).toFixed(0)}% · lock £${(x.plAbs*0.5).toFixed(2)}`,holdingId:x.id});
+  const sd=h.filter(x=>x.theme==='speculative'&&x.currentPct!=null&&x.targetPct!=null).reduce((s,x)=>s+Math.max(0,x.currentPct-x.targetPct),0);
+  if(sd>20)actions.push({priority:2,title:'Execute ISA 212 skim',sub:`Speculative overweight by ${sd.toFixed(0)}pp · skim 75% of fallers`,holdingId:null});
+  const iv=(computeByTheme(h).income?.value||0);
+  if(iv/nav<0.05)actions.push({priority:3,title:'Build Income pie',sub:'Yield <5% of NAV · add LGEN · PHNX · M&G · NG · O',holdingId:null});
+  return actions.sort((a,b)=>a.priority-b.priority).slice(0,3);
+}
+function fgbp(n){return'£'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function fpct(n){return(n>=0?'+':'')+( n*100).toFixed(1)+'%';}
+
+// ═══════ §C · BENTO RENDER ═══════
+function renderBento(){
+  renderHero();renderAction();renderStats();renderThemes();
+  renderIncomeGap();renderMovers();renderGeo();renderActionQueue();
+}
+
+function renderHero(){
+  const nav=computeNAV();
+  const totalCost=HOLDINGS.reduce((s,h)=>s+(h.value-h.plAbs),0);
+  const totalPL=nav-totalCost;
+  const ytdPct=totalCost>0?totalPL/totalCost:0;
+  const isaValue=HOLDINGS.filter(h=>h.account==='isa').reduce((s,h)=>s+h.value,0);
+  const invValue=HOLDINGS.filter(h=>h.account==='invest').reduce((s,h)=>s+h.value,0);
+  const plClass=ytdPct>=0?'pos':'neg';
+  const plSign=ytdPct>=0?'+':'';
+  let el=document.getElementById('ffhfHero');
+  if(!el){el=document.createElement('div');el.id='ffhfHero';el.className='ffhf-panel ffhf-hero';document.getElementById('ffhfBento').appendChild(el);}
+  el.innerHTML=`
+    <div class="ffhf-hero-deco"></div>
+    <div class="ffhf-hero-content">
+      <div class="ffhf-kl">Net Asset Value</div>
+      <div class="ffhf-hero-row">
+        <div class="ffhf-kv-xl">${fgbp(nav)}</div>
+        <span class="ffhf-pill ${plClass}">${plSign}${fgbp(Math.abs(totalPL))} / ${fpct(ytdPct)} YTD</span>
+      </div>
+      <div class="ffhf-hero-crumbs">
+        <div class="ffhf-crumb">STOCKS ISA · <b>${fgbp(isaValue)}</b></div>
+        <div class="ffhf-crumb">LIVE FINTECH · <b>${fgbp(invValue)}</b></div>
+      </div>
+      <div class="ffhf-ks">Six pies across two accounts. Architecture ~80% built — income leg missing. Skim plan pending execution.</div>
+    </div>`;
+}
+
+function renderAction(){
+  const actions=computeActionQueue();
+  const a=actions[0]||{title:'No urgent actions',sub:'All positions within target ranges'};
+  let el=document.getElementById('ffhfAction');
+  if(!el){el=document.createElement('div');el.id='ffhfAction';el.className='ffhf-panel ffhf-action';document.getElementById('ffhfBento').appendChild(el);}
+  el.innerHTML=`
+    <div>
+      <div class="ffhf-action-badge">Action · Today</div>
+      <div style="margin-top:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--re)">${a.title}</div>
+      <div class="ffhf-kv-xl" style="margin-top:4px;color:var(--re)">${a.holdingId?`+${(HOLDINGS.find(h=>h.id===a.holdingId)?.plPct*100||0).toFixed(0)}%`:''}</div>
+      <div class="ffhf-ks" style="color:var(--t2);margin-top:6px">${a.sub}</div>
+    </div>
+    <div class="ffhf-action-arrow">→</div>`;
+}
+
+function renderStats(){
+  const STATS=[
+    {id:'ffhfStat1',label:'Sharpe',val:'0.20',sub:'Big swings for the return',neg:true},
+    {id:'ffhfStat2',label:'Beta',val:'0.70',sub:'Looks defensive · untested'},
+    {id:'ffhfStat3',label:'P/E',val:'88.56',sub:'Priced for perfection',neg:true},
+    {id:'ffhfStat4',label:'Yield',val:'0.35%',sub:'No cash flow',neg:true},
+  ];
+  const bento=document.getElementById('ffhfBento');
+  STATS.forEach(s=>{
+    let el=document.getElementById(s.id);
+    if(!el){el=document.createElement('div');el.id=s.id;el.className='ffhf-panel ffhf-stat';bento.appendChild(el);}
+    el.innerHTML=`<div class="ffhf-kl">${s.label}</div><div class="ffhf-kv">${s.val}</div><div class="ffhf-ks" style="color:${s.neg?'var(--re)':'var(--t2)'}">${s.sub}</div>`;
+  });
+}
+
+function renderThemes(){
+  const nav=computeNAV();
+  const by=computeByTheme();
+  const THEMES=[
+    {id:'t-growth',    label:'Growth',     key:'growth',      shape:'ffhf-shape-sq',     color:'var(--em)'},
+    {id:'t-defence',   label:'Defence',    key:'defence',     shape:'ffhf-shape-tri',    color:'var(--go)'},
+    {id:'t-passive',   label:'Passive Core',key:'passive',    shape:'ffhf-shape-ring',   color:'var(--em)'},
+    {id:'t-spec',      label:'Speculative',key:'speculative', shape:'ffhf-shape-circle', color:'var(--re)'},
+    {id:'t-ukval',     label:'UK / Value', key:'uk-value',    shape:'ffhf-shape-half',   color:'var(--t2)'},
+    {id:'t-frontier',  label:'Frontier',   key:'frontier',    shape:'ffhf-shape-hatch',  color:'var(--re)'},
+  ];
+  const bento=document.getElementById('ffhfBento');
+  THEMES.forEach(t=>{
+    const g=by[t.key]||{value:0};
+    const w=nav>0?Math.round(g.value/nav*100):0;
+    let el=document.getElementById(t.id);
+    if(!el){el=document.createElement('div');el.id=t.id;el.className='ffhf-panel ffhf-theme';el.dataset.themeId=t.key;bento.appendChild(el);}
+    el.innerHTML=`
+      <div class="ffhf-theme-shape ${t.shape}"></div>
+      <div><div class="ffhf-kl">Theme</div><div class="ffhf-kv" style="font-size:.85rem;margin-top:2px">${t.label}</div></div>
+      <div>
+        <div class="ffhf-mono" style="color:var(--tx)"><b>${fgbp(g.value)}</b> · ${w}% of NAV</div>
+        <div class="ffhf-theme-bar"><div class="ffhf-theme-bar-fill" style="width:${w}%;background:${t.color}"></div></div>
+      </div>`;
+  });
+}
+
+function renderIncomeGap(){
+  let el=document.getElementById('ffhfIncome');
+  if(!el){el=document.createElement('div');el.id='ffhfIncome';el.className='ffhf-panel ffhf-income';document.getElementById('ffhfBento').appendChild(el);}
+  el.innerHTML=`
+    <div style="position:absolute;top:10px;right:-28px;background:var(--go);color:#000;font-family:'Syne',sans-serif;font-size:.5rem;font-weight:700;letter-spacing:.14em;padding:4px 40px;transform:rotate(35deg);border:1px solid rgba(201,168,76,.4)">MISSING</div>
+    <div class="ffhf-kl" style="color:var(--em)">Theme · Income</div>
+    <div class="ffhf-income-big">No yield leg in the architecture</div>
+    <div class="ffhf-ks">0.35% blended yield — almost all from price appreciation. Build a UK dividend pie:</div>
+    <div style="margin-top:6px">
+      <span class="ffhf-candidate">LGEN · ~8%</span><span class="ffhf-candidate">PHNX · ~7.6%</span><span class="ffhf-candidate">M&amp;G · ~6.9%</span><span class="ffhf-candidate">National Grid</span><span class="ffhf-candidate">Realty Income · 5% mthly</span>
+    </div>`;
+}
+
+function renderMovers(){
+  const movers=computeMovers(5);
+  let el=document.getElementById('ffhfMovers');
+  if(!el){el=document.createElement('div');el.id='ffhfMovers';el.className='ffhf-panel ffhf-movers';document.getElementById('ffhfBento').appendChild(el);}
+  const maxAbs=Math.max(...movers.map(h=>Math.abs(h.plPct)),1);
+  el.innerHTML=`
+    <div class="ffhf-kl">Top movers</div>
+    <div class="ffhf-movers-list">
+      ${movers.map(h=>{
+        const p=Math.abs(h.plPct)/maxAbs*42;
+        const pos=h.plPct>=0;
+        return`<div class="ffhf-mover" data-holding-id="${h.id}">
+          <span class="ffhf-mover-name">${h.ticker}</span>
+          <span class="ffhf-mono" style="color:${pos?'var(--gr)':'var(--re)'}">${fpct(h.plPct)}</span>
+          <span style="color:${pos?'var(--gr)':'var(--re)'}">${pos?'▲':'▼'}</span>
+          <div class="ffhf-mover-bar"><div class="${pos?'ffhf-mover-bar-up':'ffhf-mover-bar-dn'}" style="width:${p}%"></div></div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderGeo(){
+  let el=document.getElementById('ffhfGeo');
+  if(!el){el=document.createElement('div');el.id='ffhfGeo';el.className='ffhf-panel ffhf-geo';document.getElementById('ffhfBento').appendChild(el);}
+  el.innerHTML=`
+    <div class="ffhf-kl">Geopolitical / macro</div>
+    <div class="ffhf-geo-grid">
+      <div class="ffhf-geo-cell"><div class="ffhf-geo-k">US Midterms</div><div class="ffhf-geo-v">Nov '26</div><div class="ffhf-ks">EV / AI antitrust risk</div></div>
+      <div class="ffhf-geo-cell"><div class="ffhf-geo-k">Fed Chair</div><div class="ffhf-geo-v">May '26</div><div class="ffhf-ks">Transition · dovish?</div></div>
+      <div class="ffhf-geo-cell"><div class="ffhf-geo-k">Tech Conc.</div><div class="ffhf-geo-v">68%</div><div class="ffhf-ks">Of FF pie</div></div>
+      <div class="ffhf-geo-cell"><div class="ffhf-geo-k">Defence</div><div class="ffhf-geo-v">Ripping</div><div class="ffhf-ks">Babcock proves it</div></div>
+    </div>`;
+}
+
+function renderActionQueue(){
+  const actions=computeActionQueue();
+  let el=document.getElementById('ffhfQueue');
+  if(!el){el=document.createElement('div');el.id='ffhfQueue';el.className='ffhf-panel ffhf-queue';document.getElementById('ffhfBento').appendChild(el);}
+  el.innerHTML=`
+    <div class="ffhf-kl" style="color:var(--go)">Action queue · today &amp; this week</div>
+    <div class="ffhf-queue-grid">
+      ${actions.map((a,i)=>`
+        <div class="ffhf-queue-item ${i===0?'p1':''}" ${a.holdingId?`data-holding-id="${a.holdingId}"`:''}">
+          <div class="ffhf-queue-n">0${i+1}</div>
+          <div class="ffhf-queue-a">${a.title}</div>
+          <div class="ffhf-queue-c">${a.sub}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ═══════ §D · SUB-NAV ═══════
+function bindStocksSubNav(){
+  const subnav=document.querySelector('.ffhf-subnav');
+  if(!subnav)return;
+  subnav.querySelectorAll('.ffhf-sn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const targetId='sv-'+btn.dataset.sv;
+      const tabStocks=document.getElementById('tab-stocks');
+      subnav.querySelectorAll('.ffhf-sn').forEach(b=>b.classList.remove('act'));
+      btn.classList.add('act');
+      tabStocks.querySelectorAll('.sv').forEach(v=>{
+        v.classList.toggle('act',v.id===targetId);
+      });
+    });
+  });
+}
+
+// ═══════ §E · BOOT ═══════
+document.addEventListener('DOMContentLoaded',()=>{
+  try{
+    bindStocksSubNav();
+    renderBento();
+  } catch(e){ console.error('[Vault-It FFHF] Boot failed:',e); }
+});
+</script>
 </body>
 </html>
