@@ -3652,8 +3652,8 @@ function addHouseSavings(val){
 
 document.getElementById('btnLay').addEventListener('click',()=>{const v=parseFloat(document.getElementById('hInput').value);document.getElementById('hInput').value='';addHouseSavings(v);});
 document.getElementById('hInput').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btnLay').click();});
-document.getElementById('btnDAdd').addEventListener('click',()=>{const v=parseFloat(document.getElementById('dInput').value);document.getElementById('dInput').value='';addHouseSavings(v);upDash();});
-document.getElementById('dInput').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btnDAdd').click();});
+document.getElementById('btnDAdd')?.addEventListener('click',()=>{const v=parseFloat(document.getElementById('dInput').value);document.getElementById('dInput').value='';addHouseSavings(v);upDash();});
+document.getElementById('dInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('btnDAdd').click();});
 document.getElementById('btnHReset').addEventListener('click',()=>{if(!confirm('Reset?'))return;S.house.saved=0;S.house.deposits=[];prevHP=0;save();upHouseUI();upDash();toast('House tracker reset');});
 document.getElementById('htypes').addEventListener('click',e=>{
   e.stopPropagation();
@@ -3669,7 +3669,7 @@ document.getElementById('btnSetP').addEventListener('click',()=>{
   save();upHouseUI();upDash();toast('Target: '+gbp(v));
 });
 document.getElementById('earmarkP').addEventListener('change',e=>{S.earmark=parseFloat(e.target.value)||100;save();upHouseUI();});
-document.getElementById('mFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;toast('📐 '+file.name+' — 3D rendering needs WebGL/Three.js loader. Iso tile mode active.');});
+document.getElementById('mFile')?.addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;toast('📐 '+file.name+' — 3D rendering needs WebGL/Three.js loader. Iso tile mode active.');});
 
 // ══════════════════════════════════════════
 // METALS ISO SCENE
