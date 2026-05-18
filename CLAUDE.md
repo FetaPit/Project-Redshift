@@ -10,12 +10,16 @@
 ## Product Hierarchy
 
 ```
-Pareto  ← parent OS / shell
-├── Vault-It          ← net worth OS (house savings, debt, assets)
-└── Project Redshift  ← music / creative project tracker
+Pareto                   ← parent OS / portfolio shell
+├── Vault-It             ← fintech SaaS · net worth OS
+└── Project Redshift     ← creative · music production project
 ```
 
-Pareto is the **top-level product**. Vault-It and Project Redshift are sub-products that live beneath it. The Pareto shell will eventually provide a unified top nav linking to all sub-products.
+**Rules:**
+- Pareto links TO both Vault-It and Project Redshift (top nav)
+- Vault-It and Project Redshift each link BACK to Pareto only
+- Vault-It and Project Redshift do **not** link to each other — they are adjacent, independent sub-products
+- Each sub-product has its own brand, design system and localStorage namespace
 
 ---
 
