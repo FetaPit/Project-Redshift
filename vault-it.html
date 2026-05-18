@@ -1817,13 +1817,16 @@ function goTab(id){
   document.querySelectorAll('.tn').forEach(b=>b.classList.toggle('act',b.dataset.t===id));
   document.querySelectorAll('.tv').forEach(v=>v.classList.toggle('act',v.id==='tab-'+id));
   if(id==='dash')upDash();
-  if(id==='mtn')renderMtnTab();
+  if(id==='house')renderIsoHouse();
   if(id==='metals')renderMetSvg();
   if(id==='skills'){renderSkills();renderAchs();renderQuests('allQuests',20);renderCPs();}
   if(id==='conn')renderConns();
   if(id==='cash')renderCashVault();
   if(id==='stocks')renderStTower();
   if(id==='debt')renderDebtChain();
+  if(id==='cf')renderCF();
+  if(id==='biz')renderBizRev();
+  if(id==='crypto')fetchCrypto();
 }
 document.querySelectorAll('.tn').forEach(b=>b.addEventListener('click',()=>goTab(b.dataset.t)));
 document.querySelectorAll('.stb').forEach(btn=>{
