@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pareto · PT Live Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bh-red:    #E2231A;
+    --bh-blue:   #1B3A8C;
+    --bh-yellow: #FFC700;
+    --bh-black:  #0B0B0B;
+    --bh-paper:  #F4F0E6;
+    --bh-ink:    #141414;
+    --bh-line:   #0B0B0B;
+    --bh-green:  #137A4D;
+    --gap: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bh-paper);
+    color: var(--bh-ink);
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(255,199,0,0.18) 0%, transparent 30%),
+      radial-gradient(circle at 90% 80%, rgba(27,58,140,0.12) 0%, transparent 35%);
+  }
+
+  /* ── App chrome ── */
+  .app { max-width: 1280px; margin: 0 auto; padding: 22px 22px 60px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3px solid var(--bh-line);
+    padding-bottom: 14px; margin-bottom: 14px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Archivo Black', sans-serif;
+    letter-spacing: -0.01em; font-size: 18px; text-transform: uppercase;
+  }
+  .brand-mark {
+    width: 30px; height: 30px;
+    background: var(--bh-red);
+    border: 2px solid var(--bh-line);
+    border-radius: 50%; position: relative;
+  }
+  .brand-mark::after {
+    content: ""; position: absolute;
+    inset: 6px 6px 6px auto; width: 12px;
+    background: var(--bh-yellow);
+    border-left: 2px solid var(--bh-line);
+    border-radius: 0 50% 50% 0 / 0 50% 50% 0;
+  }
+  .meta {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--bh-ink); opacity: 0.7;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex; gap: 0;
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase; font-size: 11px; letter-spacing: 0.06em;
+    margin-bottom: 24px; border-bottom: 2px solid var(--bh-line);
+  }
+  .tab {
+    padding: 10px 16px;
+    border: 2px solid var(--bh-line); border-bottom: none;
+    background: transparent; color: var(--bh-ink);
+    margin-right: -2px; cursor: pointer;
+    position: relative; bottom: -2px; transition: background .12s;
+  }
+  .tab:hover:not(.active) { background: rgba(0,0,0,0.04); }
+  .tab.active { background: var(--bh-black); color: var(--bh-yellow); }
+
+  /* ── Tab panels ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Bento Grid ── */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 120px;
+    gap: var(--gap);
+  }
+  .cell {
+    position: relative; background: #FFFFFF;
+    border: 2px solid var(--bh-line);
+    padding: 18px; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .cell, .cell:hover { transition: transform .12s ease, box-shadow .12s ease; }
+  .cell:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--bh-line); }
+
+  /* Size variants */
+  .c-hero    { grid-column: span 7; grid-row: span 3; background: var(--bh-yellow); }
+  .c-action  { grid-column: span 5; grid-row: span 3; background: var(--bh-red); color: #FFF; }
+  .c-stat    { grid-column: span 3; grid-row: span 1; }
+  .c-wide    { grid-column: span 6; grid-row: span 2; }
+  .c-half    { grid-column: span 6; grid-row: span 2; }
+  .c-theme   { grid-column: span 3; grid-row: span 2; }
+  .c-income  { grid-column: span 6; grid-row: span 2; background: var(--bh-blue); color: #FFF; border-color: var(--bh-line); }
+  .c-actions { grid-column: span 12; grid-row: span 2; background: var(--bh-black); color: #FFF; }
+
+  /* Span helpers for Overview */
+  .c-full    { grid-column: span 12; grid-row: span 2; }
+  .c-8       { grid-column: span 8;  grid-row: span 3; }
+  .c-4       { grid-column: span 4;  grid-row: span 3; background: var(--bh-blue); color: #FFF; }
+  .c-6h      { grid-column: span 6;  grid-row: span 1; }
+  .c-4b      { grid-column: span 4;  grid-row: span 2; }
+  .c-pie-cell{ grid-column: span 4;  grid-row: span 3; }
+
+  /* ── Typography ── */
+  .label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.78;
+  }
+  .num { font-family: 'Archivo Black', sans-serif; font-size: 56px; line-height: 0.95; letter-spacing: -0.02em; }
+  .num-l { font-size: 96px; }
+  .num-m { font-size: 36px; }
+  .num-s { font-size: 24px; }
+  .sub { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500; font-size: 13px; line-height: 1.35; }
+  .pos { color: var(--bh-green); }
+  .neg { color: var(--bh-red); }
+  .on-red .pos, .on-red .neg { color: #FFF; }
+  .pill {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 8px; border: 1.5px solid currentColor; border-radius: 999px;
+  }
+
+  /* ── Hero ── */
+  .hero-row { display: flex; align-items: flex-end; gap: 18px; }
+  .hero-deco {
+    position: absolute; right: -40px; bottom: -40px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: var(--bh-blue); z-index: 0;
+  }
+  .hero-deco-2 {
+    position: absolute; right: 60px; top: -28px;
+    width: 0; height: 0;
+    border-left: 56px solid transparent; border-right: 56px solid transparent;
+    border-bottom: 96px solid var(--bh-red); transform: rotate(18deg);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .breakdown { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+  .breakdown div {
+    background: var(--bh-paper); border: 1.5px solid var(--bh-line);
+    padding: 8px 10px; font-size: 12px; font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Action card ── */
+  .c-action .badge {
+    display: inline-block; background: var(--bh-yellow); color: var(--bh-black);
+    font-family: 'Archivo Black', sans-serif; font-size: 10px; letter-spacing: 0.16em;
+    padding: 5px 8px; text-transform: uppercase;
+  }
+  .c-action .arrow {
+    position: absolute; right: 16px; bottom: 16px;
+    width: 70px; height: 70px; border: 3px solid #FFF;
+    border-radius: 50%; display: grid; place-items: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 32px;
+  }
+
+  /* ── Theme cells ── */
+  .theme-bar {
+    height: 6px; background: var(--bh-paper); margin-top: 8px;
+    border: 1.5px solid var(--bh-line); position: relative;
+  }
+  .theme-bar > span { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bh-black); }
+  .theme-shape { position: absolute; right: 14px; top: 14px; width: 26px; height: 26px; border: 2px solid var(--bh-line); }
+  .shape-circle  { border-radius: 50%; background: var(--bh-red); }
+  .shape-square  { background: var(--bh-blue); }
+  .shape-tri     { border: none; background: transparent; width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent; border-bottom: 26px solid var(--bh-yellow); }
+  .shape-bar     { background: var(--bh-black); height: 10px; margin-top: 8px; }
+  .shape-ring    { border-radius: 50%; background: var(--bh-paper); box-shadow: inset 0 0 0 6px var(--bh-blue); }
+  .shape-half    { width: 26px; height: 13px; background: var(--bh-red); border-radius: 26px 26px 0 0; border-bottom: none; }
+  .shape-empty   { background: repeating-linear-gradient(45deg, var(--bh-line), var(--bh-line) 3px, transparent 3px, transparent 7px); }
+
+  /* ── Income gap ── */
+  .c-income .big { font-family: 'Archivo Black', sans-serif; font-size: 32px; line-height: 1; margin: 6px 0 8px; }
+  .c-income::before {
+    content: "MISSING"; position: absolute; top: 12px; right: -38px;
+    background: var(--bh-yellow); color: var(--bh-black);
+    font-family: 'Archivo Black', sans-serif; font-size: 10px; letter-spacing: 0.18em;
+    padding: 5px 50px; transform: rotate(35deg); border: 2px solid var(--bh-line);
+  }
+  .candidate {
+    display: inline-block; background: #FFF; color: var(--bh-black);
+    border: 1.5px solid var(--bh-line); padding: 5px 9px; margin: 4px 4px 0 0;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  }
+
+  /* ── Geo strip ── */
+  .geo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; height: 100%; }
+  .geo div { border: 1.5px solid var(--bh-line); padding: 10px; background: var(--bh-paper); }
+  .geo .k { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+  .geo .v { font-family: 'Archivo Black', sans-serif; font-size: 16px; margin-top: 4px; }
+
+  /* ── Action queue ── */
+  .queue { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; height: 100%; }
+  .queue .item { border: 2px solid #FFF; padding: 14px; position: relative; }
+  .queue .n { font-family: 'Archivo Black', sans-serif; font-size: 40px; line-height: 1; color: var(--bh-yellow); }
+  .queue .a { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 15px; margin-top: 6px; }
+  .queue .c { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+  .queue .item.p1 { background: var(--bh-red); border-color: var(--bh-red); }
+
+  /* ── Top movers ── */
+  .movers { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; height: 100%; }
+  .mover { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
+  .mover .name { font-weight: 700; }
+  .bar { height: 8px; background: var(--bh-paper); border: 1.5px solid var(--bh-line); grid-column: 1 / -1; position: relative; }
+  .bar > span { position: absolute; top: 0; bottom: 0; }
+  .bar > span.up { left: 50%; background: var(--bh-green); }
+  .bar > span.dn { right: 50%; background: var(--bh-red); }
+
+  /* ── Pie chart (SVG donut) ── */
+  .pie-wrap { display: flex; flex-direction: column; height: 100%; }
+  .pie-svg-row { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .pie-legend { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+  .pie-legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+  .pie-dot { width: 10px; height: 10px; border: 1.5px solid var(--bh-line); flex-shrink: 0; }
+
+  /* ── Holdings table ── */
+  .holdings-tbl { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+  .holdings-tbl th { text-align: left; border-bottom: 2px solid var(--bh-line); padding: 8px 6px; font-family: 'Archivo Black', sans-serif; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .holdings-tbl td { padding: 8px 6px; border-bottom: 1px solid rgba(0,0,0,0.08); vertical-align: middle; }
+  .holdings-tbl tr:hover td { background: rgba(255,199,0,0.08); }
+  .tbl-name { font-weight: 700; font-size: 12px; }
+  .tbl-pos  { color: var(--bh-green); font-weight: 700; }
+  .tbl-neg  { color: var(--bh-red); font-weight: 700; }
+  .tbl-pill { display: inline-block; padding: 2px 6px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid currentColor; border-radius: 2px; }
+
+  /* ── Overview extras ── */
+  .ov-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin-bottom: var(--gap); }
+  .ov-kpi { background: #FFF; border: 2px solid var(--bh-line); padding: 16px; }
+  .ov-kpi .k { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .ov-kpi .v { font-family: 'Archivo Black', sans-serif; font-size: 28px; line-height: 1; }
+  .ov-kpi .d { font-size: 12px; margin-top: 4px; opacity: 0.7; }
+
+  /* ── Footer ── */
+  .foot {
+    margin-top: 22px; display: flex; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.6;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .bento { grid-auto-rows: 110px; }
+    .c-hero, .c-action { grid-column: span 12; }
+    .c-stat { grid-column: span 6; }
+    .c-half, .c-wide, .c-income { grid-column: span 12; }
+    .c-theme { grid-column: span 6; }
+    .c-8, .c-4 { grid-column: span 12; }
+    .c-pie-cell { grid-column: span 12; }
+    .c-4b { grid-column: span 12; }
+    .c-6h { grid-column: span 12; }
+    .num-l { font-size: 64px; }
+    .ov-kpi-row { grid-template-columns: 1fr 1fr; }
+    .holdings-tbl th:nth-child(n+4), .holdings-tbl td:nth-child(n+4) { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      Pareto
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="vault-it.html" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--bh-ink);opacity:0.5;text-decoration:none;border:1.5px solid currentColor;padding:4px 9px;border-radius:2px;transition:opacity .15s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5">Vault-It ↗</a>
+      <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--bh-ink);opacity:0.25;text-decoration:none;border:1.5px solid currentColor;padding:4px 9px;border-radius:2px;" title="Coming soon">Project Redshift</a>
+      <div class="meta">v0.2 · Synced 18 May 2026</div>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" id="main-tabs">
+    <div class="tab" onclick="switchTab('overview')">Overview</div>
+    <div class="tab" onclick="switchTab('pies')">Pies</div>
+    <div class="tab" onclick="switchTab('holdings')">Holdings</div>
+    <div class="tab active" onclick="switchTab('ffhf')">Future Focused HF</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ OVERVIEW ═══ -->
+  <div class="tab-panel" id="panel-overview">
+
+    <div class="ov-kpi-row">
+      <div class="ov-kpi">
+        <div class="k">Total NAV</div>
+        <div class="v">£2,209</div>
+        <div class="d pos">+£206.88 &nbsp;/&nbsp; +10.3% YTD</div>
+      </div>
+      <div class="ov-kpi">
+        <div class="k">Stocks ISA (212)</div>
+        <div class="v">£594</div>
+        <div class="d">5 positions · 27% of NAV</div>
+      </div>
+      <div class="ov-kpi">
+        <div class="k">Live Fintech (T212)</div>
+        <div class="v">£1,615</div>
+        <div class="d">6 pies · 73% of NAV</div>
+      </div>
+      <div class="ov-kpi">
+        <div class="k">Balance Score</div>
+        <div class="v" style="color:var(--bh-blue);">7.5<span style="font-size:16px;">/10</span></div>
+        <div class="d">Income leg missing</div>
+      </div>
+    </div>
+
+    <div class="bento">
+
+      <!-- Allocation overview -->
+      <div class="cell c-8">
+        <div class="hero-deco" style="background:var(--bh-yellow);opacity:0.35;"></div>
+        <div class="hero-content">
+          <div class="label">Portfolio Allocation — 6 Themes</div>
+          <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span>Growth (Future Focus pie)</span><span style="font-weight:700;">£1,614.73 · 73%</span></div>
+              <div class="theme-bar" style="height:10px;"><span style="width:73%;background:var(--bh-black);"></span></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span>Passive Core (VWRP)</span><span style="font-weight:700;">£429.70 · 19.5%</span></div>
+              <div class="theme-bar" style="height:10px;"><span style="width:19%;background:var(--bh-blue);"></span></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span>Speculative (Moonshot)</span><span style="font-weight:700;">£163.93 · 7.4%</span></div>
+              <div class="theme-bar" style="height:10px;"><span style="width:7%;background:var(--bh-red);"></span></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span>UK / Value (AMA)</span><span style="font-weight:700;">£103.20 · 4.7%</span></div>
+              <div class="theme-bar" style="height:10px;"><span style="width:5%;"></span></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span>Defence (War Ready · Babcock)</span><span style="font-weight:700;">£66.97 · 3.0%</span></div>
+              <div class="theme-bar" style="height:10px;"><span style="width:3%;background:var(--bh-yellow);"></span></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;font-size:11px;"><span>Frontier (Space Exp)</span><span style="font-weight:700;">£14.38 · 0.6%</span></div>
+              <div class="theme-bar" style="height:10px;"><span style="width:1%;background:var(--bh-red);"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Urgency panel -->
+      <div class="cell c-4" style="background:var(--bh-black);color:#FFF;">
+        <div class="label" style="color:var(--bh-yellow);opacity:1;">Priority Actions</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+          <div style="border:1.5px solid var(--bh-red);padding:10px;">
+            <div style="font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--bh-red);">Today</div>
+            <div style="font-size:13px;font-weight:700;margin-top:4px;">Trim Babcock 50%</div>
+            <div style="font-size:11px;opacity:0.7;margin-top:2px;">+196.9% — lock £12 profit</div>
+          </div>
+          <div style="border:1.5px solid rgba(255,255,255,0.2);padding:10px;">
+            <div style="font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.5;">This Week</div>
+            <div style="font-size:13px;font-weight:700;margin-top:4px;">ISA 212 skim</div>
+            <div style="font-size:11px;opacity:0.7;margin-top:2px;">Tesla / AMC → IBM + Mastercard</div>
+          </div>
+          <div style="border:1.5px solid rgba(255,255,255,0.2);padding:10px;">
+            <div style="font-family:'Archivo Black',sans-serif;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.5;">Next</div>
+            <div style="font-size:13px;font-weight:700;margin-top:4px;">Build Income pie</div>
+            <div style="font-size:11px;opacity:0.7;margin-top:2px;">LGEN · PHNX · M&amp;G · NG</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Four metric cells -->
+      <div class="cell c-stat">
+        <div class="label">Sharpe Ratio</div>
+        <div class="num num-m">0.20</div>
+        <div class="sub neg">Big swings for return</div>
+      </div>
+      <div class="cell c-stat">
+        <div class="label">Portfolio Beta</div>
+        <div class="num num-m">0.70</div>
+        <div class="sub">Defensive on paper</div>
+      </div>
+      <div class="cell c-stat">
+        <div class="label">Blended P/E</div>
+        <div class="num num-m">88.56</div>
+        <div class="sub neg">Priced for perfection</div>
+      </div>
+      <div class="cell c-stat">
+        <div class="label">Blended Yield</div>
+        <div class="num num-m">0.35%</div>
+        <div class="sub neg">No cash flow</div>
+      </div>
+
+    </div>
+
+  </div><!-- /overview -->
+
+  <!-- ═══════════════════════════════════════════════ PIES ═══ -->
+  <div class="tab-panel" id="panel-pies">
+
+    <div class="bento" style="grid-auto-rows:140px;">
+
+      <!-- Future Focus Pie -->
+      <div class="cell c-pie-cell">
+        <div class="label">Future Focus Pie · T212 Live</div>
+        <div class="pie-wrap">
+          <div class="pie-svg-row">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <!-- 68% Tech/AI, 15% Clean Energy, 10% Biotech, 7% Other -->
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#E2231A" stroke-width="16"
+                stroke-dasharray="179.5 85.2" stroke-dashoffset="0" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#1B3A8C" stroke-width="16"
+                stroke-dasharray="39.6 225" stroke-dashoffset="-179.5" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#FFC700" stroke-width="16"
+                stroke-dasharray="26.4 238.2" stroke-dashoffset="-219.1" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#137A4D" stroke-width="16"
+                stroke-dasharray="18.5 246.1" stroke-dashoffset="-245.5" />
+              <circle cx="55" cy="55" r="34" fill="#FFF" />
+              <text x="55" y="51" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="12" fill="#0B0B0B">£1,614</text>
+              <text x="55" y="63" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#888">73% NAV</text>
+            </svg>
+          </div>
+          <div class="pie-legend">
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-red);"></div>Tech / AI &nbsp;68%</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-blue);"></div>Clean Energy &nbsp;15%</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-yellow);"></div>Biotech &nbsp;10%</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-green);"></div>Other &nbsp;7%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- War Ready Pie -->
+      <div class="cell c-pie-cell">
+        <div class="label">War Ready Pie · Defence</div>
+        <div class="pie-wrap">
+          <div class="pie-svg-row">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#FFC700" stroke-width="16"
+                stroke-dasharray="198.3 66.4" stroke-dashoffset="0" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#1B3A8C" stroke-width="16"
+                stroke-dasharray="66.4 198.3" stroke-dashoffset="-198.3" />
+              <circle cx="55" cy="55" r="34" fill="#FFF" />
+              <text x="55" y="51" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="12" fill="#0B0B0B">£66.97</text>
+              <text x="55" y="63" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#888">3% NAV</text>
+            </svg>
+          </div>
+          <div class="pie-legend">
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-yellow);"></div>Babcock (loose) &nbsp;75%</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-blue);"></div>BAE / Rheinmetall &nbsp;25%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VWRP Passive -->
+      <div class="cell c-pie-cell">
+        <div class="label">Passive Core · VWRP</div>
+        <div class="pie-wrap">
+          <div class="pie-svg-row">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#1B3A8C" stroke-width="16"
+                stroke-dasharray="264.7 0" stroke-dashoffset="0" />
+              <circle cx="55" cy="55" r="34" fill="#FFF" />
+              <text x="55" y="51" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="12" fill="#0B0B0B">£429</text>
+              <text x="55" y="63" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#888">19.5% NAV</text>
+            </svg>
+          </div>
+          <div class="pie-legend">
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-blue);"></div>VWRP (100%) &nbsp;· Keep alone</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moonshot -->
+      <div class="cell c-pie-cell">
+        <div class="label">Moonshot Pie · Speculative</div>
+        <div class="pie-wrap">
+          <div class="pie-svg-row">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#E2231A" stroke-width="16"
+                stroke-dasharray="132.4 132.4" stroke-dashoffset="0" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#0B0B0B" stroke-width="16"
+                stroke-dasharray="79.4 185.3" stroke-dashoffset="-132.4" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#FFC700" stroke-width="16"
+                stroke-dasharray="52.9 211.8" stroke-dashoffset="-211.8" />
+              <circle cx="55" cy="55" r="34" fill="#FFF" />
+              <text x="55" y="51" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="12" fill="#0B0B0B">£163</text>
+              <text x="55" y="63" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#888">7.4% NAV</text>
+            </svg>
+          </div>
+          <div class="pie-legend">
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-red);"></div>Coinbase / Crypto &nbsp;50%</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-black);"></div>Nebius · IonQ &nbsp;30%</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-yellow);"></div>Other &nbsp;20%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UK AMA -->
+      <div class="cell c-pie-cell">
+        <div class="label">UK AMA · Value</div>
+        <div class="pie-wrap">
+          <div class="pie-svg-row">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#0B0B0B" stroke-width="16"
+                stroke-dasharray="185.3 79.4" stroke-dashoffset="0" />
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#1B3A8C" stroke-width="16"
+                stroke-dasharray="79.4 185.3" stroke-dashoffset="-185.3" />
+              <circle cx="55" cy="55" r="34" fill="#FFF" />
+              <text x="55" y="51" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="12" fill="#0B0B0B">£103</text>
+              <text x="55" y="63" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#888">4.7% NAV</text>
+            </svg>
+          </div>
+          <div class="pie-legend">
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-black);"></div>UK Equities &nbsp;70% · 46 holdings</div>
+            <div class="pie-legend-item"><div class="pie-dot" style="background:var(--bh-blue);"></div>Bonds / REIT &nbsp;30%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Space Exp -->
+      <div class="cell c-pie-cell">
+        <div class="label" style="color:var(--bh-red);">Space Exploration · Review</div>
+        <div class="pie-wrap">
+          <div class="pie-svg-row">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#E2231A" stroke-width="16"
+                stroke-dasharray="264.7 0" stroke-dashoffset="0" opacity="0.4"
+                stroke-dasharray="264.7" />
+              <circle cx="55" cy="55" r="34" fill="#FFF" />
+              <text x="55" y="48" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="11" fill="#E2231A">£14.38</text>
+              <text x="55" y="60" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#E2231A">-44%</text>
+              <text x="55" y="70" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#888">review</text>
+            </svg>
+          </div>
+          <div class="pie-legend">
+            <div class="pie-legend-item" style="color:var(--bh-red);"><div class="pie-dot" style="background:var(--bh-red);opacity:0.4;"></div>Space ETFs &nbsp;-44% YTD</div>
+            <div class="pie-legend-item" style="font-size:10px;opacity:0.6;">Consider close or hold &amp; wait</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /pies -->
+
+  <!-- ══════════════════════════════════════════ HOLDINGS ═══ -->
+  <div class="tab-panel" id="panel-holdings">
+
+    <div style="display:flex;gap:12px;margin-bottom:16px;font-family:'IBM Plex Mono',monospace;font-size:11px;">
+      <div style="background:#FFF;border:2px solid var(--bh-line);padding:10px 16px;">
+        <div style="opacity:0.6;text-transform:uppercase;letter-spacing:0.12em;font-size:9px;">Positions</div>
+        <div style="font-family:'Archivo Black',sans-serif;font-size:22px;margin-top:2px;">52</div>
+      </div>
+      <div style="background:#FFF;border:2px solid var(--bh-line);padding:10px 16px;">
+        <div style="opacity:0.6;text-transform:uppercase;letter-spacing:0.12em;font-size:9px;">Winners</div>
+        <div style="font-family:'Archivo Black',sans-serif;font-size:22px;margin-top:2px;color:var(--bh-green);">34</div>
+      </div>
+      <div style="background:#FFF;border:2px solid var(--bh-line);padding:10px 16px;">
+        <div style="opacity:0.6;text-transform:uppercase;letter-spacing:0.12em;font-size:9px;">Losers</div>
+        <div style="font-family:'Archivo Black',sans-serif;font-size:22px;margin-top:2px;color:var(--bh-red);">18</div>
+      </div>
+      <div style="background:var(--bh-black);border:2px solid var(--bh-line);padding:10px 16px;color:#FFF;">
+        <div style="opacity:0.6;text-transform:uppercase;letter-spacing:0.12em;font-size:9px;color:var(--bh-yellow);">Best</div>
+        <div style="font-family:'Archivo Black',sans-serif;font-size:22px;margin-top:2px;">BABCOCK +197%</div>
+      </div>
+      <div style="flex:1;background:#FFF;border:2px solid var(--bh-red);padding:10px 16px;">
+        <div style="opacity:0.6;text-transform:uppercase;letter-spacing:0.12em;font-size:9px;">Worst</div>
+        <div style="font-family:'Archivo Black',sans-serif;font-size:22px;margin-top:2px;color:var(--bh-red);">SPACE EXP -44%</div>
+      </div>
+    </div>
+
+    <div style="background:#FFF;border:2px solid var(--bh-line);padding:18px;overflow-x:auto;">
+      <table class="holdings-tbl">
+        <thead>
+          <tr>
+            <th>Holding</th>
+            <th>Account</th>
+            <th>Value</th>
+            <th>P/L</th>
+            <th>P/L %</th>
+            <th>Pie / Theme</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="tbl-name">Babcock Intl</div><div style="font-size:9px;opacity:0.5;">BAB.L</div></td>
+            <td>T212 Live</td>
+            <td>£23.93</td>
+            <td class="tbl-pos">+£15.89</td>
+            <td class="tbl-pos">+196.9%</td>
+            <td><span class="tbl-pill" style="color:var(--bh-yellow);">Defence</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Trim 50%</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">Nebius Group</div><div style="font-size:9px;opacity:0.5;">NBIS</div></td>
+            <td>T212 Live</td>
+            <td>—</td>
+            <td class="tbl-pos">+100%</td>
+            <td class="tbl-pos">+100%</td>
+            <td><span class="tbl-pill" style="color:var(--bh-black);">Moonshot</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-green);">Hold</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">IonQ Inc</div><div style="font-size:9px;opacity:0.5;">IONQ</div></td>
+            <td>T212 Live</td>
+            <td>—</td>
+            <td class="tbl-pos">+48%</td>
+            <td class="tbl-pos">+48%</td>
+            <td><span class="tbl-pill" style="color:var(--bh-black);">Moonshot</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-green);">Hold</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">Tesla Inc</div><div style="font-size:9px;opacity:0.5;">TSLA</div></td>
+            <td>ISA 212</td>
+            <td>—</td>
+            <td class="tbl-pos">+22%</td>
+            <td class="tbl-pos">+22%</td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Growth</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-blue);">Skim</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">Mastercard</div><div style="font-size:9px;opacity:0.5;">MA</div></td>
+            <td>ISA 212</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Growth</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-green);">Add</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">IBM</div><div style="font-size:9px;opacity:0.5;">IBM</div></td>
+            <td>ISA 212</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Growth</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-green);">Add</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">Coinbase</div><div style="font-size:9px;opacity:0.5;">COIN</div></td>
+            <td>ISA 212</td>
+            <td>—</td>
+            <td class="tbl-neg">-£—</td>
+            <td class="tbl-neg">-39%</td>
+            <td><span class="tbl-pill" style="color:var(--bh-black);">Moonshot</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Skim 75%</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">VWRP</div><div style="font-size:9px;opacity:0.5;">VWRP.L</div></td>
+            <td>T212 Live</td>
+            <td>£429.70</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="tbl-pill" style="color:var(--bh-blue);">Passive</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-green);">Keep</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">Space Exp Pie</div><div style="font-size:9px;opacity:0.5;">Mixed ETF</div></td>
+            <td>T212 Live</td>
+            <td>£14.38</td>
+            <td class="tbl-neg">-£11.53</td>
+            <td class="tbl-neg">-44%</td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Frontier</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Review</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">AMC Ent</div><div style="font-size:9px;opacity:0.5;">AMC</div></td>
+            <td>ISA 212</td>
+            <td>—</td>
+            <td class="tbl-neg">—</td>
+            <td class="tbl-neg">—</td>
+            <td><span class="tbl-pill" style="color:var(--bh-black);">Moonshot</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Skim</span></td>
+          </tr>
+          <tr>
+            <td><div class="tbl-name">LS Visa</div><div style="font-size:9px;opacity:0.5;">LSV</div></td>
+            <td>ISA 212</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Growth</span></td>
+            <td><span class="tbl-pill" style="color:var(--bh-red);">Skim</span></td>
+          </tr>
+          <tr style="opacity:0.45;font-style:italic;">
+            <td colspan="7" style="padding:10px 6px;font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:0.08em;">
+              + 41 more positions across UK AMA pie (46 holdings total) &nbsp;·&nbsp; Full export available via T212 dashboard
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /holdings -->
+
+  <!-- ══════════════════════════════════════ FUTURE FOCUSED HF ═══ -->
+  <div class="tab-panel active" id="panel-ffhf">
+    <div class="bento">
+
+      <!-- HERO: total NAV -->
+      <div class="cell c-hero">
+        <div class="hero-deco"></div>
+        <div class="hero-deco-2"></div>
+        <div class="hero-content">
+          <div class="label">Total Net Asset Value</div>
+          <div class="hero-row" style="margin-top:8px;">
+            <div class="num num-l">£2,209</div>
+            <div style="padding-bottom:10px;">
+              <span class="pill pos">+£206.88 / +10.3% YTD</span>
+            </div>
+          </div>
+          <div class="breakdown">
+            <div>STOCKS&nbsp;ISA · £594</div>
+            <div>LIVE FINTECH · £1,615</div>
+            <div>BALANCE&nbsp;SCORE · 7.5</div>
+          </div>
+          <div class="sub" style="margin-top:14px;max-width:48ch;">
+            Six pies across two accounts. Architecture is ~80% there. Income leg missing. Skim plan pending execution.
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTION: Babcock trim -->
+      <div class="cell c-action on-red">
+        <div>
+          <div class="badge">Action · Today</div>
+          <div style="margin-top:18px;font-family:'Archivo Black',sans-serif;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;">
+            Trim Babcock 50%
+          </div>
+          <div class="num num-l" style="margin-top:6px;">+197%</div>
+          <div class="sub" style="margin-top:8px;opacity:0.95;">
+            £23.93 holding · lock £12, leave £12 running. Defence has rerated — don't let one name carry the whole P/L.
+          </div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+
+      <!-- STATS row -->
+      <div class="cell c-stat">
+        <div class="label">Sharpe</div>
+        <div class="num num-m">0.20</div>
+        <div class="sub neg">Big swings for the return</div>
+      </div>
+      <div class="cell c-stat">
+        <div class="label">Beta</div>
+        <div class="num num-m">0.70</div>
+        <div class="sub">Looks defensive · isn't tested</div>
+      </div>
+      <div class="cell c-stat">
+        <div class="label">P/E</div>
+        <div class="num num-m">88.56</div>
+        <div class="sub neg">Priced for perfection</div>
+      </div>
+      <div class="cell c-stat">
+        <div class="label">Yield</div>
+        <div class="num num-m">0.35%</div>
+        <div class="sub neg">No cash flow</div>
+      </div>
+
+      <!-- THEME cells -->
+      <div class="cell c-theme">
+        <div class="theme-shape shape-square"></div>
+        <div>
+          <div class="label">Theme</div>
+          <div class="num num-s" style="margin-top:4px;">Growth</div>
+        </div>
+        <div>
+          <div class="sub"><b>£1,614.73</b> · 73% of NAV</div>
+          <div class="theme-bar"><span style="width:73%;"></span></div>
+          <div class="sub" style="margin-top:6px;opacity:0.7;">Fully Future Focus pie</div>
+        </div>
+      </div>
+
+      <div class="cell c-theme">
+        <div class="theme-shape shape-tri"></div>
+        <div>
+          <div class="label">Theme</div>
+          <div class="num num-s" style="margin-top:4px;">Defence</div>
+        </div>
+        <div>
+          <div class="sub"><b>£66.97</b> · 3.0% of NAV</div>
+          <div class="theme-bar"><span style="width:3%;background:var(--bh-yellow);"></span></div>
+          <div class="sub" style="margin-top:6px;opacity:0.7;">War Ready pie · Babcock loose</div>
+        </div>
+      </div>
+
+      <div class="cell c-theme">
+        <div class="theme-shape shape-ring"></div>
+        <div>
+          <div class="label">Theme</div>
+          <div class="num num-s" style="margin-top:4px;">Passive Core</div>
+        </div>
+        <div>
+          <div class="sub"><b>£429.70</b> · 19.5% of NAV</div>
+          <div class="theme-bar"><span style="width:19%;background:var(--bh-blue);"></span></div>
+          <div class="sub" style="margin-top:6px;opacity:0.7;">VWRP — keep alone</div>
+        </div>
+      </div>
+
+      <div class="cell c-theme">
+        <div class="theme-shape shape-circle"></div>
+        <div>
+          <div class="label">Theme</div>
+          <div class="num num-s" style="margin-top:4px;">Speculative</div>
+        </div>
+        <div>
+          <div class="sub"><b>£163.93</b> · 7.4% of NAV</div>
+          <div class="theme-bar"><span style="width:7%;background:var(--bh-red);"></span></div>
+          <div class="sub neg" style="margin-top:6px;">Skim pending · -£80</div>
+        </div>
+      </div>
+
+      <div class="cell c-theme">
+        <div class="theme-shape shape-half"></div>
+        <div>
+          <div class="label">Theme</div>
+          <div class="num num-s" style="margin-top:4px;">UK / Value</div>
+        </div>
+        <div>
+          <div class="sub"><b>£103.20</b> · 4.7% of NAV</div>
+          <div class="theme-bar"><span style="width:5%;"></span></div>
+          <div class="sub" style="margin-top:6px;opacity:0.7;">UK AMA · 46 holdings</div>
+        </div>
+      </div>
+
+      <div class="cell c-theme">
+        <div class="theme-shape shape-empty"></div>
+        <div>
+          <div class="label">Theme</div>
+          <div class="num num-s" style="margin-top:4px;">Frontier</div>
+        </div>
+        <div>
+          <div class="sub"><b>£14.38</b> · 0.6% of NAV</div>
+          <div class="theme-bar"><span style="width:1%;background:var(--bh-red);"></span></div>
+          <div class="sub neg" style="margin-top:6px;">Space Exp · -44%, review</div>
+        </div>
+      </div>
+
+      <!-- INCOME GAP -->
+      <div class="cell c-income">
+        <div class="label" style="color:#FFF;opacity:0.9;">Theme · Income</div>
+        <div class="big">No yield leg in the architecture</div>
+        <div class="sub" style="opacity:0.92;">
+          The hedge fund needs cash flow. Currently 0.35% blended yield, almost all from price. Build a UK dividend pie:
+        </div>
+        <div style="margin-top:8px;">
+          <span class="candidate">LGEN · ~8%</span>
+          <span class="candidate">PHNX · ~7.6%</span>
+          <span class="candidate">M&amp;G · ~6.9%</span>
+          <span class="candidate">National Grid</span>
+          <span class="candidate">Realty Income · 5% mthly</span>
+        </div>
+      </div>
+
+      <!-- TOP MOVERS -->
+      <div class="cell c-half">
+        <div class="label">Top movers — drift vs target</div>
+        <div class="movers">
+          <div class="mover">
+            <span class="name">BABCOCK</span>
+            <span>+196.9%</span>
+            <span class="pos">▲</span>
+            <div class="bar"><span class="up" style="width:48%;"></span></div>
+          </div>
+          <div class="mover">
+            <span class="name">NEBIUS · IONQ</span>
+            <span>+100% / +48%</span>
+            <span class="pos">▲</span>
+            <div class="bar"><span class="up" style="width:32%;"></span></div>
+          </div>
+          <div class="mover">
+            <span class="name">TESLA (ISA 212)</span>
+            <span>+22% but extended</span>
+            <span class="pos">▲</span>
+            <div class="bar"><span class="up" style="width:14%;"></span></div>
+          </div>
+          <div class="mover">
+            <span class="name">COINBASE</span>
+            <span>-39%</span>
+            <span class="neg">▼</span>
+            <div class="bar"><span class="dn" style="width:28%;"></span></div>
+          </div>
+          <div class="mover">
+            <span class="name">SPACE EXP PIE</span>
+            <span>-44%</span>
+            <span class="neg">▼</span>
+            <div class="bar"><span class="dn" style="width:33%;"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GEO RISK -->
+      <div class="cell c-half">
+        <div class="label">Geopolitical / macro context</div>
+        <div class="geo" style="margin-top:10px;">
+          <div>
+            <div class="k">US Midterms</div>
+            <div class="v">Nov '26</div>
+            <div class="sub">EV / AI antitrust risk</div>
+          </div>
+          <div>
+            <div class="k">Fed Chair</div>
+            <div class="v">May '26</div>
+            <div class="sub">Transition · dovish?</div>
+          </div>
+          <div>
+            <div class="k">Tech Concentration</div>
+            <div class="v">68%</div>
+            <div class="sub">Of Future Focus pie</div>
+          </div>
+          <div>
+            <div class="k">Defence Sector</div>
+            <div class="v">Ripping</div>
+            <div class="sub">Babcock proves it</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTION QUEUE -->
+      <div class="cell c-actions">
+        <div class="label" style="color:var(--bh-yellow);">Action queue · today &amp; this week</div>
+        <div class="queue" style="margin-top:10px;">
+          <div class="item p1">
+            <div class="n">01</div>
+            <div class="a">Trim Babcock 50%</div>
+            <div class="c">Lock ~£12 profit · today</div>
+          </div>
+          <div class="item">
+            <div class="n">02</div>
+            <div class="a">Execute ISA 212 skim</div>
+            <div class="c">Tesla / AMC Ent / LS Visa / Coinbase down 75% · redirect to IBM + Mastercard</div>
+          </div>
+          <div class="item">
+            <div class="n">03</div>
+            <div class="a">Build Income pie</div>
+            <div class="c">LGEN · PHNX · M&amp;G · NG · Realty Income · redirect £40/wk of autoinvest here</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /ffhf -->
+
+  <div class="foot">
+    <span>Pareto · Future Focused HF view · informational only · not advice</span>
+    <span>Bauhaus 21 · Bento grid · v0.2</span>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    const ids = ['overview','pies','holdings','ffhf'];
+    t.classList.toggle('active', ids[i] === id);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'panel-' + id);
+  });
+}
+</script>
+</body>
+</html>
