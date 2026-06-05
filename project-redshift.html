@@ -1,488 +1,1130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Project Redshift · Artist Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Redshift — Artist Dashboard</title>
+<meta name="description" content="Project Redshift — UK hard rock trio from Lincolnshire. Founding catalogue 2017–2019. New single 'Playing the Game' incoming 2026.">
+<meta property="og:title" content="Project Redshift">
+<meta property="og:description" content="UK hard rock. Four singles. Press: Maximum Volume Music, Distorted Sound, Planet Rock. New single 'Playing the Game' incoming 2026.">
+<meta property="og:type" content="music.musician">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --red:#E2231A;--yellow:#FFC700;--blue:#1B3A8C;
-  --black:#0B0B0B;--paper:#F4F0E6;--ink:#141414;
-  --dim:rgba(244,240,230,.42);--line:rgba(244,240,230,.09);--line2:rgba(244,240,230,.2);
-  --gap:14px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--black);color:var(--paper);font-family:'IBM Plex Mono',monospace;min-height:100vh;-webkit-font-smoothing:antialiased}
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jost:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-/* ── TOPBAR ── */
-#topbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line2);padding:13px 24px;position:sticky;top:0;background:rgba(11,11,11,.96);backdrop-filter:blur(18px);z-index:100}
-.brand{display:flex;align-items:center;gap:9px;font-family:'Archivo Black',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.02em}
-.brand-mark{width:20px;height:20px;background:var(--red);border:1.5px solid var(--paper);border-radius:50%;flex-shrink:0;position:relative}
-.brand-mark::after{content:'';position:absolute;inset:4px 4px 4px auto;width:8px;background:var(--yellow);border-left:1.5px solid var(--paper);border-radius:0 50% 50% 0/0 50% 50% 0}
-.brand-sep{color:var(--dim);margin:0 7px}
-.brand-sub{color:var(--yellow)}
-.topbar-right{display:flex;align-items:center;gap:10px}
-.back{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-decoration:none;border:1px solid var(--line2);padding:5px 10px;transition:all .2s}
-.back:hover{color:var(--paper);border-color:var(--line2)}
-#modeBtn{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:1px solid var(--line2);color:var(--dim);padding:5px 12px;cursor:pointer;transition:all .2s}
-#modeBtn:hover{border-color:var(--yellow);color:var(--yellow)}
-#modeBtn.on{border-color:var(--yellow);color:var(--yellow);background:rgba(255,199,0,.06)}
+<style>
+/* =========================================================
+   BAUHAUS 21 DESIGN SYSTEM
+   ========================================================= */
+:root {
+  --red:       #C8302A;
+  --yellow:    #E8C018;
+  --blue:      #1E3878;
+  --black:     #111111;
+  --white:     #FFFFFF;
+  --grey-tint: #E9ECEF;
+  --paper:     #F4F1EA;
+
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body:    'Jost', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --s-1:4px; --s-2:8px; --s-3:16px; --s-4:24px;
+  --s-5:32px; --s-6:48px; --s-7:64px; --s-8:96px;
+  --maxw: 1240px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--black);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--black); color: var(--white);
+  padding: var(--s-3) var(--s-4);
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 4px solid var(--red);
+}
+nav .brand {
+  font-family: var(--font-display);
+  font-size: 18px; letter-spacing: 0.04em; text-transform: uppercase;
+  display: flex; align-items: center; gap: var(--s-2);
+}
+.brand-mark {
+  display: inline-block;
+  width: 14px; height: 14px;
+  background: var(--red); border-radius: 50%;
+}
+nav ul { list-style: none; display: flex; gap: var(--s-3); align-items: center; }
+nav a {
+  color: var(--white); text-decoration: none;
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;
+  padding-bottom: 2px; border-bottom: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+nav a:hover { border-bottom-color: var(--yellow); }
+.nav-back {
+  font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase;
+  letter-spacing: 0.12em; text-decoration: none; border-bottom: none !important;
+  border: 1px solid rgba(255,255,255,0.2); padding: 4px 10px;
+  transition: all 0.2s;
+}
+.nav-back:hover { color: var(--white) !important; border-color: rgba(255,255,255,0.5); }
+.int-btn {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  background: transparent; border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.4); padding: 4px 10px;
+  cursor: pointer; transition: all 0.2s;
+}
+.int-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+.int-btn.on { border-color: var(--yellow); color: var(--yellow); background: rgba(232,192,24,0.08); }
+@media (max-width: 720px) { nav ul { display: none; } }
 
 /* ── HERO ── */
-#hero{padding:60px 24px 44px;max-width:1200px;margin:0 auto;position:relative;overflow:hidden}
-.hero-deco{position:absolute;right:-80px;top:-80px;width:360px;height:360px;border:1px solid var(--line);border-radius:50%;pointer-events:none}
-.hero-deco::before{content:'';position:absolute;inset:40px;border:1px solid var(--line);border-radius:50%}
-.hero-deco::after{content:'';position:absolute;right:-20px;bottom:40px;width:0;height:0;border-left:44px solid transparent;border-right:44px solid transparent;border-bottom:76px solid rgba(226,35,26,.1)}
-.hero-tag{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);margin-bottom:18px;display:flex;align-items:center;gap:8px}
-.hero-tag::before{content:'';width:20px;height:1px;background:var(--yellow)}
-.hero-title{font-family:'Archivo Black',sans-serif;font-size:clamp(48px,9.5vw,106px);text-transform:uppercase;line-height:.88;letter-spacing:-.03em;position:relative;z-index:1}
-.hero-title span{color:var(--yellow)}
-.hero-sub{font-size:11px;line-height:1.75;color:var(--dim);max-width:50ch;margin-top:20px}
-.hero-proof{display:flex;gap:0;margin-top:32px;border:1px solid var(--line2);width:fit-content;flex-wrap:wrap}
-.hp{padding:11px 20px;border-right:1px solid var(--line2);display:flex;flex-direction:column;gap:3px}
-.hp:last-child{border-right:none}
-.hp-n{font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1;color:var(--yellow);letter-spacing:-.02em}
-.hp-l{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.hero-live{display:flex;align-items:center;gap:8px;margin-top:26px;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
-.pulse{width:7px;height:7px;background:var(--red);border-radius:50%;flex-shrink:0;position:relative}
-.pulse::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--red);animation:pr 2s ease-out infinite}
-@keyframes pr{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
+.hero {
+  background: var(--paper);
+  padding: var(--s-7) var(--s-4) var(--s-8);
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--s-6); align-items: center; position: relative; z-index: 2;
+}
+@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; } }
 
-/* ── LAYOUT ── */
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px 80px}
-.sec{margin-bottom:52px}
-.sec-hdr{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line2);padding-bottom:9px;margin-bottom:18px}
-.sec-hdr h2{font-family:'Archivo Black',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.18em}
-.sec-ct{font-size:8px;letter-spacing:.1em;color:var(--dim)}
-.sec-tag{margin-left:auto;font-size:8px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line2);color:var(--dim);padding:2px 8px}
-.sec-tag.live{border-color:rgba(226,35,26,.4);color:var(--red)}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--red); margin-bottom: var(--s-3);
+  display: flex; align-items: center; gap: var(--s-2);
+}
+.hero-eyebrow::before {
+  content: ''; width: 12px; height: 12px;
+  background: var(--red); display: inline-block;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 112px);
+  line-height: 0.92; text-transform: uppercase; letter-spacing: -0.02em;
+  margin-bottom: var(--s-4);
+}
+.hero h1 .accent { color: var(--red); }
+.hero h1 .underline {
+  display: inline-block;
+  border-bottom: 8px solid var(--yellow); padding-bottom: 2px;
+}
+.hero p.lede {
+  font-size: 18px; max-width: 480px; margin-bottom: var(--s-5); color: #333;
+}
+.cta-row { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  font-family: var(--font-body); font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+.btn-primary { background: var(--red); color: var(--white); }
+.btn-primary:hover { background: var(--black); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--red); }
+.btn-secondary { background: var(--black); color: var(--white); }
+.btn-secondary:hover { background: var(--blue); transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--black); }
 
-/* ── BENTO ── */
-.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap)}
-.c2{grid-column:span 2}.c3{grid-column:span 3}.c4{grid-column:span 4}
-.c6{grid-column:span 6}.c8{grid-column:span 8}.c12{grid-column:span 12}
-.cell{border:1px solid var(--line2);padding:15px 17px;position:relative;overflow:hidden}
-.cl{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
-.cv{font-family:'Archivo Black',sans-serif;font-size:22px;line-height:1;letter-spacing:-.01em}
-.cv.xl{font-size:34px}
-.cs{font-size:9px;color:var(--dim);margin-top:4px;line-height:1.5}
-.on-y{background:var(--yellow);border-color:var(--yellow);color:var(--black)}
-.on-y .cl,.on-y .cs{color:rgba(0,0,0,.45)}
-.on-y .cv{color:var(--black)}
-.on-r{background:var(--red);border-color:var(--red)}
-.on-r .cl,.on-r .cs{color:rgba(255,255,255,.5)}
-.bar{height:3px;background:rgba(244,240,230,.08);border-radius:2px;margin-top:9px;position:relative;overflow:hidden}
-.bf{position:absolute;left:0;top:0;bottom:0;border-radius:2px}
-.bf.y{background:var(--yellow)}.bf.r{background:var(--red)}.bf.b{background:#4a7fc1}
+.hero-art {
+  position: relative; height: 420px;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-art .shape { position: absolute; }
+.hero-art .square-red { width: 240px; height: 240px; background: var(--red); top: 20px; left: 20px; }
+.hero-art .circle-blue {
+  width: 200px; height: 200px; background: var(--blue); border-radius: 50%;
+  top: 120px; right: 40px; mix-blend-mode: multiply;
+}
+.hero-art .triangle-yellow {
+  width: 0; height: 0;
+  border-left: 120px solid transparent; border-right: 120px solid transparent;
+  border-bottom: 200px solid var(--yellow);
+  bottom: 20px; left: 50%; transform: translateX(-50%); mix-blend-mode: multiply;
+}
+.hero-art .label {
+  position: absolute; z-index: 3;
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.15em; color: var(--white);
+  background: var(--black); padding: var(--s-1) var(--s-2);
+}
+.hero-art .label-1 { top: 30px; left: 40px; }
+.hero-art .label-2 { bottom: 30px; right: 30px; }
 
-/* ── SINGLES TABLE ── */
-.sg{display:grid;gap:1px;background:var(--line2)}
-.sr{display:grid;grid-template-columns:32px 1fr 72px 90px 90px 130px;align-items:center;gap:14px;padding:11px 14px;background:var(--black);font-size:10px;transition:background .15s;cursor:default}
-.sr:hover{background:rgba(244,240,230,.025)}
-.sr.hdr{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.sr.hdr:hover{background:var(--black)}
-.sn{font-family:'Archivo Black',sans-serif;font-size:13px;color:rgba(244,240,230,.22)}
-.st{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:12px}
-.sy{color:var(--dim);font-size:9px}
-.ss{font-family:'Archivo Black',sans-serif;font-size:13px}
-.ss.y{color:var(--yellow)}
-.stag{display:inline-block;font-size:8px;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;padding:2px 7px;border-radius:2px}
-.stag.act{color:var(--yellow);border-color:rgba(255,199,0,.35)}
-.stag.leg{color:var(--dim);border-color:var(--line2)}
+/* ── SECTION SCAFFOLD ── */
+section { padding: var(--s-7) var(--s-4); border-top: 2px solid var(--black); }
+section.alt { background: var(--white); }
+section.dark { background: var(--black); color: var(--white); }
+section.dark .section-label { color: var(--yellow); }
+section.dark .section-label::before { background: var(--yellow); }
 
-/* ── STATIONS ── */
-.sg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1px;background:var(--line2)}
-.station{background:var(--black);padding:13px 15px;display:flex;flex-direction:column;gap:5px;transition:background .15s}
-.station:hover{background:rgba(244,240,230,.025)}
-.stn{font-family:'Archivo Black',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
-.stt{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.stf{display:flex;align-items:center;gap:5px;margin-top:2px}
-.dot2{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.nat{background:var(--yellow)}.onl{background:#4a7fc1}.com{background:rgba(244,240,230,.3)}.intl{background:var(--red)}
-.stf span{font-size:8px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.section-inner { max-width: var(--maxw); margin: 0 auto; }
 
-/* ── LIVE ── */
-.vlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--line2)}
-.venue{background:var(--black);padding:11px 14px;transition:background .15s}
-.venue:hover{background:rgba(244,240,230,.025)}
-.vn{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:12px}
-.vl{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:2px}
-.vm{font-size:9px;color:rgba(244,240,230,.25);margin-top:3px}
-.fests{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.fest{font-family:'Archivo Black',sans-serif;font-size:10px;text-transform:uppercase;border-left:3px solid var(--yellow);padding:5px 11px;background:rgba(255,199,0,.04)}
-.sups{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.sup{font-size:9px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line2);padding:5px 11px;color:var(--paper)}
-.sup.big{border-color:rgba(255,199,0,.4);color:var(--yellow)}
+.section-label {
+  font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--red); margin-bottom: var(--s-3);
+  display: flex; align-items: center; gap: var(--s-2);
+}
+.section-label::before {
+  content: ''; display: inline-block;
+  width: 12px; height: 12px; background: var(--red);
+}
+.section-label.sq::before { border-radius: 0; }
+.section-label.tri::before {
+  width: 0; height: 0; background: transparent;
+  border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-bottom: 12px solid var(--red);
+}
+.section-label.cir::before { border-radius: 50%; }
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1; text-transform: uppercase; letter-spacing: -0.01em;
+  margin-bottom: var(--s-5);
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: 22px; line-height: 1.1; text-transform: uppercase;
+  letter-spacing: 0.01em; margin-bottom: var(--s-2);
+}
+
+/* ── FOUNDATION STATS ── */
+.foundation-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4);
+}
+@media (max-width: 880px) { .foundation-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.stat {
+  border: 2px solid var(--black); padding: var(--s-4);
+  background: var(--white); position: relative;
+}
+.stat .label {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--red); margin-bottom: var(--s-2);
+}
+.stat .value {
+  font-family: var(--font-display); font-size: 48px;
+  line-height: 1; color: var(--black); margin-bottom: var(--s-1);
+}
+.stat .sub { font-family: var(--font-mono); font-size: 11px; color: #555; }
+
+/* ── ROUTER ── */
+.router-wrap { display: grid; grid-template-columns: 2fr 3fr; gap: var(--s-6); align-items: start; }
+@media (max-width: 880px) { .router-wrap { grid-template-columns: 1fr; } }
+
+.router-intro p { font-size: 17px; max-width: 420px; margin-bottom: var(--s-3); }
+
+.router-card {
+  background: var(--white); border: 3px solid var(--black);
+  padding: var(--s-5); position: relative;
+}
+.router-card::before {
+  content: ''; position: absolute;
+  top: -3px; right: -3px;
+  width: 32px; height: 32px; background: var(--yellow);
+}
+.router-q {
+  font-family: var(--font-display); font-size: 20px;
+  text-transform: uppercase; margin-bottom: var(--s-4);
+}
+.router-options { display: grid; gap: var(--s-2); }
+.router-opt {
+  background: var(--paper); border: 2px solid var(--black);
+  padding: var(--s-3); text-align: left;
+  font-family: var(--font-body); font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: transform 0.12s, background 0.12s;
+}
+.router-opt:hover { background: var(--yellow); transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--black); }
+.router-opt.selected { background: var(--red); color: var(--white); }
+.router-result {
+  margin-top: var(--s-4); padding: var(--s-4);
+  background: var(--black); color: var(--white); display: none;
+}
+.router-result.show { display: block; animation: slideUp 0.25s ease-out; }
+.router-result .reco-label {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.18em; color: var(--yellow); margin-bottom: var(--s-2);
+}
+.router-result .reco-title {
+  font-family: var(--font-display); font-size: 28px;
+  text-transform: uppercase; margin-bottom: var(--s-2);
+}
+.router-result .reco-desc { font-size: 14px; opacity: 0.85; margin-bottom: var(--s-3); }
+.router-result a {
+  color: var(--yellow); font-family: var(--font-mono); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  text-decoration: none; border-bottom: 1px solid var(--yellow);
+}
+@keyframes slideUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── CATALOGUE ── */
+.catalogue-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4);
+}
+@media (max-width: 720px) { .catalogue-grid { grid-template-columns: 1fr; } }
+
+.release {
+  background: var(--white); border: 2px solid var(--black);
+  padding: var(--s-4); position: relative;
+  display: flex; flex-direction: column;
+}
+.release-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--s-3); }
+.release-meta {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.15em; color: var(--blue);
+}
+.release-title {
+  font-family: var(--font-display); font-size: 28px;
+  text-transform: uppercase; margin-bottom: var(--s-2);
+}
+.release-credits {
+  font-family: var(--font-mono); font-size: 11px;
+  color: #555; margin-bottom: var(--s-3); line-height: 1.6;
+}
+.release-embed { margin-top: auto; border: 2px solid var(--black); }
+.release-embed iframe { display: block; width: 100%; border: 0; }
+
+/* ── PRESS ── */
+.press-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4);
+}
+@media (max-width: 880px) { .press-grid { grid-template-columns: 1fr; } }
+
+.press-card {
+  background: var(--white); border: 2px solid var(--white);
+  padding: var(--s-4); display: flex; flex-direction: column;
+  position: relative; color: var(--black); min-height: 220px;
+}
+.press-card .outlet {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.15em; color: var(--red); margin-bottom: var(--s-2);
+}
+.press-card .quote {
+  font-family: var(--font-display); font-size: 18px;
+  line-height: 1.2; margin-bottom: var(--s-3);
+}
+.press-card .quote::before { content: '\201C'; }
+.press-card .quote::after  { content: '\201D'; }
+.press-card .ref { margin-top: auto; font-family: var(--font-mono); font-size: 11px; color: #666; }
+
+/* ── BIO TOGGLE ── */
+.toggle-wrap { display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-5); flex-wrap: wrap; }
+.toggle-label {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.15em; color: var(--white); opacity: 0.7;
+}
+.toggle { display: inline-flex; background: var(--white); padding: 4px; gap: 2px; }
+.toggle button {
+  background: transparent; border: 0; padding: var(--s-2) var(--s-3);
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.15em; font-weight: 700; color: var(--black);
+  cursor: pointer; transition: background 0.15s, color 0.15s;
+}
+.toggle button.active { background: var(--black); color: var(--yellow); }
+
+.bio-block {
+  background: var(--white); color: var(--black);
+  padding: var(--s-5); border-top: 6px solid var(--red);
+  font-size: 17px; line-height: 1.6;
+}
+.bio-block.hidden { display: none; }
+.bio-block .h {
+  font-family: var(--font-display); font-size: 20px; text-transform: uppercase;
+  margin-bottom: var(--s-3); letter-spacing: 0.02em;
+}
+.bio-block p + p { margin-top: var(--s-3); }
+.bio-meta {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-3);
+  margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px solid var(--black);
+}
+@media (max-width: 720px) { .bio-meta { grid-template-columns: 1fr; } }
+.bio-meta .item .label {
+  font-family: var(--font-mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--red); margin-bottom: var(--s-1);
+}
+.bio-meta .item .val {
+  font-family: var(--font-display); font-size: 16px; text-transform: uppercase;
+}
+
+/* ── VIDEOS ── */
+.videos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); }
+@media (max-width: 880px) { .videos-grid { grid-template-columns: 1fr; } }
+
+.video-card { border: 2px solid var(--black); background: var(--white); display: flex; flex-direction: column; }
+.video-card .embed { aspect-ratio: 16/9; }
+.video-card .embed iframe { width: 100%; height: 100%; border: 0; }
+.video-card .meta { padding: var(--s-3); }
+.video-card .title { font-family: var(--font-display); font-size: 18px; text-transform: uppercase; }
+.video-card .year { font-family: var(--font-mono); font-size: 11px; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* ── MEMBERS ── */
+.members-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); }
+@media (max-width: 880px) { .members-grid { grid-template-columns: 1fr; } }
+
+.member {
+  background: var(--white); border: 2px solid var(--black);
+  padding: var(--s-4); position: relative; min-height: 240px;
+}
+.member .glyph { position: absolute; top: var(--s-3); right: var(--s-3); width: 36px; height: 36px; }
+.member .glyph.circle { background: var(--red); border-radius: 50%; }
+.member .glyph.square { background: var(--blue); }
+.member .glyph.triangle {
+  width: 0; height: 0; background: transparent;
+  border-left: 18px solid transparent; border-right: 18px solid transparent;
+  border-bottom: 32px solid var(--yellow);
+}
+.member .role {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.15em; color: var(--red); margin-bottom: var(--s-2);
+}
+.member .name {
+  font-family: var(--font-display); font-size: 24px;
+  text-transform: uppercase; margin-bottom: var(--s-2); line-height: 1;
+}
+.member .detail { font-family: var(--font-mono); font-size: 12px; color: #555; line-height: 1.6; }
+
+/* ── TIMELINE ── */
+.timeline {
+  display: flex; gap: var(--s-3); overflow-x: auto;
+  padding-bottom: var(--s-4); scrollbar-width: thin;
+}
+.timeline::-webkit-scrollbar { height: 6px; }
+.timeline::-webkit-scrollbar-track { background: var(--grey-tint); }
+.timeline::-webkit-scrollbar-thumb { background: var(--red); }
+
+.tl-event {
+  flex: 0 0 240px; background: var(--white); border: 2px solid var(--black);
+  padding: var(--s-3); position: relative;
+}
+.tl-event .marker { width: 16px; height: 16px; background: var(--red); margin-bottom: var(--s-2); }
+.tl-event.cat-release .marker { background: var(--red); }
+.tl-event.cat-press   .marker { background: var(--blue); border-radius: 50%; }
+.tl-event.cat-live    .marker { background: var(--yellow); }
+.tl-event.cat-future  .marker { background: var(--black); }
+.tl-event.cat-formation .marker { background: var(--black); }
+.tl-event .date {
+  font-family: var(--font-mono); font-size: 11px; color: #666;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--s-1);
+}
+.tl-event .title { font-family: var(--font-display); font-size: 13px; text-transform: uppercase; line-height: 1.15; }
 
 /* ── PLATFORMS ── */
-.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:1px;background:var(--line2)}
-.platform{background:var(--black);padding:13px 14px;display:flex;align-items:center;gap:11px;transition:background .15s}
-.platform:hover{background:rgba(244,240,230,.025)}
-.picon{width:30px;height:30px;border:1px solid var(--line2);border-radius:5px;display:grid;place-items:center;font-size:13px;flex-shrink:0}
-.pinfo{flex:1;min-width:0}
-.pname{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:11px}
-.phandle{font-size:8px;color:var(--dim);letter-spacing:.05em;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pstat{font-family:'Archivo Black',sans-serif;font-size:13px;margin-top:2px}
-.pstat small{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:8px;color:var(--dim);margin-left:3px}
-
-/* ── REVENUE (internal) ── */
-.int-sec{display:none}
-.int-sec.show{display:block}
-.int-flag{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
-.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2)}
-.rc{background:var(--black);padding:15px 17px}
-.rt{font-family:'Archivo Black',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;color:var(--yellow)}
-.rr{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--line);font-size:9px}
-.rr:last-of-type{border-bottom:none}
-.rr .k{color:var(--dim)}
-.rr .v{font-family:'Archivo Black',sans-serif;font-size:11px}
-.rr .v.y{color:var(--yellow)}
-.rnote{font-size:8px;color:var(--dim);line-height:1.65;margin-top:9px;border-top:1px solid var(--line);padding-top:8px}
-.alist{display:flex;flex-direction:column;gap:7px;margin-top:4px}
-.aitem{display:flex;gap:9px;align-items:flex-start;font-size:9px;line-height:1.5}
-.anum{font-family:'Archivo Black',sans-serif;font-size:17px;color:var(--yellow);line-height:1;flex-shrink:0;width:20px}
-.atxt{color:var(--dim)}
-.atxt strong{color:var(--paper);display:block;font-size:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;margin-bottom:1px}
+.platforms {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--s-3);
+}
+.platform {
+  background: var(--white); border: 2px solid var(--black);
+  padding: var(--s-3) var(--s-4); text-decoration: none; color: var(--black);
+  display: flex; align-items: center; justify-content: space-between;
+  transition: transform 0.12s, background 0.12s;
+}
+.platform:hover { background: var(--yellow); transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--black); }
+.platform .name { font-family: var(--font-display); font-size: 15px; text-transform: uppercase; }
+.platform .arrow { font-family: var(--font-mono); font-size: 12px; color: var(--red); }
 
 /* ── IN PRODUCTION ── */
-.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1px;background:var(--line2)}
-.track{background:var(--black);padding:15px 17px;position:relative;overflow:hidden}
-.track-deco{position:absolute;right:-14px;bottom:-14px;width:60px;height:60px;border:1px solid var(--line);border-radius:50%;pointer-events:none}
-.ts{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;display:flex;align-items:center;gap:5px}
-.td{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.td.rec{background:var(--red);animation:pr 2s ease-out infinite}
-.td.mix{background:var(--yellow)}
-.td.wri{background:rgba(244,240,230,.25)}
-.tn2{font-family:'Archivo Black',sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:.04em;line-height:1.1}
-.tdesc{font-size:9px;color:var(--dim);line-height:1.65;margin-top:5px}
+.production-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+.prod-card {
+  background: var(--white); border: 2px solid var(--black);
+  padding: var(--s-4); position: relative; overflow: hidden;
+}
+.prod-deco {
+  position: absolute; right: -14px; bottom: -14px;
+  width: 70px; height: 70px; border: 2px solid var(--grey-tint);
+  border-radius: 50%; pointer-events: none;
+}
+.prod-status {
+  font-family: var(--font-mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--red); margin-bottom: var(--s-2);
+  display: flex; align-items: center; gap: 6px;
+}
+.prod-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.prod-dot.rec { background: var(--red); animation: pulse 2s ease-out infinite; }
+.prod-dot.wri { background: var(--yellow); }
+.prod-title { font-family: var(--font-display); font-size: 18px; text-transform: uppercase; line-height: 1.1; margin-bottom: var(--s-2); }
+.prod-desc { font-family: var(--font-mono); font-size: 12px; color: #555; line-height: 1.65; }
+@keyframes pulse { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(2.4)} }
+
+.prod-announce {
+  border: 2px solid var(--black); padding: var(--s-4);
+  background: var(--white); border-left: 6px solid var(--red);
+}
+.prod-announce .ah {
+  font-family: var(--font-display); font-size: 16px;
+  text-transform: uppercase; margin-bottom: var(--s-2);
+}
+.prod-announce p { font-size: 15px; line-height: 1.65; max-width: 700px; color: #333; }
+
+/* ── REVENUE INTELLIGENCE (internal only) ── */
+.int-sec { display: none; }
+.int-sec.show { display: block; }
+.int-flag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--red); margin-bottom: var(--s-3);
+  display: flex; align-items: center; gap: 8px;
+}
+.int-flag::before { content: ''; width: 8px; height: 8px; background: var(--red); border-radius: 50%; animation: pulse 2s ease-out infinite; }
+.rev-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4);
+}
+@media (max-width: 880px) { .rev-grid { grid-template-columns: 1fr; } }
+.rc {
+  background: var(--white); border: 2px solid var(--black); padding: var(--s-4);
+}
+.rt {
+  font-family: var(--font-display); font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: var(--s-3); color: var(--blue);
+  border-bottom: 2px solid var(--black); padding-bottom: var(--s-2);
+}
+.rr {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0; border-bottom: 1px solid var(--grey-tint); font-size: 13px;
+}
+.rr:last-of-type { border-bottom: none; }
+.rr .k { color: #555; }
+.rr .v { font-family: var(--font-display); font-size: 14px; }
+.rr .v.y { color: var(--red); }
+.rnote {
+  font-family: var(--font-mono); font-size: 11px; color: #666;
+  line-height: 1.65; margin-top: var(--s-3); padding-top: var(--s-3);
+  border-top: 1px solid var(--grey-tint);
+}
+.alist { display: flex; flex-direction: column; gap: var(--s-3); }
+.aitem { display: flex; gap: var(--s-3); align-items: flex-start; }
+.anum {
+  font-family: var(--font-display); font-size: 22px;
+  color: var(--red); line-height: 1; flex-shrink: 0; width: 28px;
+}
+.atxt { font-size: 13px; line-height: 1.5; color: #444; }
+.atxt strong { color: var(--black); display: block; font-size: 14px; margin-bottom: 2px; }
 
 /* ── FOOTER ── */
-#foot{border-top:1px solid var(--line2);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.flinks{display:flex;gap:14px}
-.flinks a{color:var(--dim);text-decoration:none;transition:color .2s}
-.flinks a:hover{color:var(--paper)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  .bento{grid-template-columns:repeat(6,1fr)}
-  .c6,.c8,.c12{grid-column:span 6}.c3,.c4{grid-column:span 3}
-  .rg{grid-template-columns:1fr}
+footer {
+  background: var(--black); color: var(--white);
+  padding: var(--s-6) var(--s-4);
 }
-@media(max-width:640px){
-  #hero{padding:36px 16px 28px}
-  .wrap{padding:0 16px 60px}
-  .hero-proof{width:100%}
-  .hp{border-right:none;border-bottom:1px solid var(--line2)}
-  .bento{grid-template-columns:repeat(2,1fr)}
-  .c2,.c3,.c4,.c6,.c8,.c12{grid-column:span 2}
-  #topbar{padding:10px 16px}
-  .sr{grid-template-columns:28px 1fr 70px 80px}
-  .sr>:nth-child(5),.sr>:nth-child(6){display:none}
+footer .f-inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--s-5);
+}
+@media (max-width: 720px) { footer .f-inner { grid-template-columns: 1fr; } }
+footer .lockup {
+  font-family: var(--font-display); font-size: 32px;
+  text-transform: uppercase; line-height: 1; margin-bottom: var(--s-3);
+}
+footer .lockup .accent { color: var(--red); }
+footer p { font-size: 13px; max-width: 360px; opacity: 0.8; }
+footer h4 {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--yellow); margin-bottom: var(--s-3);
+}
+footer ul { list-style: none; }
+footer li { margin-bottom: var(--s-2); }
+footer a {
+  color: var(--white); text-decoration: none; font-size: 13px;
+  border-bottom: 1px solid transparent;
+}
+footer a:hover { border-bottom-color: var(--yellow); }
+.colophon {
+  max-width: var(--maxw); margin: var(--s-5) auto 0;
+  padding-top: var(--s-4); border-top: 1px solid #333;
+  font-family: var(--font-mono); font-size: 11px;
+  opacity: 0.6; display: flex; justify-content: space-between;
+  flex-wrap: wrap; gap: var(--s-2);
+}
+
+/* ── MISC ── */
+.skip {
+  position: absolute; left: -9999px; top: var(--s-2);
+  background: var(--yellow); color: var(--black);
+  padding: var(--s-2) var(--s-3); font-family: var(--font-mono); font-size: 12px; z-index: 200;
+}
+.skip:focus { left: var(--s-3); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div id="topbar">
-  <div class="brand">
-    <span class="brand-mark"></span>Pareto
-    <span class="brand-sep">/</span>
-    <span class="brand-sub">Project Redshift</span>
-  </div>
-  <div class="topbar-right">
-    <button id="modeBtn" onclick="toggleMode()">⚿ Internal view</button>
-    <a href="pareto.html" class="back">← Pareto</a>
-  </div>
-</div>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- HERO -->
-<div id="hero">
-  <div class="hero-deco"></div>
-  <div class="hero-tag">Creative · London · Career Relaunch 2026</div>
-  <h1 class="hero-title">PROJECT<br><span>REDSHIFT</span></h1>
-  <p class="hero-sub">Pete. London-based electronic producer and multimedia creative. International radio airplay. Self-directed campaigns. Now writing again — first time from scratch.</p>
-  <div class="hero-proof">
-    <div class="hp"><div class="hp-n" id="hpR">12</div><div class="hp-l">Radio stations</div></div>
-    <div class="hp"><div class="hp-n" id="hpP">847+</div><div class="hp-l">Documented plays</div></div>
-    <div class="hp"><div class="hp-n" id="hpG">43</div><div class="hp-l">Live shows</div></div>
-    <div class="hp"><div class="hp-n" id="hpS">7</div><div class="hp-l">Releases</div></div>
-    <div class="hp"><div class="hp-n" id="hpSup">6</div><div class="hp-l">Acts supported</div></div>
-    <div class="hp"><div class="hp-n" id="hpC">9</div><div class="hp-l">Countries w/ airplay</div></div>
-  </div>
-  <div class="hero-live"><span class="pulse"></span>New recordings in production · 2026</div>
-</div>
+<nav>
+  <div class="brand"><span class="brand-mark"></span>Project Redshift</div>
+  <ul>
+    <li><a href="#new">New Single</a></li>
+    <li><a href="#listen">Listen</a></li>
+    <li><a href="#catalogue">Catalogue</a></li>
+    <li><a href="#press">Press</a></li>
+    <li><a href="#band">Band</a></li>
+    <li><a href="#contact">Find Us</a></li>
+    <li><button class="int-btn" id="intBtn" onclick="toggleInternal()">⚿ Internal</button></li>
+    <li><a href="pareto.html" class="nav-back">← Pareto</a></li>
+  </ul>
+</nav>
 
-<!-- WRAP -->
-<div class="wrap">
+<main id="main">
 
-  <!-- KPI BENTO -->
-  <div class="sec">
-    <div class="bento">
-      <div class="cell c3 on-y">
-        <div class="cl">Total streams · all platforms</div>
-        <div class="cv xl" id="kStreams">124K</div>
-        <div class="cs">Spotify + Apple + YouTube · all time</div>
+  <!-- HERO — Playing the Game -->
+  <section class="hero" id="new" style="border-top:0">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">Incoming — New Single 2026</div>
+        <h1>Playing<br><span class="accent">the </span><span class="underline">Game</span></h1>
+        <p class="lede">The fifth single from UK hard rock trio Project Redshift — and the band's first new music since 2019. Seven years in the making.</p>
+        <div class="cta-row">
+          <a href="#listen" class="btn btn-primary">Hear the Catalogue ▶</a>
+          <a href="#contact" class="btn btn-secondary">Find Us Everywhere</a>
+        </div>
       </div>
-      <div class="cell c3">
-        <div class="cl">Peak chart position</div>
-        <div class="cv xl">#<span id="kChart">14</span></div>
-        <div class="cs">Hype Machine · [track name] · [year]</div>
-        <div class="bar"><div class="bf y" style="width:86%"></div></div>
-      </div>
-      <div class="cell c3">
-        <div class="cl">Countries with confirmed airplay</div>
-        <div class="cv xl">9</div>
-        <div class="cs">UK · IE · DE · US · AU · NL · FR · CA · SE</div>
-        <div class="bar"><div class="bf b" style="width:60%"></div></div>
-      </div>
-      <div class="cell c3 on-r">
-        <div class="cl">Gap since last release</div>
-        <div class="cv xl" id="kGap">—</div>
-        <div class="cs">Update with last release year. Gap is the story — own it.</div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="shape square-red"></div>
+        <div class="shape circle-blue"></div>
+        <div class="shape triangle-yellow"></div>
+        <span class="label label-1">Playing</span>
+        <span class="label label-2">the Game</span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- DISCOGRAPHY -->
-  <div class="sec">
-    <div class="sec-hdr">
-      <h2>Discography</h2>
-      <span class="sec-ct">7 releases — replace with real titles &amp; stats</span>
-    </div>
-    <div class="sg">
-      <div class="sr hdr"><div></div><div>Title</div><div>Year</div><div>Streams</div><div>Radio plays</div><div>Status</div></div>
-      <div class="sr"><div class="sn">01</div><div class="st">[Lead single — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag act">Active · streaming</span></div></div>
-      <div class="sr"><div class="sn">02</div><div class="st">[Track 2 — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag act">Active · streaming</span></div></div>
-      <div class="sr"><div class="sn">03</div><div class="st">[Track 3 — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag leg">Legacy · indexed</span></div></div>
-      <div class="sr"><div class="sn">04</div><div class="st">[Track 4 — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag leg">Legacy · indexed</span></div></div>
-      <div class="sr"><div class="sn">05</div><div class="st">[Track 5 — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag leg">Legacy · indexed</span></div></div>
-      <div class="sr"><div class="sn">06</div><div class="st">[Track 6 — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag leg">Legacy · indexed</span></div></div>
-      <div class="sr"><div class="sn">07</div><div class="st">[Track 7 — add title]</div><div class="sy">[Year]</div><div class="ss y">[XX,XXX]</div><div class="ss">[XX]</div><div><span class="stag leg">Legacy · indexed</span></div></div>
-    </div>
-  </div>
-
-  <!-- RADIO -->
-  <div class="sec">
-    <div class="sec-hdr">
-      <h2>Radio &amp; Airplay</h2>
-      <span class="sec-ct">12 confirmed stations — update with your actual list</span>
-    </div>
-    <div style="display:flex;gap:16px;margin-bottom:12px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;flex-wrap:wrap">
-      <span style="display:flex;align-items:center;gap:5px;color:var(--dim)"><span class="dot2 nat" style="display:inline-block"></span> National</span>
-      <span style="display:flex;align-items:center;gap:5px;color:var(--dim)"><span class="dot2 onl" style="display:inline-block"></span> Online / DAB</span>
-      <span style="display:flex;align-items:center;gap:5px;color:var(--dim)"><span class="dot2 com" style="display:inline-block"></span> Community</span>
-      <span style="display:flex;align-items:center;gap:5px;color:var(--dim)"><span class="dot2 intl" style="display:inline-block"></span> International</span>
-    </div>
-    <div class="sg2">
-      <div class="station"><div class="stn">BBC Introducing</div><div class="stt">National · BBC Network</div><div class="stf"><span class="dot2 nat"></span><span>National broadcast</span></div></div>
-      <div class="station"><div class="stn">Amazing Radio</div><div class="stt">Online / National · Independent</div><div class="stf"><span class="dot2 onl"></span><span>Online + DAB</span></div></div>
-      <div class="station"><div class="stn">Hoxton Radio</div><div class="stt">Community · East London</div><div class="stf"><span class="dot2 com"></span><span>Community licence</span></div></div>
-      <div class="station"><div class="stn">Soho Radio</div><div class="stt">Online · London</div><div class="stf"><span class="dot2 onl"></span><span>Online broadcast</span></div></div>
-      <div class="station"><div class="stn">Reprezent Radio</div><div class="stt">Community · South London</div><div class="stf"><span class="dot2 com"></span><span>Community licence</span></div></div>
-      <div class="station"><div class="stn">Rinse FM</div><div class="stt">Online / National</div><div class="stf"><span class="dot2 onl"></span><span>Online + DAB</span></div></div>
-      <div class="station"><div class="stn">KEXP 90.3</div><div class="stt">International · Seattle, US</div><div class="stf"><span class="dot2 intl"></span><span>US national stream</span></div></div>
-      <div class="station"><div class="stn">RTÉ 2FM</div><div class="stt">International · Ireland</div><div class="stf"><span class="dot2 intl"></span><span>National IE</span></div></div>
-      <div class="station"><div class="stn">[Station 9]</div><div class="stt">Add confirmed station</div><div class="stf"><span class="dot2 com"></span><span>Update type</span></div></div>
-      <div class="station"><div class="stn">[Station 10]</div><div class="stt">Add confirmed station</div><div class="stf"><span class="dot2 com"></span><span>Update type</span></div></div>
-      <div class="station"><div class="stn">[Station 11]</div><div class="stt">Add confirmed station</div><div class="stf"><span class="dot2 com"></span><span>Update type</span></div></div>
-      <div class="station"><div class="stn">[Station 12]</div><div class="stt">Add confirmed station</div><div class="stf"><span class="dot2 com"></span><span>Update type</span></div></div>
-    </div>
-  </div>
-
-  <!-- LIVE -->
-  <div class="sec">
-    <div class="sec-hdr"><h2>Live History</h2><span class="sec-ct">43 shows · replace venue list with real data</span></div>
-
-    <div style="margin-bottom:18px">
-      <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:9px">Festivals</div>
-      <div class="fests">
-        <div class="fest">[Festival 1 · Year]</div>
-        <div class="fest">[Festival 2 · Year]</div>
-        <div class="fest">[Festival 3 · Year]</div>
-        <div class="fest">[Add all confirmed festivals]</div>
-      </div>
-    </div>
-
-    <div style="margin-bottom:18px">
-      <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:9px">Notable supports — bands supported / opened for</div>
-      <div class="sups">
-        <div class="sup big">[Headliner 1 — well-known act]</div>
-        <div class="sup big">[Headliner 2 — well-known act]</div>
-        <div class="sup">[Band 3]</div>
-        <div class="sup">[Band 4]</div>
-        <div class="sup">[Band 5]</div>
-        <div class="sup">[Band 6]</div>
-      </div>
-    </div>
-
-    <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:9px">Venues</div>
-    <div class="vlist">
-      <div class="venue"><div class="vn">[Venue 1]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 2]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 3]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 4]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 5]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 6]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 7]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-      <div class="venue"><div class="vn">[Venue 8]</div><div class="vl">[City · Cap.]</div><div class="vm">[X shows]</div></div>
-    </div>
-  </div>
-
-  <!-- PLATFORMS -->
-  <div class="sec">
-    <div class="sec-hdr"><h2>Platform Presence</h2><span class="sec-ct">All active channels · update handles &amp; follower counts</span></div>
-    <div class="pg">
-      <div class="platform"><div class="picon">🎵</div><div class="pinfo"><div class="pname">Spotify</div><div class="phandle">spotify.com/artist/[id]</div><div class="pstat">[X,XXX]<small>monthly listeners</small></div></div></div>
-      <div class="platform"><div class="picon">🍎</div><div class="pinfo"><div class="pname">Apple Music</div><div class="phandle">music.apple.com/[profile]</div><div class="pstat">[X,XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">▶</div><div class="pinfo"><div class="pname">YouTube</div><div class="phandle">@[handle]</div><div class="pstat">[XXX]<small>subscribers</small></div></div></div>
-      <div class="platform"><div class="picon">☁</div><div class="pinfo"><div class="pname">SoundCloud</div><div class="phandle">soundcloud.com/[handle]</div><div class="pstat">[X,XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">⛺</div><div class="pinfo"><div class="pname">Bandcamp</div><div class="phandle">[handle].bandcamp.com</div><div class="pstat">[XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">◻</div><div class="pinfo"><div class="pname">Instagram</div><div class="phandle">@[handle]</div><div class="pstat">[X,XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">♪</div><div class="pinfo"><div class="pname">TikTok</div><div class="phandle">@[handle]</div><div class="pstat">[XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">𝕏</div><div class="pinfo"><div class="pname">X / Twitter</div><div class="phandle">@[handle]</div><div class="pstat">[X,XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">〜</div><div class="pinfo"><div class="pname">Mixcloud</div><div class="phandle">mixcloud.com/[handle]</div><div class="pstat">[XXX]<small>followers</small></div></div></div>
-      <div class="platform"><div class="picon">f</div><div class="pinfo"><div class="pname">Facebook</div><div class="phandle">facebook.com/[page]</div><div class="pstat">[X,XXX]<small>page likes</small></div></div></div>
-      <div class="platform"><div class="picon">♬</div><div class="pinfo"><div class="pname">Deezer</div><div class="phandle">deezer.com/artist/[id]</div><div class="pstat">Active<small>· indexed</small></div></div></div>
-      <div class="platform"><div class="picon">⬆</div><div class="pinfo"><div class="pname">Hype Machine</div><div class="phandle">hypem.com/artist/[handle]</div><div class="pstat">Peak #14<small>· chart</small></div></div></div>
-    </div>
-  </div>
-
-  <!-- REVENUE INTELLIGENCE — internal only -->
-  <div class="sec int-sec" id="revSec">
-    <div class="sec-hdr" style="margin-top:20px">
-      <h2>Revenue Intelligence</h2>
-      <span class="sec-ct">How money flows — where to focus relaunch energy</span>
-    </div>
-    <div class="int-flag">⚿ Internal · Confidential</div>
-    <div class="rg">
-      <div class="rc">
-        <div class="rt">Streaming splits</div>
-        <div class="rr"><span class="k">Spotify per stream</span><span class="v">~£0.003</span></div>
-        <div class="rr"><span class="k">Apple Music per stream</span><span class="v">~£0.007</span></div>
-        <div class="rr"><span class="k">YouTube per 1k views</span><span class="v">~£0.80</span></div>
-        <div class="rr"><span class="k">Distributor cut</span><span class="v y">[X]%</span></div>
-        <div class="rr"><span class="k">Your net cut</span><span class="v y">[X]%</span></div>
-        <div class="rnote">Update with your actual distributor deal. DistroKid = 100% to artist (flat annual fee). CD Baby = 9%. Tunecore = flat fee. Knowing this number changes every decision.</div>
-      </div>
-      <div class="rc">
-        <div class="rt">Publishing &amp; royalties</div>
-        <div class="rr"><span class="k">PRS registered</span><span class="v">[Yes / No]</span></div>
-        <div class="rr"><span class="k">PPL registered</span><span class="v">[Yes / No]</span></div>
-        <div class="rr"><span class="k">Publishing deal</span><span class="v">[Self / Label]</span></div>
-        <div class="rr"><span class="k">Sync split</span><span class="v y">[XX / XX]</span></div>
-        <div class="rr"><span class="k">PRS per radio play</span><span class="v">~£[X]</span></div>
-        <div class="rnote">12 documented radio stations × documented plays = uncollected PRS if you're not registered. Register both PRS and PPL immediately. Back-catalogue claims possible within 3 years.</div>
-      </div>
-      <div class="rc">
-        <div class="rt">Relaunch priority order</div>
-        <div class="alist">
-          <div class="aitem"><span class="anum">01</span><div class="atxt"><strong>Register back catalogue with PRS + PPL</strong>Every documented radio play above is money sitting uncollected. Do this today.</div></div>
-          <div class="aitem"><span class="anum">02</span><div class="atxt"><strong>Consolidate to one distributor</strong>Fragmented distribution = fragmented data. One platform, one dashboard, one payment.</div></div>
-          <div class="aitem"><span class="anum">03</span><div class="atxt"><strong>BBC Introducing first, then press</strong>National coverage unlocks editorial playlist pitching. Correct sequence: radio → press → DSP editorial.</div></div>
-          <div class="aitem"><span class="anum">04</span><div class="atxt"><strong>Reactivate Hype Machine profile</strong>Charted at #14. "Returns to top 20" is a headline. Activate legacy social proof before new release drops.</div></div>
+  <!-- FOUNDATION STATS -->
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-label tri">Foundation</div>
+      <h2>The career so far</h2>
+      <p style="max-width:600px;margin-bottom:var(--s-5);font-size:17px;">Not a fresh start — a continuation. Project Redshift's first run produced a real body of work and real coverage. Here's what's already on the table.</p>
+      <div class="foundation-grid">
+        <div class="stat">
+          <div class="label">Singles Released</div>
+          <div class="value">4</div>
+          <div class="sub">2017 — 2019</div>
+        </div>
+        <div class="stat">
+          <div class="label">Music Videos</div>
+          <div class="value">3</div>
+          <div class="sub">Sanity Catches · Serenity · Crossfire</div>
+        </div>
+        <div class="stat">
+          <div class="label">Press Outlets</div>
+          <div class="value">7+</div>
+          <div class="sub">Incl. national rock press</div>
+        </div>
+        <div class="stat">
+          <div class="label">National Radio</div>
+          <div class="value">Yes</div>
+          <div class="sub">Planet Rock Radio airplay</div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- ROUTER — First Listen -->
+  <section id="listen">
+    <div class="section-inner">
+      <div class="section-label">First Listen Router</div>
+      <h2>Which song first?</h2>
+      <div class="router-wrap">
+        <div class="router-intro">
+          <p>Project Redshift has four singles spanning 2017–2019. The shortest path to liking the band is starting with the right one.</p>
+          <p>Answer one question. We'll pick.</p>
+        </div>
+        <div class="router-card">
+          <div class="router-q">What do you want from a rock song?</div>
+          <div class="router-options" id="router-opts">
+            <button class="router-opt" data-value="riff">Riffs that hit you in the chest</button>
+            <button class="router-opt" data-value="melody">A chorus you can't shake</button>
+            <button class="router-opt" data-value="message">Lyrics that say something</button>
+            <button class="router-opt" data-value="surprise">Surprise me</button>
+          </div>
+          <div class="router-result" id="router-result">
+            <div class="reco-label">Start here</div>
+            <div class="reco-title" id="reco-title">—</div>
+            <div class="reco-desc" id="reco-desc">—</div>
+            <a href="#catalogue" id="reco-link">Jump to the player ↓</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / BIO -->
+  <section class="dark">
+    <div class="section-inner">
+      <div class="section-label sq">About</div>
+      <h2>The Story</h2>
+
+      <div class="toggle-wrap">
+        <span class="toggle-label">Reading as</span>
+        <div class="toggle" role="tablist" aria-label="Bio version">
+          <button class="active" data-bio="press" aria-selected="true">Press</button>
+          <button data-bio="fan">Fan</button>
+        </div>
+      </div>
+
+      <div class="bio-block" id="bio-press">
+        <div class="h">Press Bio</div>
+        <p>Project Redshift is a hard rock trio from Louth, Lincolnshire, UK. Formed October 2016. Four singles released between October 2017 and January 2019: <em>Sanity Catches</em>, <em>Shadow Weather</em>, <em>Serenity</em>, and <em>Crossfire</em>.</p>
+        <p>Cited influences include Royal Blood, Queens of the Stone Age and Foo Fighters. The band have been praised by BBC Introducing, Maximum Volume Music (Band of the Day, January 2019) and Distorted Sound Magazine. <em>Crossfire</em> received airplay on Planet Rock Radio and was featured by ALTCORNER. The band have shared lineups beneath The Hoosiers and Fickle Friends.</p>
+        <p>New single <em>Playing the Game</em> is scheduled for 2026 — the band's first new music in seven years.</p>
+        <div class="bio-meta">
+          <div class="item"><div class="label">FFO</div><div class="val">Royal Blood / QOTSA / Foo Fighters</div></div>
+          <div class="item"><div class="label">Territory</div><div class="val">UK · Lincolnshire</div></div>
+          <div class="item"><div class="label">Status</div><div class="val">Independent</div></div>
+        </div>
+      </div>
+
+      <div class="bio-block hidden" id="bio-fan">
+        <div class="h">For Fans</div>
+        <p>Three mates from Lincolnshire who started a band in 2016, put four singles out, played pubs and a couple of festivals, and then life got in the way. Seven years later there's new music coming — and a story worth telling.</p>
+        <p>If you've ever liked Royal Blood, QOTSA or the loud-and-melodic end of British rock, this is for you. The catalogue is short and tight: four singles, three music videos, one long pause, and a fifth single about to land.</p>
+        <p><em>Playing the Game</em> is the comeback. Stick around.</p>
+        <div class="bio-meta">
+          <div class="item"><div class="label">If You Like</div><div class="val">Loud rock with melody</div></div>
+          <div class="item"><div class="label">Start With</div><div class="val">The router above ↑</div></div>
+          <div class="item"><div class="label">Stay Close</div><div class="val">Follow on Spotify ↓</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE -->
+  <section id="catalogue">
+    <div class="section-inner">
+      <div class="section-label cir">Catalogue</div>
+      <h2>Four Singles</h2>
+
+      <div class="catalogue-grid">
+
+        <article class="release">
+          <div class="release-header">
+            <div>
+              <div class="release-meta">Oct 2017 · Debut Single</div>
+              <div class="release-title">Sanity Catches</div>
+            </div>
+          </div>
+          <div class="release-credits">
+            Written by Tunnicliffe / Thickett / Turner<br>
+            Produced &amp; mastered by Tom Milner · The Pump House Studio, Louth<br>
+            BBC Introducing praised on release · 2017
+          </div>
+          <div class="release-embed">
+            <iframe src="https://open.spotify.com/embed/track/4znvyrupBmEKx7CRgWMq8u?utm_source=generator&theme=0"
+                    height="152" allowfullscreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy" title="Sanity Catches on Spotify"></iframe>
+          </div>
+        </article>
+
+        <article class="release">
+          <div class="release-header">
+            <div>
+              <div class="release-meta">Jul 2018 · Second Single</div>
+              <div class="release-title">Shadow Weather</div>
+            </div>
+          </div>
+          <div class="release-credits">
+            Written by Tunnicliffe / Thickett / Turner<br>
+            Runtime: 3:38
+          </div>
+          <div class="release-embed">
+            <iframe src="https://open.spotify.com/embed/track/5N3Xwl36g5XNYt6eE5WMRL?utm_source=generator&theme=0"
+                    height="152" allowfullscreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy" title="Shadow Weather on Spotify"></iframe>
+          </div>
+        </article>
+
+        <article class="release">
+          <div class="release-header">
+            <div>
+              <div class="release-meta">Sep 2018 · Third Single</div>
+              <div class="release-title">Serenity</div>
+            </div>
+          </div>
+          <div class="release-credits">
+            Written by Tunnicliffe / Thickett / Turner<br>
+            Recorded, mixed &amp; mastered by Zach Pritchard
+          </div>
+          <div class="release-embed">
+            <iframe src="https://bandcamp.com/EmbeddedPlayer/track=3960254059/size=large/bgcol=ffffff/linkcol=C8302A/tracklist=false/artwork=small/transparent=true/"
+                    height="120" allowfullscreen
+                    loading="lazy" title="Serenity on Bandcamp"></iframe>
+          </div>
+        </article>
+
+        <article class="release">
+          <div class="release-header">
+            <div>
+              <div class="release-meta">Jan 2019 · Fourth Single · Live highlight</div>
+              <div class="release-title">Crossfire</div>
+            </div>
+          </div>
+          <div class="release-credits">
+            Maximum Volume Music Band of the Day · Distorted Sound: "their best song yet"<br>
+            ALTCORNER A–Z interview · Planet Rock Radio airplay
+          </div>
+          <div class="release-embed">
+            <iframe src="https://open.spotify.com/embed/track/3jpAk7CtMqEzeAB0WyVy7M?utm_source=generator&theme=0"
+                    height="152" allowfullscreen
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy" title="Crossfire on Spotify"></iframe>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MUSIC VIDEOS -->
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-label">Music Videos</div>
+      <h2>Three Films</h2>
+      <div class="videos-grid">
+        <div class="video-card">
+          <div class="embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/rbM9UxyU88A"
+                    title="Sanity Catches — Official Music Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="meta">
+            <div class="title">Sanity Catches</div>
+            <div class="year">2018 · Dir. Phoebe Waddington / Bohemia Films</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="embed" style="background:#111;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:var(--font-mono);font-size:11px;color:#555;text-align:center;padding:16px">Serenity<br>Video ID TBC<br><a href="https://www.youtube.com/@projectredshift8125" target="_blank" rel="noopener" style="color:#E8C018;border-bottom:1px solid #E8C018">→ YouTube Channel</a></span>
+          </div>
+          <div class="meta">
+            <div class="title">Serenity</div>
+            <div class="year">2018 · Music Video</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="embed" style="background:#111;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:var(--font-mono);font-size:11px;color:#555;text-align:center;padding:16px">Crossfire<br>Video ID TBC<br><a href="https://www.youtube.com/@projectredshift8125" target="_blank" rel="noopener" style="color:#E8C018;border-bottom:1px solid #E8C018">→ YouTube Channel</a></span>
+          </div>
+          <div class="meta">
+            <div class="title">Crossfire</div>
+            <div class="year">2019 · Premiered 11 Jan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS -->
+  <section id="press" class="dark">
+    <div class="section-inner">
+      <div class="section-label tri">Press</div>
+      <h2>What they said</h2>
+      <div class="press-grid">
+        <div class="press-card">
+          <div class="outlet">Maximum Volume Music</div>
+          <div class="quote">This rocking trio don't pull any punches musically</div>
+          <div class="ref">Band of the Day · January 2019</div>
+        </div>
+        <div class="press-card">
+          <div class="outlet">Distorted Sound Magazine</div>
+          <div class="quote">Their best song yet</div>
+          <div class="ref">On Crossfire · January 2019</div>
+        </div>
+        <div class="press-card">
+          <div class="outlet">Planet Rock</div>
+          <div class="quote">On-air rotation</div>
+          <div class="ref">National UK rock radio · 2019</div>
+        </div>
+        <div class="press-card">
+          <div class="outlet">ALTCORNER</div>
+          <div class="quote">A long-form A–Z with the band</div>
+          <div class="ref">Interview · February 2019</div>
+        </div>
+        <div class="press-card">
+          <div class="outlet">BBC Introducing</div>
+          <div class="quote">Praised on the band's debut single</div>
+          <div class="ref">Lincolnshire · 2017</div>
+        </div>
+        <div class="press-card">
+          <div class="outlet">Gigs &amp; Freudian Slips</div>
+          <div class="quote">Lincolnshire Band of the Week</div>
+          <div class="ref">Local feature · June 2017</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAND MEMBERS -->
+  <section id="band">
+    <div class="section-inner">
+      <div class="section-label cir">Band</div>
+      <h2>Three pieces</h2>
+      <div class="members-grid">
+        <div class="member">
+          <div class="glyph circle" aria-hidden="true"></div>
+          <div class="role">Bass · Vocals</div>
+          <div class="name">Pete Thickett</div>
+          <div class="detail">
+            Co-founder · Lincolnshire-based · Currently driving the 2026 reactivation including <em>Playing the Game</em>.
+          </div>
+        </div>
+        <div class="member">
+          <div class="glyph square" aria-hidden="true"></div>
+          <div class="role">Guitar · Lead Vocals</div>
+          <div class="name">Josh Tunnicliffe</div>
+          <div class="detail">
+            Co-founder · Lead vocals · Primary songwriter across the 2017–2019 catalogue.
+          </div>
+        </div>
+        <div class="member">
+          <div class="glyph triangle" aria-hidden="true"></div>
+          <div class="role">Drums</div>
+          <div class="name">James Turner</div>
+          <div class="detail">
+            Co-founder · Held the band's signature time-feel across all four singles.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-label">Timeline</div>
+      <h2>Ten years, one band</h2>
+      <div class="timeline" aria-label="Project Redshift career timeline">
+        <div class="tl-event cat-formation"><div class="marker" aria-hidden="true"></div><div class="date">Oct 2016</div><div class="title">Band formed · Louth, Lincolnshire</div></div>
+        <div class="tl-event cat-press"><div class="marker" aria-hidden="true"></div><div class="date">Jun 2017</div><div class="title">First press · Gigs &amp; Freudian Slips</div></div>
+        <div class="tl-event cat-release"><div class="marker" aria-hidden="true"></div><div class="date">Oct 2017</div><div class="title">Sanity Catches released</div></div>
+        <div class="tl-event cat-press"><div class="marker" aria-hidden="true"></div><div class="date">2017</div><div class="title">BBC Introducing praise · Lincolnshire</div></div>
+        <div class="tl-event cat-release"><div class="marker" aria-hidden="true"></div><div class="date">Apr 2018</div><div class="title">Sanity Catches music video · Bohemia Films</div></div>
+        <div class="tl-event cat-release"><div class="marker" aria-hidden="true"></div><div class="date">Jul 2018</div><div class="title">Shadow Weather released</div></div>
+        <div class="tl-event cat-release"><div class="marker" aria-hidden="true"></div><div class="date">Sep 2018</div><div class="title">Serenity released</div></div>
+        <div class="tl-event cat-live"><div class="marker" aria-hidden="true"></div><div class="date">2018</div><div class="title">Supports: The Hoosiers · Fickle Friends</div></div>
+        <div class="tl-event cat-release"><div class="marker" aria-hidden="true"></div><div class="date">Jan 2019</div><div class="title">Crossfire single + video premiere</div></div>
+        <div class="tl-event cat-press"><div class="marker" aria-hidden="true"></div><div class="date">Jan 2019</div><div class="title">Maximum Volume Music · Band of the Day</div></div>
+        <div class="tl-event cat-press"><div class="marker" aria-hidden="true"></div><div class="date">Jan 2019</div><div class="title">Distorted Sound Magazine feature</div></div>
+        <div class="tl-event cat-press"><div class="marker" aria-hidden="true"></div><div class="date">Feb 2019</div><div class="title">ALTCORNER A–Z interview</div></div>
+        <div class="tl-event cat-press"><div class="marker" aria-hidden="true"></div><div class="date">2019</div><div class="title">Planet Rock Radio airplay</div></div>
+        <div class="tl-event cat-future"><div class="marker" aria-hidden="true"></div><div class="date">2026</div><div class="title">Reactivation · Playing the Game incoming</div></div>
+      </div>
+      <div style="margin-top:var(--s-3);font-family:var(--font-mono);font-size:11px;color:#666;display:flex;gap:var(--s-4);flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--red);display:inline-block;flex-shrink:0"></span>Release</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--blue);border-radius:50%;display:inline-block;flex-shrink:0"></span>Press</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--yellow);display:inline-block;flex-shrink:0"></span>Live</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--black);display:inline-block;flex-shrink:0"></span>Formation / Future</span>
+      </div>
+    </div>
+  </section>
 
   <!-- IN PRODUCTION -->
-  <div class="sec">
-    <div class="sec-hdr">
-      <h2>In Production</h2>
-      <span class="sec-ct">2026 · written &amp; recorded from scratch</span>
-      <span class="sec-tag live">● Recording</span>
+  <section id="production">
+    <div class="section-inner">
+      <div class="section-label sq">In Production</div>
+      <h2>2026 · New Music</h2>
+      <div class="production-grid">
+        <div class="prod-card">
+          <div class="prod-deco"></div>
+          <div class="prod-status"><span class="prod-dot rec"></span>Recording · 5th single</div>
+          <div class="prod-title">Playing the Game</div>
+          <div class="prod-desc">The comeback single. Written from scratch. Project Redshift's first new music since <em>Crossfire</em> in 2019. Release date TBC 2026.</div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-deco"></div>
+          <div class="prod-status"><span class="prod-dot wri"></span>Writing · pre-production</div>
+          <div class="prod-title">Untitled — 2026 B</div>
+          <div class="prod-desc">Early stage. Structure in place. Arrangement pass pending. Not tracked yet.</div>
+        </div>
+        <div class="prod-card">
+          <div class="prod-deco"></div>
+          <div class="prod-status"><span class="prod-dot wri"></span>Concept · open slot</div>
+          <div class="prod-title">Untitled — 2026 C</div>
+          <div class="prod-desc">Target: 3-track EP for 2026. Enough to re-establish presence without overcommitting.</div>
+        </div>
+      </div>
+      <div class="prod-announce">
+        <div class="ah">What the audience sees on this page</div>
+        <p>Project Redshift is writing new music. Scratch recordings are underway. No release date confirmed yet. <em>Playing the Game</em> is the first single — the band's comeback after seven years. If you want to hear it before anyone else, follow on Spotify or get in touch.</p>
+      </div>
     </div>
-    <div class="tg">
-      <div class="track">
-        <div class="track-deco"></div>
-        <div class="ts"><span class="td rec"></span>Recording · scratch track</div>
-        <div class="tn2">[Untitled 2026 — A]</div>
-        <div class="tdesc">New material. No legacy sonic reference. Written from the ground up. Add your direction note here — the one sentence that describes where this one is heading.</div>
-      </div>
-      <div class="track">
-        <div class="track-deco"></div>
-        <div class="ts"><span class="td wri"></span>Writing · pre-production</div>
-        <div class="tn2">[Untitled 2026 — B]</div>
-        <div class="tdesc">Early stage. Structure in place. Needs arrangement pass. Not tracked yet.</div>
-      </div>
-      <div class="track">
-        <div class="track-deco"></div>
-        <div class="ts"><span class="td wri"></span>Concept · not yet tracked</div>
-        <div class="tn2">[Slot 3 — open]</div>
-        <div class="tdesc">Target: 3-track EP for Q3 2026. Enough to re-establish presence without overcommitting. Third track TBD.</div>
-      </div>
-    </div>
+  </section>
 
-    <div style="margin-top:14px;padding:13px 16px;border:1px solid rgba(226,35,26,.22);background:rgba(226,35,26,.04);font-size:9px;line-height:1.75;color:var(--dim)">
-      <strong style="color:var(--paper);display:block;margin-bottom:4px;font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:600">Public-facing message — what your audience sees on this page:</strong>
-      Project Redshift is writing new music. Scratch recordings are underway. No release date confirmed. If you want to hear it before anyone else, the mailing list is the only place that gets advance notice.
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
-        <a href="#" style="border:1px solid var(--line2);padding:4px 12px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);text-decoration:none;transition:all .2s">→ Add mailing list link</a>
-        <a href="#" style="border:1px solid var(--line2);padding:4px 12px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);text-decoration:none;transition:all .2s">→ Add Linktree / bio link</a>
+  <!-- REVENUE INTELLIGENCE — internal only -->
+  <section class="int-sec" id="revSec">
+    <div class="section-inner">
+      <div class="section-label sq">Revenue Intelligence</div>
+      <h2>How the money flows</h2>
+      <div class="int-flag">Internal · Confidential — not visible publicly</div>
+      <div class="rev-grid">
+        <div class="rc">
+          <div class="rt">Streaming Splits</div>
+          <div class="rr"><span class="k">Spotify per stream</span><span class="v">~£0.003</span></div>
+          <div class="rr"><span class="k">Apple Music per stream</span><span class="v">~£0.007</span></div>
+          <div class="rr"><span class="k">YouTube per 1k views</span><span class="v">~£0.80</span></div>
+          <div class="rr"><span class="k">Distributor cut</span><span class="v y">Update →</span></div>
+          <div class="rr"><span class="k">Your net</span><span class="v y">Update →</span></div>
+          <div class="rnote">DistroKid = 100% to artist (flat fee). CD Baby = 9%. TuneCore = flat fee. Knowing this number changes every decision — update now.</div>
+        </div>
+        <div class="rc">
+          <div class="rt">Publishing &amp; Royalties</div>
+          <div class="rr"><span class="k">PRS registered</span><span class="v y">Confirm →</span></div>
+          <div class="rr"><span class="k">PPL registered</span><span class="v y">Confirm →</span></div>
+          <div class="rr"><span class="k">Publishing deal</span><span class="v">Self / independent</span></div>
+          <div class="rr"><span class="k">Sync split</span><span class="v y">Update →</span></div>
+          <div class="rr"><span class="k">PRS per radio play</span><span class="v">~£[x]</span></div>
+          <div class="rnote">Planet Rock airplay + BBC Introducing = uncollected PRS money if not registered. Back-catalogue claims possible within 3 years. Register both PRS and PPL immediately.</div>
+        </div>
+        <div class="rc">
+          <div class="rt">Relaunch Priority Order</div>
+          <div class="alist">
+            <div class="aitem"><span class="anum">01</span><div class="atxt"><strong>Register back catalogue with PRS + PPL</strong>Every documented radio play is money sitting uncollected. Planet Rock airplay = real PRS income. Do this first.</div></div>
+            <div class="aitem"><span class="anum">02</span><div class="atxt"><strong>Consolidate to one distributor</strong>Fragmented distribution = fragmented data. One platform, one dashboard, one payment.</div></div>
+            <div class="aitem"><span class="anum">03</span><div class="atxt"><strong>BBC Introducing first, then press</strong>National coverage unlocks editorial playlist pitching. Correct sequence: radio → press → DSP editorial.</div></div>
+            <div class="aitem"><span class="anum">04</span><div class="atxt"><strong>Reactivate legacy social proof</strong>Band of the Day, Distorted Sound, Planet Rock — these headlines deserve a landing page. Lock them in before new release drops.</div></div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- FIND / FOLLOW -->
+  <section id="contact" class="dark">
+    <div class="section-inner">
+      <div class="section-label">Find / Follow</div>
+      <h2>Listen everywhere</h2>
+      <div class="platforms">
+        <a class="platform" href="https://open.spotify.com/artist/2BIovC5SuKhsdlomaKEp5E" target="_blank" rel="noopener"><span class="name">Spotify</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://music.apple.com/gb/artist/project-redshift/1290516094" target="_blank" rel="noopener"><span class="name">Apple Music</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://projectredshift.bandcamp.com/" target="_blank" rel="noopener"><span class="name">Bandcamp</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://www.youtube.com/@projectredshift8125" target="_blank" rel="noopener"><span class="name">YouTube</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://www.facebook.com/projectredshift/" target="_blank" rel="noopener"><span class="name">Facebook</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://www.instagram.com/proredshiftband/" target="_blank" rel="noopener"><span class="name">Instagram</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://twitter.com/proredshiftband" target="_blank" rel="noopener"><span class="name">Twitter / X</span><span class="arrow">→</span></a>
+        <a class="platform" href="https://www.last.fm/music/Project+Redshift" target="_blank" rel="noopener"><span class="name">Last.fm</span><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-inner">
+    <div>
+      <div class="lockup">Project<br><span class="accent">Redshift</span></div>
+      <p>UK hard rock trio from Lincolnshire. Four singles 2017–2019. New single <em>Playing the Game</em> coming 2026.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:pete@ptlive.design">pete@ptlive.design</a></li>
+        <li><a href="#listen">First listen router</a></li>
+        <li><a href="#press">Press</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#new">New Single</a></li>
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#band">Band</a></li>
+        <li><a href="pareto.html">← Back to Pareto</a></li>
+      </ul>
     </div>
   </div>
-
-</div><!-- /wrap -->
-
-<div id="foot">
-  <span>Project Redshift · Pareto Creative Sub-Product · 2026</span>
-  <div class="flinks">
-    <a href="#">Booking</a>
-    <a href="#">Press pack</a>
-    <a href="#">All links</a>
-    <a href="pareto.html">← Pareto</a>
+  <div class="f-inner colophon">
+    <span>© 2026 Pete Thickett / Project Redshift</span>
+    <span>Artist Dashboard · v1.0</span>
   </div>
-</div>
+</footer>
 
 <script>
-let intMode = false;
+/* ── ROUTER ── */
+const recommendations = {
+  riff: {
+    title: 'Crossfire',
+    desc: 'Released January 2019. The heaviest release and a live highlight — featured on Maximum Volume Music and Distorted Sound Magazine, with Planet Rock airplay.',
+  },
+  melody: {
+    title: 'Sanity Catches',
+    desc: 'The debut single, October 2017. The chorus that opens the catalogue — praised by BBC Introducing on release.',
+  },
+  message: {
+    title: 'Crossfire',
+    desc: 'An anti-war song about soldiers caught in decisions made by people who don\'t fight. The most lyrically direct in the catalogue.',
+  },
+  surprise: {
+    title: 'Serenity',
+    desc: 'September 2018. The slowest and most considered track — produced by Zach Pritchard. About a transformative moment that wipes the slate clean.',
+  },
+};
 
-function toggleMode() {
-  intMode = !intMode;
-  const btn = document.getElementById('modeBtn');
-  const rev = document.getElementById('revSec');
-  btn.classList.toggle('on', intMode);
-  btn.textContent = intMode ? '⚿ Internal ON' : '⚿ Internal view';
-  rev.classList.toggle('show', intMode);
-}
-
-// Animated count-up for hero numbers
-function countUp(id, end, suffix, ms) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const isK = String(end).includes('K') || end >= 1000;
-  const target = isK ? Math.round(end / 1000) : end;
-  const sfx = (isK ? 'K' : '') + (suffix || '');
-  let n = 0, step = target / (ms / 16);
-  const t = setInterval(() => {
-    n = Math.min(n + step, target);
-    el.textContent = Math.floor(n) + sfx;
-    if (n >= target) clearInterval(t);
-  }, 16);
-}
-
-// Compute release gap dynamically
-function setGap() {
-  // Update LAST_RELEASE_YEAR with your actual last release year
-  const LAST_RELEASE_YEAR = null;
-  const el = document.getElementById('kGap');
-  if (!el) return;
-  if (!LAST_RELEASE_YEAR) { el.textContent = '—'; return; }
-  const gap = new Date().getFullYear() - LAST_RELEASE_YEAR;
-  el.textContent = gap + 'yr' + (gap !== 1 ? 's' : '');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Replace these with real numbers when you have them
-  countUp('hpP', 847, '+', 1200);
-  countUp('kStreams', 124000, '', 1400);
-  setGap();
+document.querySelectorAll('.router-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.router-opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const r = recommendations[btn.dataset.value];
+    document.getElementById('reco-title').textContent = r.title;
+    document.getElementById('reco-desc').textContent  = r.desc;
+    document.getElementById('router-result').classList.add('show');
+  });
 });
+
+/* ── BIO TOGGLE ── */
+const toggleBtns = document.querySelectorAll('.toggle button');
+const bioPress = document.getElementById('bio-press');
+const bioFan   = document.getElementById('bio-fan');
+
+toggleBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    toggleBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    if (btn.dataset.bio === 'press') {
+      bioPress.classList.remove('hidden');
+      bioFan.classList.add('hidden');
+    } else {
+      bioFan.classList.remove('hidden');
+      bioPress.classList.add('hidden');
+    }
+  });
+});
+
+/* ── INTERNAL MODE TOGGLE ── */
+function toggleInternal() {
+  const btn = document.getElementById('intBtn');
+  const rev = document.getElementById('revSec');
+  const on  = btn.classList.toggle('on');
+  btn.textContent = on ? '⚿ Internal ON' : '⚿ Internal';
+  rev.classList.toggle('show', on);
+}
 </script>
+
 </body>
 </html>
