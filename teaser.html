@@ -227,51 +227,71 @@ html,body{width:100%;height:100%;overflow:hidden;background:#060606}
   margin-top:40px;
 }
 
-/* ─── DROP ZONE ─── */
-.dropzone{
-  position:fixed;bottom:40px;left:50%;
-  transform:translateX(-50%);
-  z-index:50;
+/* ─── START OVERLAY ─── */
+#startOverlay{
+  position:fixed;inset:0;z-index:500;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  cursor:pointer;background:transparent;
   pointer-events:all;
+}
+#startOverlay.hidden{display:none}
+.start-btn{
   display:flex;flex-direction:column;
   align-items:center;gap:16px;
 }
-.drop-inner{
-  border:1px solid rgba(214,48,48,.35);
-  padding:16px 32px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(214,48,48,.6);
-  background:rgba(214,48,48,.04);
-  cursor:pointer;
+.start-circle{
+  width:88px;height:88px;border-radius:50%;
+  background:rgba(214,48,48,.7);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 40px rgba(214,48,48,.4),0 0 80px rgba(214,48,48,.15);
   transition:all .2s;
-  position:relative;
-  overflow:hidden;
 }
-.drop-inner:hover{
-  border-color:rgba(214,48,48,.7);
-  color:#ff3a3a;
-  background:rgba(214,48,48,.1);
+#startOverlay:hover .start-circle{
+  background:#ff3a3a;
+  box-shadow:0 0 60px rgba(214,48,48,.6),0 0 120px rgba(214,48,48,.2);
 }
-.drop-inner.over{
-  border-color:#ff3a3a;
-  background:rgba(214,48,48,.15);
-  color:#ff3a3a;
+.start-triangle{
+  width:0;height:0;
+  border-left:30px solid #fff;
+  border-top:19px solid transparent;
+  border-bottom:19px solid transparent;
+  margin-left:8px;
 }
-.drop-inner input[type=file]{
-  position:absolute;inset:0;opacity:0;cursor:pointer;
+.start-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(240,240,240,.5);
+}
+.start-hint{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(214,48,48,.4);margin-top:20px;
+  animation:blink 3s ease-in-out infinite;
 }
 
-/* audio controls */
+/* ─── PLAYER BAR ─── */
 .player-bar{
+  position:fixed;bottom:40px;left:50%;
+  transform:translateX(-50%);
+  z-index:50;pointer-events:all;
   display:none;
   align-items:center;gap:14px;
-  background:rgba(10,10,10,.9);
+  background:rgba(8,8,8,.92);
   border:1px solid rgba(214,48,48,.2);
   padding:10px 20px;
   min-width:320px;
 }
 .player-bar.show{display:flex}
+.load-other{
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;color:rgba(214,48,48,.4);
+  cursor:pointer;padding:4px 8px;
+  border:1px solid rgba(214,48,48,.2);
+  transition:all .2s;flex-shrink:0;
+  line-height:1;
+}
+.load-other:hover{color:#ff3a3a;border-color:rgba(214,48,48,.5)}
 .play-btn{
   width:36px;height:36px;border-radius:50%;
   background:rgba(214,48,48,.9);border:none;
@@ -422,27 +442,37 @@ html,body{width:100%;height:100%;overflow:hidden;background:#060606}
   <div class="byline">Project Redshift · 2026</div>
 </div>
 
-<!-- Controls -->
-<div class="dropzone" id="dropzone">
-  <div class="drop-inner" id="dropTarget">
-    <input type="file" accept="audio/*" id="audioFile">
-    ▶ Drop teaser audio to activate
-  </div>
-  <div class="idle-hint" id="idleHint">visualiser ready · waiting for audio</div>
-
-  <div class="player-bar" id="playerBar">
-    <button class="play-btn" id="playBtn">▶</button>
-    <span class="track-name" id="trackName">—</span>
-    <div class="progress-wrap" id="progressWrap">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+<!-- Press to play overlay -->
+<div id="startOverlay">
+  <div class="start-btn" id="startBtn">
+    <div class="start-circle">
+      <div class="start-triangle"></div>
     </div>
-    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+    <div class="start-label">Press to play</div>
   </div>
+  <div class="start-hint">Playing the Game · Teaser · 0:35–1:24 · loops</div>
 </div>
 
-<audio id="audioEl" crossorigin="anonymous"></audio>
+<!-- Minimal player bar (shown after first play) -->
+<div class="player-bar" id="playerBar">
+  <button class="play-btn" id="playBtn">❚❚</button>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <span class="time-display" id="timeDisplay">0:35 / 1:24</span>
+  <label class="load-other" title="Load different file">
+    <input type="file" accept="audio/*" id="audioFile" style="display:none">
+    ↺
+  </label>
+</div>
+
+<audio id="audioEl" src="playing-the-game-teaser.mp3" preload="auto"></audio>
 
 <script>
+// ─── TEASER WINDOW ───
+const TEASER_START = 35;
+const TEASER_END   = 84;
+
 // ─── GRAIN CANVAS ───
 const grainCanvas = document.getElementById('grain');
 const gctx = grainCanvas.getContext('2d');
@@ -477,8 +507,17 @@ function resizeViz(){
 resizeViz();
 window.addEventListener('resize', resizeViz);
 
-// ─── AUDIO ───
-const audioEl = document.getElementById('audioEl');
+// ─── AUDIO SETUP ───
+const audioEl      = document.getElementById('audioEl');
+const startOverlay = document.getElementById('startOverlay');
+const playerBar    = document.getElementById('playerBar');
+const playBtn      = document.getElementById('playBtn');
+const progressFill = document.getElementById('progressFill');
+const timeDisplay  = document.getElementById('timeDisplay');
+const progressWrap = document.getElementById('progressWrap');
+const audioFile    = document.getElementById('audioFile');
+const dice         = document.getElementById('dice');
+
 let audioCtx, analyser, dataArray, bufLen;
 let isPlaying = false;
 let audioReady = false;
@@ -496,104 +535,85 @@ function initAudio(){
   audioReady = true;
 }
 
-// ─── FILE LOADING ───
-const audioFile   = document.getElementById('audioFile');
-const dropTarget  = document.getElementById('dropTarget');
-const playerBar   = document.getElementById('playerBar');
-const dropzone    = document.getElementById('dropzone');
-const idleHint    = document.getElementById('idleHint');
-const playBtn     = document.getElementById('playBtn');
-const trackName   = document.getElementById('trackName');
-const progressFill= document.getElementById('progressFill');
-const timeDisplay = document.getElementById('timeDisplay');
-const progressWrap= document.getElementById('progressWrap');
-const dice        = document.getElementById('dice');
-
-function loadFile(file){
-  if(!file.type.startsWith('audio/')) return;
+function startTeaser(){
   initAudio();
-  const url = URL.createObjectURL(file);
-  audioEl.src = url;
-  trackName.textContent = file.name.replace(/\.[^.]+$/,'');
-  playerBar.classList.add('show');
-  idleHint.style.display = 'none';
-  dropTarget.innerHTML   = '<input type="file" accept="audio/*" id="audioFile2"> ↺ Load different file';
-  document.getElementById('audioFile2').addEventListener('change', e=>{
-    if(e.target.files[0]) loadFile(e.target.files[0]);
-  });
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  audioEl.currentTime = TEASER_START;
   audioEl.play().then(()=>{
     isPlaying = true;
     playBtn.textContent = '❚❚';
-    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    startOverlay.classList.add('hidden');
+    playerBar.classList.add('show');
   }).catch(()=>{});
 }
 
-audioFile.addEventListener('change', e=>{
-  if(e.target.files[0]) loadFile(e.target.files[0]);
-});
+// overlay click → start
+startOverlay.addEventListener('click', startTeaser);
 
-// Drag and drop
-dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropTarget.classList.add('over'); });
-dropzone.addEventListener('dragleave', ()=>dropTarget.classList.remove('over'));
-dropzone.addEventListener('drop', e=>{
-  e.preventDefault(); dropTarget.classList.remove('over');
-  const f = e.dataTransfer.files[0];
-  if(f) loadFile(f);
-});
-document.body.addEventListener('dragover', e=>e.preventDefault());
-document.body.addEventListener('drop', e=>{
-  e.preventDefault();
-  const f = e.dataTransfer.files[0];
-  if(f) loadFile(f);
-});
-
-// play/pause
+// play / pause button
 playBtn.addEventListener('click', ()=>{
-  if(!audioEl.src) return;
-  initAudio();
-  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-  if(audioEl.paused){ audioEl.play(); isPlaying=true; playBtn.textContent='❚❚'; }
-  else { audioEl.pause(); isPlaying=false; playBtn.textContent='▶'; }
+  if(!audioReady){ startTeaser(); return; }
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  if(audioEl.paused){
+    audioEl.play();
+    isPlaying = true;
+    playBtn.textContent = '❚❚';
+  } else {
+    audioEl.pause();
+    isPlaying = false;
+    playBtn.textContent = '▶';
+  }
 });
 
-// progress
-function formatTime(s){
-  const m = Math.floor(s/60)|0;
-  return m+':'+(('0'+(s%60|0)).slice(-2));
-}
+// teaser loop: keep within 35–84, progress bar relative
+function fmt(s){ return Math.floor(s/60)+':'+(('0'+(s%60|0)).slice(-2)); }
 audioEl.addEventListener('timeupdate', ()=>{
-  if(!audioEl.duration) return;
-  const pct = (audioEl.currentTime / audioEl.duration)*100;
-  progressFill.style.width = pct+'%';
-  timeDisplay.textContent  = formatTime(audioEl.currentTime)+' / '+formatTime(audioEl.duration);
+  const pos = audioEl.currentTime;
+  if(pos >= TEASER_END){
+    audioEl.currentTime = TEASER_START;
+    return;
+  }
+  const elapsed = Math.max(0, pos - TEASER_START);
+  const dur = TEASER_END - TEASER_START;
+  progressFill.style.width = (elapsed / dur * 100) + '%';
+  timeDisplay.textContent  = fmt(elapsed) + ' / ' + fmt(dur);
 });
-audioEl.addEventListener('ended', ()=>{ isPlaying=false; playBtn.textContent='▶'; });
+audioEl.addEventListener('ended', ()=>{
+  audioEl.currentTime = TEASER_START;
+  audioEl.play();
+});
 
+// seek within teaser window
 progressWrap.addEventListener('click', e=>{
-  if(!audioEl.duration) return;
   const r = progressWrap.getBoundingClientRect();
-  audioEl.currentTime = ((e.clientX - r.left)/r.width) * audioEl.duration;
+  audioEl.currentTime = TEASER_START + (e.clientX - r.left) / r.width * (TEASER_END - TEASER_START);
+});
+
+// load a different file (↺ button)
+audioFile.addEventListener('change', e=>{
+  const file = e.target.files[0];
+  if(!file || !file.type.startsWith('audio/')) return;
+  audioEl.pause();
+  if(audioReady){ audioCtx.close(); audioCtx = null; audioReady = false; }
+  audioEl.src = URL.createObjectURL(file);
+  audioEl.load();
+  initAudio();
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+  audioEl.play().then(()=>{ isPlaying = true; playBtn.textContent = '❚❚'; }).catch(()=>{});
 });
 
 // ─── MAIN ANIMATION LOOP ───
 let frameCount = 0;
 const CX = ()=> vizCanvas.width/2;
 const CY = ()=> vizCanvas.height/2;
-
-// idle sine wave when no audio
 let phase = 0;
 
 function animate(){
   requestAnimationFrame(animate);
   frameCount++;
-
-  // grain every 3 frames (film-rate feel)
   if(frameCount % 3 === 0) drawGrain();
-
   vctx.clearRect(0,0,vizCanvas.width,vizCanvas.height);
-
   const cx = CX(), cy = CY();
-
   if(audioReady && !audioEl.paused){
     analyser.getByteFrequencyData(dataArray);
     drawAudioVisualiser(cx, cy);
