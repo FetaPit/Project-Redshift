@@ -73,16 +73,23 @@ nav::after{
   border-radius:50%;flex-shrink:0;
   box-shadow:0 0 8px rgba(214,48,48,.6);
 }
-.nav-links{display:flex;align-items:center;gap:2px}
-.nav-links a{
-  color:var(--t2);text-decoration:none;
-  font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-  padding:6px 11px;
-  border-radius:3px;
-  transition:color .15s,background .15s;
+.nav-links{
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;scrollbar-width:none;
 }
-.nav-links a:hover{color:var(--tx);background:rgba(255,255,255,.05)}
-.nav-sep{width:1px;height:18px;background:var(--bd);margin:0 4px}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  color:var(--t3);text-decoration:none;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:0 10px;height:54px;line-height:54px;
+  border-right:1px solid var(--bd);
+  white-space:nowrap;
+  transition:color .15s,background .15s;
+  font-family:var(--mono);
+}
+.nav-links a:hover{color:var(--tx);background:rgba(255,255,255,.04)}
+.nav-links a.nav-active{color:var(--tx);border-bottom:2px solid var(--red)}
+.nav-sep{width:1px;height:18px;background:var(--bd);margin:0 4px;flex-shrink:0}
 .nav-back{
   font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--t3);text-decoration:none;
@@ -716,36 +723,36 @@ a.press-card{cursor:pointer}
 /* ── FOOTER ── */
 footer{
   background:var(--s1);border-top:1px solid var(--bd);
-  padding:52px 28px 32px;
+  padding:0;
 }
-.foot-inner{
+.foot-bar{
   max-width:1240px;margin:0 auto;
-  display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;
-  margin-bottom:36px;
+  padding:14px 28px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:6px 20px;
 }
-@media(max-width:720px){.foot-inner{grid-template-columns:1fr}}
-.foot-brand{
-  font-family:var(--disp);font-size:28px;text-transform:uppercase;
-  line-height:1;margin-bottom:12px;
+.foot-brand-sm{
+  font-family:var(--disp);font-size:11px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--t2);margin-right:8px;
 }
-.foot-brand .r{color:var(--red)}
-footer p{font-size:13px;color:var(--t2);max-width:360px;line-height:1.65}
-footer h4{
-  font-family:var(--mono);font-size:10px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--red);margin-bottom:14px;
+.foot-brand-sm .r{color:var(--red)}
+.foot-links{
+  display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;
+  font-family:var(--mono);font-size:10px;
 }
-footer ul{list-style:none}
-footer li{margin-bottom:8px}
-footer a{
-  color:var(--t2);text-decoration:none;font-size:13px;
-  transition:color .15s;
+.foot-links a{
+  color:var(--t3);text-decoration:none;padding:3px 8px;
+  border-right:1px solid var(--bd);white-space:nowrap;
+  transition:color .15s;letter-spacing:.06em;text-transform:uppercase;
 }
-footer a:hover{color:var(--tx)}
+.foot-links a:last-child{border-right:none}
+.foot-links a:hover{color:var(--tx)}
+.foot-links a.foot-email{color:var(--red)}
 .colophon{
   max-width:1240px;margin:0 auto;
-  padding-top:24px;border-top:1px solid var(--bd);
-  font-family:var(--mono);font-size:10px;color:var(--t3);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:10px 28px;border-top:1px solid var(--bd);
+  font-family:var(--mono);font-size:9px;color:var(--t4);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;
+  letter-spacing:.06em;
 }
 .skip{
   position:absolute;left:-9999px;top:8px;
@@ -846,9 +853,14 @@ footer a:hover{color:var(--tx)}
   <a class="nav-brand" href="#">
     <span class="nav-dot"></span>Project Redshift
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
+    <a href="#teaser">Teaser</a>
+    <a href="#foundation">Stats</a>
+    <a href="#listen">Router</a>
     <a href="#catalogue">Catalogue</a>
+    <a href="#videos">Videos</a>
     <a href="#press">Press</a>
+    <a href="#radio">Radio</a>
     <a href="#live">Live</a>
     <a href="#band">Band</a>
     <a href="#contact">Platforms</a>
@@ -1001,7 +1013,7 @@ footer a:hover{color:var(--tx)}
 <!-- ═══════════════════════════════════════════════
      FOUNDATION
 ════════════════════════════════════════════════ -->
-<section class="sec dark2">
+<section class="sec dark2" id="foundation">
   <div class="wrap">
     <div class="sec-label tri">Foundation</div>
     <h2 class="sec-h2">The Career So Far</h2>
@@ -1190,7 +1202,7 @@ footer a:hover{color:var(--tx)}
 <!-- ═══════════════════════════════════════════════
      MUSIC VIDEOS
 ════════════════════════════════════════════════ -->
-<section class="sec dark2">
+<section class="sec dark2" id="videos">
   <div class="wrap">
     <div class="sec-label">Music Videos</div>
     <h2 class="sec-h2">Three Films</h2>
@@ -1386,7 +1398,7 @@ footer a:hover{color:var(--tx)}
 <!-- ═══════════════════════════════════════════════
      RADIO & MEDIA
 ════════════════════════════════════════════════ -->
-<section class="sec dark2">
+<section class="sec dark2" id="radio">
   <div class="wrap">
     <div class="sec-label">Radio &amp; Media</div>
     <h2 class="sec-h2">On the Airwaves</h2>
@@ -1912,27 +1924,20 @@ footer a:hover{color:var(--tx)}
 </main>
 
 <footer>
-  <div class="foot-inner">
-    <div>
-      <div class="foot-brand">Project<br><span class="r">Redshift</span></div>
-      <p>Hard rock trio from Lincolnshire. Four singles 2017–2019. Planet Rock, BBC Introducing, Hard Rock Hell Radio. New single <em>Playing the Game</em> coming 2026.</p>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:pete@ptlive.design">pete@ptlive.design</a></li>
-        <li><a href="#listen">First listen router</a></li>
-        <li><a href="#press">Press</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Navigate</h4>
-      <ul>
-        <li><a href="#catalogue">Catalogue</a></li>
-        <li><a href="#live">Live History</a></li>
-        <li><a href="#band">Band</a></li>
-        <li><a href="pareto.html">← Back to Pareto</a></li>
-      </ul>
+  <div class="foot-bar">
+    <span class="foot-brand-sm">Project <span class="r">Redshift</span></span>
+    <div class="foot-links">
+      <a href="mailto:ptlived@gmail.com" class="foot-email">ptlived@gmail.com</a>
+      <a href="#teaser">Teaser</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#videos">Videos</a>
+      <a href="#press">Press</a>
+      <a href="#radio">Radio</a>
+      <a href="#live">Live</a>
+      <a href="#band">Band</a>
+      <a href="#contact">Platforms</a>
+      <a href="https://projectredshift.bandcamp.com/music" target="_blank" rel="noopener">Merch →</a>
+      <a href="pareto.html">← Pareto</a>
     </div>
   </div>
   <div class="colophon">
@@ -2004,6 +2009,25 @@ document.querySelectorAll('.toggle button').forEach(btn => {
       btn.disabled = false;
     }
   });
+})();
+
+// Nav scroll-spy — highlight active section tab
+(function(){
+  const sections = ['teaser','foundation','listen','catalogue','videos','press','radio','live','band','contact'];
+  const links = document.querySelectorAll('#navLinks a[href^="#"]');
+  function onScroll(){
+    let current='';
+    sections.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el && el.getBoundingClientRect().top <= 80) current=id;
+    });
+    links.forEach(a=>{
+      const href=a.getAttribute('href').replace('#','');
+      a.classList.toggle('nav-active', href===current);
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
 })();
 
 function toggleInternal() {
