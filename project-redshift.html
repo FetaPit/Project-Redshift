@@ -666,6 +666,28 @@ footer a:hover{color:var(--tx)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+/* ── TIMELINE FILTER BTN ── */
+.tl-filter{
+  background:var(--s2);border:1px solid var(--bd);
+  color:var(--t3);font-family:var(--mono);font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 12px;cursor:pointer;transition:all .15s;
+  border-radius:2px;
+}
+.tl-filter:hover{border-color:var(--redbrd);color:var(--red)}
+.tl-filter.active{background:var(--redbg);border-color:var(--redbrd);color:var(--red)}
+/* ── TIMELINE EXPAND ── */
+.tl-expand{
+  display:none;font-size:11px;color:var(--t2);
+  margin-top:8px;line-height:1.55;border-top:1px solid var(--bd);
+  padding-top:8px;
+}
+.tl-card.open .tl-expand{display:block}
+.tl-card{cursor:pointer;transition:border-color .15s,background .15s}
+.tl-card:hover,.tl-card:focus{border-color:var(--redbrd);background:var(--redbg);outline:none}
+.tl-card.open{border-color:var(--redbrd);background:var(--redbg)}
+/* timeline formation node */
+.tl-card.cat-formation .tl-dot{background:var(--bd2);border-radius:50%}
 </style>
 </head>
 <body>
@@ -791,7 +813,7 @@ footer a:hover{color:var(--tx)}
       </div>
     </div>
     <div class="bio-block" id="bio-press">
-      <p>Project Redshift is a hard rock trio from Louth, Lincolnshire, UK. Formed October 2016 by Pete Thickett (bass, vocals), Josh Tunnicliffe (guitar, lead vocals), and James Turner (drums). Four singles released 2017–2019: <em>Sanity Catches</em>, <em>Shadow Weather</em>, <em>Serenity</em>, and <em>Crossfire</em>.</p>
+      <p>Project Redshift is a hard rock trio from Louth, Lincolnshire, UK. Formed October 2016 by Pete Thickett (bass, lead vocals), Josh Tunnicliffe (guitar, backing vocals), and James Turner (drums). Four singles released 2017–2019: <em>Sanity Catches</em>, <em>Shadow Weather</em>, <em>Serenity</em>, and <em>Crossfire</em>. Josh Tunnicliffe and James Turner departed in 2019; Pete Thickett continues as sole active member driving the 2026 reactivation.</p>
       <p>Influences cited: Royal Blood, Queens of the Stone Age, Foo Fighters. Press coverage includes BBC Introducing (Lincolnshire), Maximum Volume Music (Band of the Day, January 2019), Distorted Sound Magazine, ALTCORNER, A&amp;R Factory, and Discovered Magazine. <em>Crossfire</em> received national airplay on Planet Rock Radio. Video production by Loki Films. Press campaign managed by Rage PR.</p>
       <p>The band have shared lineups beneath The Hoosiers and Fickle Friends, and played festival stages including JoeFest (BBC Introducing Stage) and Equinox Festival. New single <em>Playing the Game</em> is scheduled for 2026 — their first new music in seven years.</p>
       <div class="bio-meta-row">
@@ -801,7 +823,7 @@ footer a:hover{color:var(--tx)}
       </div>
     </div>
     <div class="bio-block hidden" id="bio-fan">
-      <p>Three mates from Lincolnshire who started a band in 2016, put four singles out, played pubs, a couple of festivals, and opened for some well-known acts — and then life got in the way. Seven years later there's new music coming and a story worth telling.</p>
+      <p>Three mates from Lincolnshire who started a band in 2016, put four singles out, played pubs, a couple of festivals, and opened for some well-known acts — and then life got in the way. Josh and James departed in 2019, leaving Pete to carry the project forward. Seven years later there's new music coming and a story worth telling.</p>
       <p>If you've ever liked Royal Blood, QOTSA, or the loud-and-melodic end of British rock, this is for you. Short, tight catalogue: four singles, three videos, one very long pause, and a fifth single landing in 2026.</p>
       <p><em>Playing the Game</em> is the comeback. Stick around.</p>
       <div class="bio-meta-row">
@@ -893,6 +915,41 @@ footer a:hover{color:var(--tx)}
         </a>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PLAYING THE GAME — TEASER
+════════════════════════════════════════════════ -->
+<section class="sec" id="teaser" style="background:linear-gradient(160deg,#0f0505 0%,#0a0a0a 60%)">
+  <div class="wrap">
+    <div class="sec-label">Incoming · 5th Single · 2026 Comeback</div>
+    <h2 class="sec-h2">Playing the Game</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+      <div>
+        <p style="font-size:16px;color:var(--t2);margin-bottom:24px;line-height:1.7">
+          The comeback single. Seven years in the making. Project Redshift's first new music since <em>Crossfire</em>, January 2019. An audio-visual teaser is live now — full single coming 2026.
+        </p>
+        <a href="teaser.html" class="btn btn-red" style="pointer-events:all;display:inline-flex;margin-bottom:16px">
+          <span style="margin-right:8px">▶</span> Launch Teaser Experience
+        </a>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)">
+          Audio · Visual · Looping · 0:35–1:24
+        </div>
+      </div>
+      <a href="teaser.html" style="text-decoration:none;color:inherit;display:block;border:1px solid var(--redbrd);padding:32px;background:var(--redbg);position:relative;overflow:hidden;transition:border-color .2s"
+         onmouseover="this.style.borderColor='var(--red2)'" onmouseout="this.style.borderColor='var(--redbrd)'">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+          <span style="width:6px;height:6px;background:var(--red);border-radius:50%;display:inline-block;animation:pulseRing 2s ease-out infinite"></span>
+          Now Available · Teaser
+        </div>
+        <div style="font-family:var(--disp);font-size:clamp(24px,4vw,40px);text-transform:uppercase;line-height:.95;margin-bottom:12px">Playing<br>the Game</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em">Project Redshift · 2026 · 5th Single</div>
+        <div style="position:absolute;right:24px;top:50%;transform:translateY(-50%);width:54px;height:54px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(214,48,48,.5)">
+          <div style="width:0;height:0;border-left:20px solid white;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px"></div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1005,11 +1062,7 @@ footer a:hover{color:var(--tx)}
         <div class="pc-quote">Lincolnshire rockers Project Redshift won a titanic battle to be crowned Video of the Week</div>
         <div class="pc-ref">Video of the Week — Crossfire · February 2019 · Neil Skoglund</div>
       </a>
-      <a class="press-card" href="https://www.reverbnation.com/projectredshift1" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
-        <div class="pc-outlet">ReverbNation ↗</div>
-        <div class="pc-quote">Rock from Lincoln, UK — featured profile</div>
-        <div class="pc-ref">Profile · 2017–2019</div>
-      </a>
+
       <div class="press-card">
         <div class="pc-outlet">Discovered Magazine</div>
         <div class="pc-quote">Coverage and praise for the emerging Lincolnshire rock trio</div>
@@ -1063,6 +1116,30 @@ footer a:hover{color:var(--tx)}
         <div class="rc-note">Video production company behind the Sanity Catches and Crossfire visual campaigns. Dir. Phoebe Waddington / Bohemia Films collaboration.</div>
         <span class="rc-badge">Production</span>
       </div>
+      <div class="radio-card">
+        <div class="rc-name">HRH Radio · Japan</div>
+        <div class="rc-type">International · HRH Network</div>
+        <div class="rc-note">Hard Rock Hell Radio sister station serving Japan. Part of the global HRH network reaching rock and metal audiences across Asia-Pacific.</div>
+        <span class="rc-badge">International ✓</span>
+      </div>
+      <div class="radio-card">
+        <div class="rc-name">HRH Radio · Australia</div>
+        <div class="rc-type">International · HRH Network</div>
+        <div class="rc-note">HRH sister station for Australia and the Asia-Pacific region. Specialist hard rock reach into one of rock music's most active global markets.</div>
+        <span class="rc-badge">International ✓</span>
+      </div>
+      <div class="radio-card">
+        <div class="rc-name">HRH Radio · USA</div>
+        <div class="rc-type">International · HRH Network</div>
+        <div class="rc-note">HRH Radio's North American arm, extending UK hard rock programming into the US market. Key territory for any transatlantic breakout.</div>
+        <span class="rc-badge">International ✓</span>
+      </div>
+      <div class="radio-card">
+        <div class="rc-name">HRH Radio · Germany</div>
+        <div class="rc-type">International · HRH Network</div>
+        <div class="rc-note">German-market HRH sister station. Germany is one of Europe's biggest hard rock territories — key reach for the 2026 reactivation campaign.</div>
+        <span class="rc-badge">International ✓</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1103,42 +1180,56 @@ footer a:hover{color:var(--tx)}
       <div class="venue-card"><div class="vc-name">The Rogue Saint</div><div class="vc-loc">Lincoln</div><div class="vc-note">Mental headline show — packed venue</div></div>
       <div class="venue-card"><div class="vc-name">The Music Room</div><div class="vc-loc">Live session · filmed</div><div class="vc-note">Sanity Catches live session video</div></div>
       <div class="venue-card"><div class="vc-name">The Alleykat Club</div><div class="vc-loc">Lincoln · 15 Mar 2019</div><div class="vc-note">Call of the Wild Festival Launchpad · Heat 2</div></div>
-      <div class="venue-card"><div class="vc-name">Cobbles Bar</div><div class="vc-loc">Live venue</div></div>
+      <div class="venue-card"><div class="vc-name">Cobbles Bar</div><div class="vc-loc">Louth · Homeground</div><div class="vc-note">Homeground shows — the hometown base</div></div>
       <div class="venue-card"><div class="vc-name">Nottingham Angel Micro Brewery</div><div class="vc-loc">Nottingham</div></div>
       <div class="venue-card"><div class="vc-name">Alvingham Open Mic</div><div class="vc-loc">Lincolnshire · Early 2017</div></div>
-      <div class="venue-card"><div class="vc-name">Louth Area</div><div class="vc-loc">Hometown shows · 2016–2017</div></div>
+
     </div>
 
-    <div style="margin-top:40px">
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3);margin-bottom:14px">Full Timeline — scroll →</div>
-      <div class="tl-strip">
-        <div class="tl-card cat-formation"><div class="tl-dot"></div><div class="tl-date">Oct 2016</div><div class="tl-title">Band formed · Louth, Lincolnshire</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">Apr 2017</div><div class="tl-title">First live shows · Louth area</div></div>
-        <div class="tl-card cat-press"><div class="tl-dot"></div><div class="tl-date">Jun 2017</div><div class="tl-title">First press · Gigs &amp; Freudian Slips</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">Summer 2017</div><div class="tl-title">Wild Farm Festival · Lincoln</div></div>
-        <div class="tl-card cat-release"><div class="tl-dot"></div><div class="tl-date">Oct 2017</div><div class="tl-title">Sanity Catches released</div></div>
-        <div class="tl-card cat-press"><div class="tl-dot"></div><div class="tl-date">2017</div><div class="tl-title">BBC Introducing · Lincolnshire praise</div></div>
-        <div class="tl-card cat-release"><div class="tl-dot"></div><div class="tl-date">Apr 2018</div><div class="tl-title">Sanity Catches video · Loki Films</div></div>
-        <div class="tl-card cat-release"><div class="tl-dot"></div><div class="tl-date">Jul 2018</div><div class="tl-title">Shadow Weather released</div></div>
-        <div class="tl-card cat-release"><div class="tl-dot"></div><div class="tl-date">Sep 2018</div><div class="tl-title">Serenity released · prod. Zach Pritchard</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">2018</div><div class="tl-title">Supports: The Hoosiers · Fickle Friends</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">2018</div><div class="tl-title">JoeFest · BBC Introducing Stage</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">2018</div><div class="tl-title">Equinox Festival</div></div>
-        <div class="tl-card cat-release"><div class="tl-dot"></div><div class="tl-date">11 Jan 2019</div><div class="tl-title">Crossfire video premieres (7pm)</div></div>
-        <div class="tl-card cat-release"><div class="tl-dot"></div><div class="tl-date">14 Jan 2019</div><div class="tl-title">Crossfire released across DSPs</div></div>
-        <div class="tl-card cat-press"><div class="tl-dot"></div><div class="tl-date">Jan 2019</div><div class="tl-title">Maximum Volume Music Band of the Day</div></div>
-        <div class="tl-card cat-press"><div class="tl-dot"></div><div class="tl-date">Jan 2019</div><div class="tl-title">Distorted Sound Magazine</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">16 Feb 2019</div><div class="tl-title">The Spiders Web · Cleethorpes</div></div>
-        <div class="tl-card cat-press"><div class="tl-dot"></div><div class="tl-date">18 Feb 2019</div><div class="tl-title">ALTCORNER A–Z interview</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">22 Feb 2019</div><div class="tl-title">Verve Bar · Leeds</div></div>
-        <div class="tl-card cat-live"><div class="tl-dot"></div><div class="tl-date">2 Mar 2019</div><div class="tl-title">Liquor · Lincoln</div></div>
-        <div class="tl-card cat-press"><div class="tl-dot"></div><div class="tl-date">2019</div><div class="tl-title">Planet Rock Radio airplay</div></div>
-        <div class="tl-card cat-future"><div class="tl-dot"></div><div class="tl-date">2026</div><div class="tl-title">Reactivation · Playing the Game</div></div>
+    <div style="margin-top:40px" id="tl-section">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)">Full Timeline — click to filter · scroll →</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="tl-filters">
+          <button class="tl-filter active" data-filter="all" onclick="filterTimeline('all',this)">All</button>
+          <button class="tl-filter" data-filter="cat-release" onclick="filterTimeline('cat-release',this)" style="--fc:var(--red)">■ Release</button>
+          <button class="tl-filter" data-filter="cat-press" onclick="filterTimeline('cat-press',this)" style="--fc:#3a7fc1">● Press</button>
+          <button class="tl-filter" data-filter="cat-live" onclick="filterTimeline('cat-live',this)" style="--fc:#c9a84c">◆ Live</button>
+          <button class="tl-filter" data-filter="cat-future" onclick="filterTimeline('cat-future',this)" style="--fc:var(--red)">★ Future</button>
+        </div>
+      </div>
+      <div style="position:relative">
+        <div style="position:absolute;top:22px;left:7px;right:0;height:2px;background:linear-gradient(90deg,var(--red),rgba(214,48,48,.1));z-index:0;pointer-events:none"></div>
+        <div class="tl-strip" id="tl-strip">
+          <div class="tl-card cat-formation" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Oct 2016</div><div class="tl-title">Band formed · Louth, Lincolnshire</div><div class="tl-expand">Pete Thickett, Josh Tunnicliffe and James Turner form Project Redshift. Early rehearsals and original material begin.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Apr 2017</div><div class="tl-title">First live shows</div><div class="tl-expand">Early local shows and open mic nights including Alvingham Open Mic. Band builds setlist and stage presence.</div></div>
+          <div class="tl-card cat-press" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Jun 2017</div><div class="tl-title">First press coverage</div><div class="tl-expand">Gigs &amp; Freudian Slips names them Lincolnshire Band of the Week: "Raucous riffs and energetic melodies."</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Summer 2017</div><div class="tl-title">Wild Farm Festival · Lincoln</div><div class="tl-expand">First major festival slot. Lincoln outdoor stage.</div></div>
+          <div class="tl-card cat-release" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Oct 2017</div><div class="tl-title">Sanity Catches released</div><div class="tl-expand">Debut single. Produced &amp; mastered by Tom Milner at The Pump House Studio, Louth. 2,652 Spotify streams.</div></div>
+          <div class="tl-card cat-press" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2017</div><div class="tl-title">BBC Introducing</div><div class="tl-expand">BBC Introducing Lincolnshire praises Sanity Catches on debut. First national BBC acknowledgement.</div></div>
+          <div class="tl-card cat-release" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Apr 2018</div><div class="tl-title">Sanity Catches video</div><div class="tl-expand">Official music video directed by Phoebe Waddington / Loki Films.</div></div>
+          <div class="tl-card cat-release" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Jul 2018</div><div class="tl-title">Shadow Weather released</div><div class="tl-expand">Second single. Runtime 3:38.</div></div>
+          <div class="tl-card cat-release" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Sep 2018</div><div class="tl-title">Serenity released</div><div class="tl-expand">Third single, produced by Zach Pritchard. Theme: a transformative moment that wipes the slate clean.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2018</div><div class="tl-title">Supports: The Hoosiers · Fickle Friends</div><div class="tl-expand">Opening slots beneath nationally known acts. First significant supports outside the local circuit.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2018</div><div class="tl-title">JoeFest · BBC Introducing Stage</div><div class="tl-expand">Festival slot on the BBC Introducing curated stage at JoeFest.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2018</div><div class="tl-title">Equinox Festival · + Vigilantes</div><div class="tl-expand">Equinox Festival. Also supported Vigilantes at this time.</div></div>
+          <div class="tl-card cat-release" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">11 Jan 2019</div><div class="tl-title">Crossfire video premieres</div><div class="tl-expand">Official video directed by Loki Films premieres at 7pm. Anti-war lyric. Rock Sins Video of the Week.</div></div>
+          <div class="tl-card cat-release" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">14 Jan 2019</div><div class="tl-title">Crossfire released · DSPs</div><div class="tl-expand">Fourth single released across all digital platforms. 1,898 Spotify streams.</div></div>
+          <div class="tl-card cat-press" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Jan 2019</div><div class="tl-title">Maximum Volume Music — Band of the Day</div><div class="tl-expand">"This rocking trio don't pull any punches musically." Distorted Sound: "Their best song yet."</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">16 Feb 2019</div><div class="tl-title">The Spiders Web · Cleethorpes</div><div class="tl-expand">Live show. Cleethorpes.</div></div>
+          <div class="tl-card cat-press" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">Feb 2019</div><div class="tl-title">ALTCORNER A–Z · Rock Sins VOTW</div><div class="tl-expand">ALTCORNER A–Z interview. Rock Sins Video of the Week for Crossfire (Neil Skoglund).</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">22 Feb 2019</div><div class="tl-title">Verve Bar · Leeds</div><div class="tl-expand">First documented show outside Lincolnshire.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2 Mar 2019</div><div class="tl-title">Liquor · Lincoln</div><div class="tl-expand">Lincoln show.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">15 Mar 2019</div><div class="tl-title">The Alleykat Club · Lincoln</div><div class="tl-expand">Call of the Wild Festival Launchpad · Heat 2.</div></div>
+          <div class="tl-card cat-press" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2019</div><div class="tl-title">Planet Rock Radio airplay</div><div class="tl-expand">Crossfire receives national airplay on Planet Rock Radio. Career highlight — confirmed in ALTCORNER interview.</div></div>
+          <div class="tl-card cat-live" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2019</div><div class="tl-title">Josh &amp; James depart</div><div class="tl-expand">Josh Tunnicliffe and James Turner depart. Band goes on hiatus.</div></div>
+          <div class="tl-card cat-future" tabindex="0" onclick="expandTL(this)"><div class="tl-dot"></div><div class="tl-date">2026</div><div class="tl-title">Reactivation · Playing the Game</div><div class="tl-expand">Pete Thickett reactivates Project Redshift. Fifth single "Playing the Game" in production. First new music in seven years.</div></div>
+        </div>
       </div>
       <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--t3)">
         <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:var(--red);display:inline-block;flex-shrink:0"></span>Release</span>
         <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#3a7fc1;border-radius:50%;display:inline-block;flex-shrink:0"></span>Press</span>
         <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#c9a84c;display:inline-block;flex-shrink:0;transform:rotate(45deg)"></span>Live</span>
+        <span style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:var(--red)">★</span>Future</span>
       </div>
     </div>
   </div>
@@ -1154,21 +1245,21 @@ footer a:hover{color:var(--tx)}
     <div class="members-grid">
       <div class="member">
         <div class="m-glyph circle" aria-hidden="true"></div>
-        <div class="m-role">Bass · Vocals</div>
+        <div class="m-role">Bass · Lead Vocals</div>
         <div class="m-name">Pete Thickett</div>
-        <div class="m-detail">Co-founder · Lincolnshire-based · Currently driving the 2026 reactivation and the new single <em>Playing the Game</em>.</div>
+        <div class="m-detail">Co-founder · Lincolnshire-based · Lead vocalist across all four singles. Currently driving the 2026 reactivation and the new single <em>Playing the Game</em>.</div>
       </div>
       <div class="member">
         <div class="m-glyph square" aria-hidden="true"></div>
-        <div class="m-role">Guitar · Lead Vocals</div>
+        <div class="m-role">Guitar · Backing Vocals · <span style="color:var(--t3)">Dep. 2019</span></div>
         <div class="m-name">Josh Tunnicliffe</div>
-        <div class="m-detail">Co-founder · Lead vocals · Primary songwriter. Wrote Crossfire — the band's most-celebrated track.</div>
+        <div class="m-detail">Co-founder · Backing vocals · Primary songwriter. Wrote Crossfire — the band's most-celebrated track. Departed 2019.</div>
       </div>
       <div class="member">
         <div class="m-glyph triangle" aria-hidden="true"></div>
-        <div class="m-role">Drums</div>
+        <div class="m-role">Drums · <span style="color:var(--t3)">Dep. 2019</span></div>
         <div class="m-name">James Turner</div>
-        <div class="m-detail">Co-founder · Held the band's time-feel across all four singles and the live set.</div>
+        <div class="m-detail">Co-founder · Held the band's time-feel across all four singles and the live set. Departed 2019.</div>
       </div>
     </div>
   </div>
@@ -1341,6 +1432,24 @@ function toggleInternal() {
   btn.textContent = on ? '⚿ Internal ON' : '⚿ Internal';
   sec.classList.toggle('show', on);
   if (on) sec.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+/* ── TIMELINE FILTER ── */
+function filterTimeline(cat, btn) {
+  document.querySelectorAll('.tl-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tl-card').forEach(card => {
+    if (cat === 'all' || card.classList.contains(cat)) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+/* ── TIMELINE EXPAND ── */
+function expandTL(card) {
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.tl-card.open').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) card.classList.add('open');
 }
 </script>
 </body>
