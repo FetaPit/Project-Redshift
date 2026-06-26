@@ -135,7 +135,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#060606}
   width:160px;height:160px;
   position:relative;
   transform-style:preserve-3d;
-  animation:roll var(--roll-dur,7s) linear infinite;
+  animation:roll var(--roll-dur,70s) linear infinite;
   will-change:transform;
 }
 @keyframes roll{
@@ -634,8 +634,8 @@ function drawAudioVisualiser(cx, cy){
   let bassSum = 0;
   for(let i=0;i<8;i++) bassSum += dataArray[i];
   const bassAvg = bassSum / 8;
-  const speed = 7 - (bassAvg/255)*5; // 7s -> 2s as bass increases
-  dice.style.setProperty('--roll-dur', Math.max(1.5, speed)+'s');
+  const speed = 70 - (bassAvg/255)*50; // 70s idle -> 20s on heavy bass
+  dice.style.setProperty('--roll-dur', Math.max(15, speed)+'s');
 
   // radial beat glow
   const beatGlow = bassAvg/255;
