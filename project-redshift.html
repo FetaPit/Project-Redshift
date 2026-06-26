@@ -90,6 +90,14 @@ nav::after{
   transition:all .2s;
 }
 .nav-back:hover{color:var(--tx);border-color:var(--bd2)}
+.nav-merch{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:#1DA0C3;text-decoration:none;
+  border:1px solid rgba(29,160,195,.35);
+  padding:5px 11px;border-radius:3px;margin-right:6px;
+  transition:all .2s;
+}
+.nav-merch:hover{background:rgba(29,160,195,.12);border-color:#1DA0C3;color:#fff}
 .int-btn{
   font-family:var(--mono);font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;background:transparent;
@@ -605,6 +613,65 @@ a.press-card{cursor:pointer}
 }
 .announce p{font-size:14px;color:var(--t2);line-height:1.7;max-width:700px}
 
+/* ── EMAIL CAPTURE ── */
+.waitlist-sec{
+  background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);
+  padding:44px 0;
+}
+.waitlist-inner{
+  max-width:640px;margin:0 auto;padding:0 28px;
+  text-align:center;
+}
+.waitlist-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--red);
+  margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.waitlist-eyebrow::before,.waitlist-eyebrow::after{
+  content:'';display:block;width:20px;height:1px;background:var(--red);
+}
+.waitlist-h{
+  font-family:var(--disp);font-size:clamp(22px,3.5vw,36px);
+  text-transform:uppercase;margin-bottom:8px;line-height:1;
+}
+.waitlist-sub{
+  font-size:14px;color:var(--t2);margin-bottom:28px;line-height:1.55;
+}
+.waitlist-form{
+  display:flex;gap:0;max-width:480px;margin:0 auto;
+}
+.waitlist-input{
+  flex:1;background:var(--s2);border:1px solid var(--bd2);
+  border-right:none;
+  padding:13px 16px;
+  font-family:var(--body);font-size:14px;color:var(--tx);
+  outline:none;border-radius:2px 0 0 2px;
+  transition:border-color .2s;
+}
+.waitlist-input::placeholder{color:var(--t3)}
+.waitlist-input:focus{border-color:var(--redbrd)}
+.waitlist-btn{
+  background:var(--red);color:#fff;border:none;
+  padding:13px 22px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;border-radius:0 2px 2px 0;flex-shrink:0;
+  transition:background .15s;
+}
+.waitlist-btn:hover{background:var(--red2)}
+.waitlist-confirm{
+  display:none;font-family:var(--mono);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--red);
+  margin-top:16px;
+}
+.waitlist-legal{
+  font-family:var(--mono);font-size:9px;color:var(--t4);
+  letter-spacing:.08em;margin-top:12px;
+}
+@media(max-width:500px){
+  .waitlist-form{flex-direction:column;gap:8px}
+  .waitlist-input,.waitlist-btn{border-radius:2px;border-right:1px solid var(--bd2)}
+}
+
 /* ── REVENUE (internal) ── */
 .int-sec{display:none}
 .int-sec.show{display:block}
@@ -737,6 +804,7 @@ footer a:hover{color:var(--tx)}
     <a href="#band">Band</a>
     <a href="#contact">Platforms</a>
     <span class="nav-sep"></span>
+    <a href="https://projectredshift.bandcamp.com/music" target="_blank" rel="noopener" class="nav-merch">Merch →</a>
     <button class="int-btn" id="intBtn" onclick="toggleInternal()">⚿ Internal</button>
     <a href="pareto.html" class="nav-back">← Pareto</a>
   </div>
@@ -794,6 +862,28 @@ footer a:hover{color:var(--tx)}
           allow="autoplay; encrypted-media"
           loading="lazy"></iframe>
 </section>
+
+<!-- ═══════════════════════════════════════════════
+     EMAIL WAITLIST
+════════════════════════════════════════════════ -->
+<div class="waitlist-sec" id="waitlist">
+  <div class="waitlist-inner">
+    <div class="waitlist-eyebrow">Playing the Game · 2026</div>
+    <h2 class="waitlist-h">Be First to Hear It</h2>
+    <p class="waitlist-sub">Drop your email — you'll get the release link before it hits DSPs. No spam, one email when it drops.</p>
+    <!-- Action: replace YOUR_FORM_ID with your Formspree endpoint at formspree.io -->
+    <form class="waitlist-form" id="waitlistForm"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST">
+      <input class="waitlist-input" type="email" name="email"
+             placeholder="your@email.com" required autocomplete="email">
+      <input type="hidden" name="_subject" value="Playing the Game — Waitlist">
+      <button class="waitlist-btn" type="submit">Notify Me →</button>
+    </form>
+    <div class="waitlist-confirm" id="waitlistConfirm">✓ You're on the list — we'll be in touch.</div>
+    <p class="waitlist-legal">Project Redshift · ptlived@gmail.com · unsubscribe any time</p>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════
      FOUNDATION
@@ -1577,16 +1667,16 @@ footer a:hover{color:var(--tx)}
         <span class="plat-name">Apple Music</span><span class="plat-arrow">→</span>
       </a>
 
-      <!-- Bandcamp: teal background with "b" shape -->
-      <a class="plat-link" href="https://projectredshift.bandcamp.com/" target="_blank" rel="noopener">
+      <!-- Bandcamp: teal background with "b" shape — featured as store -->
+      <a class="plat-link" href="https://projectredshift.bandcamp.com/music" target="_blank" rel="noopener"
+         style="border-color:rgba(29,160,195,.4);background:rgba(29,160,195,.06)">
         <span class="plat-icon">
           <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="22" height="22" rx="4" fill="#1DA0C3"/>
-            <!-- Bandcamp chevron/flag shape -->
             <path d="M3 15 L9 7 L19 7 L13 15 Z" fill="#fff"/>
           </svg>
         </span>
-        <span class="plat-name">Bandcamp</span><span class="plat-arrow">→</span>
+        <span class="plat-name" style="color:#1DA0C3">Bandcamp Store</span><span class="plat-arrow" style="color:#1DA0C3">→</span>
       </a>
 
       <!-- YouTube: red rounded rectangle with white play triangle -->
@@ -1760,6 +1850,36 @@ document.querySelectorAll('.toggle button').forEach(btn => {
 });
 
 /* ── INTERNAL MODE ── */
+// Email waitlist — AJAX submit so page doesn't reload
+(function(){
+  const form = document.getElementById('waitlistForm');
+  const confirm = document.getElementById('waitlistConfirm');
+  if (!form) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = form.querySelector('.waitlist-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method:'POST',
+        body: new FormData(form),
+        headers:{ Accept:'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        confirm.style.display = 'block';
+      } else {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
+    }
+  });
+})();
+
 function toggleInternal() {
   const btn = document.getElementById('intBtn');
   const sec = document.getElementById('revSec');
