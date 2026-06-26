@@ -756,6 +756,55 @@ footer a:hover{color:var(--tx)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+/* ── SOCIAL TICKER ── */
+.social-ticker-wrap{
+  overflow:hidden;border-top:1px solid var(--bd);
+  margin-top:22px;position:relative;
+}
+.social-ticker-wrap::before,.social-ticker-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none;
+}
+.social-ticker-wrap::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.social-ticker-wrap::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.social-ticker{
+  display:flex;align-items:center;
+  animation:tickerScroll 32s linear infinite;
+  width:max-content;
+}
+.social-ticker:hover{animation-play-state:paused}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.st-item{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 20px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--t2);
+  white-space:nowrap;border-right:1px solid var(--bd);
+  text-decoration:none;transition:color .15s;
+}
+.st-item:hover{color:var(--tx)}
+.st-icon{width:14px;height:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.st-icon svg{width:100%;height:100%;display:block}
+.st-n{color:#1ed760;font-weight:700}
+.st-n.na{color:var(--t4);font-weight:400;font-size:9px}
+
+/* ── TRACK STREAM COUNTER ── */
+.track-streams{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 0 4px;
+  border-top:1px solid var(--bd);margin-top:10px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
+}
+.ts-val{color:#1ed760;font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.ts-val.na{color:var(--t4);font-size:9px;font-weight:400}
+
+/* ── VIDEO VIEW COUNT ── */
+.vid-views{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--t3);margin-top:3px;
+}
+.vid-views .vv-n{color:#1ed760;font-weight:700}
+.vid-views .vv-n.na{color:var(--t4);font-weight:400}
+
 /* ── BRAND LOGO ELEMENTS ── */
 .pc-logo{width:36px;height:36px;margin-bottom:10px;flex-shrink:0;display:block}
 .pc-logo svg{width:100%;height:100%;display:block}
@@ -836,6 +885,70 @@ footer a:hover{color:var(--tx)}
       <div class="kpi"><div class="kpi-n">7yr</div><div class="kpi-l">Hiatus Ended</div></div>
     </div>
     <div class="hero-live"><span class="pulse-dot"></span>Playing the Game — recording now · 2026</div>
+  </div>
+</div>
+
+<!-- ── SOCIAL TICKER ── -->
+<div class="social-ticker-wrap">
+  <div class="social-ticker" id="socialTicker">
+
+    <!-- SET 1 -->
+    <a class="st-item" href="https://www.facebook.com/projectredshift/" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#1877F2"/><path d="M9.8 4H8.6C7.5 4 7 4.6 7 5.6V7H5.8V8.8H7V13H9V8.8h1.3L10.5 7H9V5.9c0-.4.2-.6.6-.6H10V4z" fill="#fff"/></svg></span>
+      Facebook <span class="st-n">1,263</span>
+    </a>
+
+    <a class="st-item" href="https://www.instagram.com/proredshiftband/" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><defs><linearGradient id="tg1" x1="0" y1="16" x2="16" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect width="16" height="16" rx="4" fill="url(#tg1)"/><rect x="4.5" y="4.5" width="7" height="7" rx="2" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="2" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="11.2" cy="4.8" r=".7" fill="#fff"/></svg></span>
+      Instagram <span class="st-n na">update →</span>
+    </a>
+
+    <a class="st-item" href="https://x.com/search?q=projectredshift" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#000"/><path d="M2 2.5h3.5L8 6.2 10.5 2.5H14l-4.2 5.5L14 14h-3.5L8 10.1 5.5 14H2l4.2-5.7z" fill="#fff"/></svg></span>
+      X / Twitter <span class="st-n na">add account</span>
+    </a>
+
+    <a class="st-item" href="https://open.spotify.com/artist/2BIovC5SuKhsdlomaKEp5E" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#1DB954"/><path d="M4 6.2c2.2-1 4.9-.9 7 .4" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><path d="M4.5 8.4c1.9-.8 4.1-.7 6 .3" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/><path d="M5 10.5c1.5-.6 3.3-.6 4.8.2" stroke="#fff" stroke-width=".9" stroke-linecap="round"/></svg></span>
+      Spotify <span class="st-n na">update →</span>
+    </a>
+
+    <a class="st-item" href="https://www.youtube.com/@projectredshift8125" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="3" fill="#FF0000"/><polygon points="6.5,5.5 6.5,10.5 11,8" fill="#fff"/></svg></span>
+      YouTube <span class="st-n na">update →</span>
+    </a>
+
+    <a class="st-item" href="https://distrokid.com/hyperfollow/projectredshift" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#5B4FE9"/><text x="8" y="12" font-family="Arial Black,sans-serif" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">D</text></svg></span>
+      DistroKid <span class="st-n na">pre-save</span>
+    </a>
+
+    <!-- SET 2 — duplicate for seamless loop -->
+    <a class="st-item" href="https://www.facebook.com/projectredshift/" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#1877F2"/><path d="M9.8 4H8.6C7.5 4 7 4.6 7 5.6V7H5.8V8.8H7V13H9V8.8h1.3L10.5 7H9V5.9c0-.4.2-.6.6-.6H10V4z" fill="#fff"/></svg></span>
+      Facebook <span class="st-n">1,263</span>
+    </a>
+    <a class="st-item" href="https://www.instagram.com/proredshiftband/" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><defs><linearGradient id="tg2" x1="0" y1="16" x2="16" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect width="16" height="16" rx="4" fill="url(#tg2)"/><rect x="4.5" y="4.5" width="7" height="7" rx="2" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="2" stroke="#fff" stroke-width="1.2" fill="none"/><circle cx="11.2" cy="4.8" r=".7" fill="#fff"/></svg></span>
+      Instagram <span class="st-n na">update →</span>
+    </a>
+    <a class="st-item" href="https://x.com/search?q=projectredshift" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#000"/><path d="M2 2.5h3.5L8 6.2 10.5 2.5H14l-4.2 5.5L14 14h-3.5L8 10.1 5.5 14H2l4.2-5.7z" fill="#fff"/></svg></span>
+      X / Twitter <span class="st-n na">add account</span>
+    </a>
+    <a class="st-item" href="https://open.spotify.com/artist/2BIovC5SuKhsdlomaKEp5E" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#1DB954"/><path d="M4 6.2c2.2-1 4.9-.9 7 .4" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><path d="M4.5 8.4c1.9-.8 4.1-.7 6 .3" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/><path d="M5 10.5c1.5-.6 3.3-.6 4.8.2" stroke="#fff" stroke-width=".9" stroke-linecap="round"/></svg></span>
+      Spotify <span class="st-n na">update →</span>
+    </a>
+    <a class="st-item" href="https://www.youtube.com/@projectredshift8125" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="3" fill="#FF0000"/><polygon points="6.5,5.5 6.5,10.5 11,8" fill="#fff"/></svg></span>
+      YouTube <span class="st-n na">update →</span>
+    </a>
+    <a class="st-item" href="https://distrokid.com/hyperfollow/projectredshift" target="_blank" rel="noopener">
+      <span class="st-icon"><svg viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#5B4FE9"/><text x="8" y="12" font-family="Arial Black,sans-serif" font-size="10" font-weight="900" fill="#fff" text-anchor="middle">D</text></svg></span>
+      DistroKid <span class="st-n na">pre-save</span>
+    </a>
+
   </div>
 </div>
 
@@ -1001,8 +1114,10 @@ footer a:hover{color:var(--tx)}
         <div class="rel-credits">
           Written by Tunnicliffe / Thickett / Turner<br>
           Produced &amp; mastered by Tom Milner · The Pump House Studio, Louth<br>
-          BBC Introducing praised on release · 2017 · Gigsandfreudianslips: <em>"Raucous riffs and energetic melodies"</em><br>
-          <span style="font-family:var(--mono);font-size:10px;color:var(--red)">2,652 Spotify streams</span>
+          BBC Introducing praised on release · 2017 · Gigsandfreudianslips: <em>"Raucous riffs and energetic melodies"</em>
+        </div>
+        <div class="track-streams">
+          <span class="ts-val">2,652</span> Spotify streams · other platforms TBC
         </div>
         <div class="rel-embed">
           <iframe src="https://open.spotify.com/embed/album/0wNYJ4UJOL6RSNsFdwI0xX?utm_source=generator&theme=0"
@@ -1018,6 +1133,9 @@ footer a:hover{color:var(--tx)}
         <div class="rel-credits">
           Written by Tunnicliffe / Thickett / Turner<br>
           Runtime: 3:38
+        </div>
+        <div class="track-streams">
+          <span class="ts-val na">— streams</span> update from Spotify for Artists
         </div>
         <div class="rel-embed">
           <iframe src="https://open.spotify.com/embed/track/5N3Xwl36g5XNYt6eE5WMRL?utm_source=generator&theme=0"
@@ -1035,6 +1153,9 @@ footer a:hover{color:var(--tx)}
           Recorded, mixed &amp; mastered by Zach Pritchard<br>
           Theme: a transformative moment that wipes the slate clean
         </div>
+        <div class="track-streams">
+          <span class="ts-val na">— streams</span> update from Spotify for Artists
+        </div>
         <div class="rel-embed">
           <iframe src="https://open.spotify.com/embed/track/3Pq8BmRG0JUd7kYg9RX4Wz?utm_source=generator&theme=0"
                   height="152" frameborder="0" allowfullscreen
@@ -1049,8 +1170,10 @@ footer a:hover{color:var(--tx)}
         <div class="rel-credits">
           Written by Josh Tunnicliffe · Anti-war lyric<br>
           Maximum Volume Music Band of the Day · Distorted Sound: <em>"Their best song yet"</em><br>
-          ALTCORNER A–Z · Planet Rock Radio airplay · Rock Sins Video of the Week<br>
-          <span style="font-family:var(--mono);font-size:10px;color:var(--red)">1,898 Spotify streams</span>
+          ALTCORNER A–Z · Planet Rock Radio airplay · Rock Sins Video of the Week
+        </div>
+        <div class="track-streams">
+          <span class="ts-val">1,898</span> Spotify streams · other platforms TBC
         </div>
         <div class="rel-embed">
           <iframe src="https://open.spotify.com/embed/album/3GkASGok7FKCC4d5GwvvTv?utm_source=generator&theme=0"
@@ -1084,6 +1207,7 @@ footer a:hover{color:var(--tx)}
         <div class="vid-meta">
           <div class="vid-title">Sanity Catches</div>
           <div class="vid-year">2018 · Dir. Phoebe Waddington / Loki Films</div>
+          <div class="vid-views"><span class="vv-n na">—</span> views · update from YouTube Studio</div>
         </div>
       </div>
 
@@ -1098,6 +1222,7 @@ footer a:hover{color:var(--tx)}
         <div class="vid-meta">
           <div class="vid-title">Serenity</div>
           <div class="vid-year">2018 · Music Video</div>
+          <div class="vid-views"><span class="vv-n na">—</span> views · update from YouTube Studio</div>
         </div>
       </div>
 
@@ -1112,6 +1237,7 @@ footer a:hover{color:var(--tx)}
         <div class="vid-meta">
           <div class="vid-title">Crossfire</div>
           <div class="vid-year">2019 · Premiered 11 Jan · Loki Films</div>
+          <div class="vid-views"><span class="vv-n na">—</span> views · update from YouTube Studio</div>
         </div>
       </div>
 
