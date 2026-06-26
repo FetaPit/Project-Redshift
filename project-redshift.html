@@ -408,7 +408,9 @@ h2.sec-h2{
   background:var(--s1);border:1px solid var(--bd);
   padding:24px;display:flex;flex-direction:column;
   min-height:180px;transition:border-color .2s;
+  cursor:default;
 }
+a.press-card{cursor:pointer}
 .press-card:hover{border-color:var(--redbrd)}
 .pc-outlet{
   font-family:var(--mono);font-size:10px;letter-spacing:.14em;
@@ -702,7 +704,7 @@ footer a:hover{color:var(--tx)}
     <div class="kpi-strip">
       <div class="kpi"><div class="kpi-n">4</div><div class="kpi-l">Singles</div></div>
       <div class="kpi"><div class="kpi-n">3</div><div class="kpi-l">Music Videos</div></div>
-      <div class="kpi"><div class="kpi-n">7+</div><div class="kpi-l">Press Outlets</div></div>
+      <div class="kpi"><div class="kpi-n">9+</div><div class="kpi-l">Press Outlets</div></div>
       <div class="kpi"><div class="kpi-n">4+</div><div class="kpi-l">Radio Stations</div></div>
       <div class="kpi"><div class="kpi-n">7yr</div><div class="kpi-l">Hiatus Ended</div></div>
     </div>
@@ -731,7 +733,7 @@ footer a:hover{color:var(--tx)}
       </div>
       <div class="stat-card">
         <div class="stat-label">Press Outlets</div>
-        <div class="stat-val">7+</div>
+        <div class="stat-val">9+</div>
         <div class="stat-sub">Incl. national rock press</div>
       </div>
       <div class="stat-card">
@@ -826,10 +828,11 @@ footer a:hover{color:var(--tx)}
         <div class="rel-credits">
           Written by Tunnicliffe / Thickett / Turner<br>
           Produced &amp; mastered by Tom Milner · The Pump House Studio, Louth<br>
-          BBC Introducing praised on release · 2017 · Gigsandfreudianslips: <em>"Raucous riffs and energetic melodies"</em>
+          BBC Introducing praised on release · 2017 · Gigsandfreudianslips: <em>"Raucous riffs and energetic melodies"</em><br>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--red)">2,652 Spotify streams</span>
         </div>
         <div class="rel-embed">
-          <iframe src="https://open.spotify.com/embed/track/4znvyrupBmEKx7CRgWMq8u?utm_source=generator&theme=0"
+          <iframe src="https://open.spotify.com/embed/album/0wNYJ4UJOL6RSNsFdwI0xX?utm_source=generator&theme=0"
                   height="152" allowfullscreen
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy" title="Sanity Catches on Spotify"></iframe>
@@ -859,8 +862,10 @@ footer a:hover{color:var(--tx)}
           Recorded, mixed &amp; mastered by Zach Pritchard<br>
           Theme: a transformative moment that wipes the slate clean
         </div>
-        <a class="spotify-link" href="https://projectredshift.bandcamp.com/track/serenity" target="_blank" rel="noopener">
-          <div class="sp-icon">🎵</div>
+        <a class="spotify-link" href="https://projectredshift.bandcamp.com/track/serenity" target="_blank" rel="noopener" style="background:rgba(30,135,215,.07);border-color:rgba(30,135,215,.3)">
+          <div class="sp-icon" style="background:#1DA0C3;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M0 18.75C0 21.26 1.89 23.2 4.35 23.2c1.28 0 2.43-.52 3.31-1.47l7.41-8.07L11 10.92 3.62 19c-.42.44-.9.65-1.39.65-1.04 0-1.84-.82-1.84-1.84V4.45c0-.97.69-1.71 1.7-1.71h3.85c.44 0 .9.18 1.24.52l4.44 4.56 3.13-3.41L10.02.79A2.93 2.93 0 0 0 7.94 0H2.33C1.05 0 0 1.06 0 2.33v16.42zm20.06 4.45H15.3c-.44 0-.9-.18-1.24-.52l-7.4-7.6 3.17-3.44 7.35 7.55c.42.43.92.65 1.42.65.96 0 1.72-.73 1.72-1.72V2.33C20.32 1.05 21.37 0 22.65 0H23c.55 0 1 .45 1 1v20.04c0 1.25-1.05 2.16-1.94 2.16z"/></svg>
+          </div>
           <div class="sp-text">
             <div class="sp-name">Serenity</div>
             <div class="sp-sub">Listen on Bandcamp → projectredshift.bandcamp.com</div>
@@ -874,14 +879,18 @@ footer a:hover{color:var(--tx)}
         <div class="rel-credits">
           Written by Josh Tunnicliffe · Anti-war lyric<br>
           Maximum Volume Music Band of the Day · Distorted Sound: <em>"Their best song yet"</em><br>
-          ALTCORNER A–Z · Planet Rock Radio airplay
+          ALTCORNER A–Z · Planet Rock Radio airplay · Rock Sins Video of the Week<br>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--red)">1,898 Spotify streams</span>
         </div>
-        <div class="rel-embed">
-          <iframe src="https://open.spotify.com/embed/track/3jpAk7CtMqEzeAB0WyVy7M?utm_source=generator&theme=0"
-                  height="152" allowfullscreen
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy" title="Crossfire on Spotify"></iframe>
-        </div>
+        <a class="spotify-link" href="https://open.spotify.com/artist/2BIovC5SuKhsdlomaKEp5E" target="_blank" rel="noopener">
+          <div class="sp-icon" style="background:#1DB954;display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          </div>
+          <div class="sp-text">
+            <div class="sp-name">Crossfire</div>
+            <div class="sp-sub">Listen on Spotify → Project Redshift</div>
+          </div>
+        </a>
       </div>
 
     </div>
@@ -911,16 +920,13 @@ footer a:hover{color:var(--tx)}
         </div>
       </div>
 
-      <!-- Serenity — link card (embedding restricted) -->
+      <!-- Serenity — native embed -->
       <div class="vid-card">
         <div class="vid-embed">
-          <a class="vid-thumb" href="https://youtu.be/xMXZwLPFTt0" target="_blank" rel="noopener" aria-label="Watch Serenity on YouTube">
-            <img src="https://img.youtube.com/vi/xMXZwLPFTt0/hqdefault.jpg"
-                 alt="Serenity music video thumbnail"
-                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
-            <div class="vid-play"><div class="vid-play-icon"></div></div>
-            <div class="vid-yt-label">Watch on YouTube</div>
-          </a>
+          <iframe src="https://www.youtube-nocookie.com/embed/xMXZwLPFTt0"
+                  title="Serenity — Official Music Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  loading="lazy" allowfullscreen></iframe>
         </div>
         <div class="vid-meta">
           <div class="vid-title">Serenity</div>
@@ -928,16 +934,13 @@ footer a:hover{color:var(--tx)}
         </div>
       </div>
 
-      <!-- Crossfire — link card (embedding restricted) -->
+      <!-- Crossfire — native embed -->
       <div class="vid-card">
         <div class="vid-embed">
-          <a class="vid-thumb" href="https://youtu.be/p5_q2J5wVDE" target="_blank" rel="noopener" aria-label="Watch Crossfire on YouTube">
-            <img src="https://img.youtube.com/vi/p5_q2J5wVDE/hqdefault.jpg"
-                 alt="Crossfire music video thumbnail"
-                 style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
-            <div class="vid-play"><div class="vid-play-icon"></div></div>
-            <div class="vid-yt-label">Watch on YouTube</div>
-          </a>
+          <iframe src="https://www.youtube-nocookie.com/embed/p5_q2J5wVDE"
+                  title="Crossfire — Official Music Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  loading="lazy" allowfullscreen></iframe>
         </div>
         <div class="vid-meta">
           <div class="vid-title">Crossfire</div>
@@ -967,35 +970,50 @@ footer a:hover{color:var(--tx)}
     <div class="sec-label tri">Press</div>
     <h2 class="sec-h2">What They Said</h2>
     <div class="press-grid">
-      <div class="press-card">
-        <div class="pc-outlet">Maximum Volume Music</div>
+      <a class="press-card" href="http://maximumvolumemusic.com/band-of-the-day-project-redshift/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">Maximum Volume Music ↗</div>
         <div class="pc-quote">This rocking trio don't pull any punches musically</div>
         <div class="pc-ref">Band of the Day · January 2019</div>
-      </div>
-      <div class="press-card">
-        <div class="pc-outlet">Distorted Sound Magazine</div>
+      </a>
+      <a class="press-card" href="https://distortedsoundmag.com/project-redshift-release-music-video-for-crossfire/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">Distorted Sound Magazine ↗</div>
         <div class="pc-quote">Their best song yet</div>
-        <div class="pc-ref">On Crossfire · January 2019</div>
-      </div>
+        <div class="pc-ref">On Crossfire · January 2019 · Harriet Anderson</div>
+      </a>
       <div class="press-card">
         <div class="pc-outlet">BBC Introducing</div>
         <div class="pc-quote">Praised on the band's debut single</div>
         <div class="pc-ref">Lincolnshire · 2017</div>
       </div>
-      <div class="press-card">
-        <div class="pc-outlet">ALTCORNER</div>
-        <div class="pc-quote">A long-form A–Z with the band</div>
-        <div class="pc-ref">Interview · February 2019</div>
-      </div>
-      <div class="press-card">
-        <div class="pc-outlet">Gigs &amp; Freudian Slips</div>
-        <div class="pc-quote">Raucous riffs and energetic melodies; thrilling, pulsating sound</div>
+      <a class="press-card" href="https://altcorner.com/interviews/project-redshift-take-on-the-a-z-challenge/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">ALTCORNER ↗</div>
+        <div class="pc-quote">It was pretty surreal to be featured on Planet Rock Radio</div>
+        <div class="pc-ref">A–Z Interview · February 2019</div>
+      </a>
+      <a class="press-card" href="https://gigsandfreudianslips.wordpress.com/2017/06/14/lincolnshire-band-of-the-week-project-redshift/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">Gigs &amp; Freudian Slips ↗</div>
+        <div class="pc-quote">Raucous riffs and energetic melodies; thrilling, pulsating sound and the aura of classic hard rock bands</div>
         <div class="pc-ref">Lincolnshire Band of the Week · June 2017</div>
-      </div>
+      </a>
+      <a class="press-card" href="https://www.anrfactory.com/project-redshift-release-pumping-rock-tune-sanity-catches/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">A&amp;R Factory ↗</div>
+        <div class="pc-quote">With driving guitar riffs and a very memorable chorus — a rock tune not only suitable for rock lovers but for a wide and vast audience</div>
+        <div class="pc-ref">On Sanity Catches · October 2017 · Sarah Marie Bugeja</div>
+      </a>
+      <a class="press-card" href="https://www.rocksins.com/2019/02/project-redshift-win-video-of-the-week-1st-february-with-crossfire-35291/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">Rock Sins ↗</div>
+        <div class="pc-quote">Lincolnshire rockers Project Redshift won a titanic battle to be crowned Video of the Week</div>
+        <div class="pc-ref">Video of the Week — Crossfire · February 2019 · Neil Skoglund</div>
+      </a>
+      <a class="press-card" href="https://www.reverbnation.com/projectredshift1" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="pc-outlet">ReverbNation ↗</div>
+        <div class="pc-quote">Rock from Lincoln, UK — featured profile</div>
+        <div class="pc-ref">Profile · 2017–2019</div>
+      </a>
       <div class="press-card">
-        <div class="pc-outlet">A&amp;R Factory · Discovered Magazine</div>
-        <div class="pc-quote">Coverage and praise for the catalogue</div>
-        <div class="pc-ref">Indie / new-music circuit · 2017–2019</div>
+        <div class="pc-outlet">Discovered Magazine</div>
+        <div class="pc-quote">Coverage and praise for the emerging Lincolnshire rock trio</div>
+        <div class="pc-ref">New-music circuit · 2017–2019</div>
       </div>
     </div>
   </div>
@@ -1063,6 +1081,7 @@ footer a:hover{color:var(--tx)}
         <div class="fest-tag">JoeFest · BBC Introducing Stage</div>
         <div class="fest-tag">Equinox Festival</div>
         <div class="fest-tag">Wild Farm Festival · Lincoln, 2017</div>
+        <div class="fest-tag" style="border-left-color:#c9a84c">Lincs Wilds Festival · Lincoln</div>
       </div>
     </div>
 
@@ -1071,6 +1090,8 @@ footer a:hover{color:var(--tx)}
       <div class="supports-row">
         <div class="sup-tag big">The Hoosiers</div>
         <div class="sup-tag big">Fickle Friends</div>
+        <div class="sup-tag big">Chapter and Verse</div>
+        <div class="sup-tag big">Vigilantes</div>
       </div>
     </div>
 
@@ -1079,10 +1100,12 @@ footer a:hover{color:var(--tx)}
       <div class="venue-card"><div class="vc-name">The Spiders Web</div><div class="vc-loc">Cleethorpes · 16 Feb 2019</div></div>
       <div class="venue-card"><div class="vc-name">Verve Bar</div><div class="vc-loc">Leeds · 22 Feb 2019</div><div class="vc-note">First documented gig outside Lincolnshire</div></div>
       <div class="venue-card"><div class="vc-name">Liquor</div><div class="vc-loc">Lincoln · 2 Mar 2019</div></div>
-      <div class="venue-card"><div class="vc-name">The Rogue Saint</div><div class="vc-loc">Lincoln</div></div>
+      <div class="venue-card"><div class="vc-name">The Rogue Saint</div><div class="vc-loc">Lincoln</div><div class="vc-note">Mental headline show — packed venue</div></div>
       <div class="venue-card"><div class="vc-name">The Music Room</div><div class="vc-loc">Live session · filmed</div><div class="vc-note">Sanity Catches live session video</div></div>
+      <div class="venue-card"><div class="vc-name">The Alleykat Club</div><div class="vc-loc">Lincoln · 15 Mar 2019</div><div class="vc-note">Call of the Wild Festival Launchpad · Heat 2</div></div>
+      <div class="venue-card"><div class="vc-name">Cobbles Bar</div><div class="vc-loc">Live venue</div></div>
+      <div class="venue-card"><div class="vc-name">Nottingham Angel Micro Brewery</div><div class="vc-loc">Nottingham</div></div>
       <div class="venue-card"><div class="vc-name">Alvingham Open Mic</div><div class="vc-loc">Lincolnshire · Early 2017</div></div>
-      <div class="venue-card"><div class="vc-name">Cleethorpes</div><div class="vc-loc">Various shows · 2017–2019</div></div>
       <div class="venue-card"><div class="vc-name">Louth Area</div><div class="vc-loc">Hometown shows · 2016–2017</div></div>
     </div>
 
