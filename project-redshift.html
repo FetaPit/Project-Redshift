@@ -107,6 +107,29 @@ nav::after{
   padding:80px 28px 64px;
   background:var(--bg);
 }
+.hero-logo-wrap{
+  position:absolute;right:0;top:0;bottom:0;
+  width:42%;max-width:520px;
+  display:flex;align-items:center;justify-content:flex-end;
+  pointer-events:none;z-index:0;
+}
+.hero-logo-img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  opacity:.18;
+  mask-image:linear-gradient(to left,rgba(0,0,0,.6) 0%,rgba(0,0,0,.2) 50%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to left,rgba(0,0,0,.6) 0%,rgba(0,0,0,.2) 50%,transparent 100%);
+}
+.hero-logo-badge{
+  position:absolute;right:28px;top:50%;
+  transform:translateY(-50%);
+  width:clamp(160px,22vw,260px);
+  opacity:.88;
+  border-radius:6px;
+  box-shadow:0 0 60px rgba(214,48,48,.2),0 0 120px rgba(0,0,0,.8);
+  z-index:2;
+}
+@media(max-width:860px){.hero-logo-badge,.hero-logo-wrap{display:none}}
 #hero::before{
   content:'';position:absolute;
   top:-120px;left:-120px;
@@ -666,6 +689,16 @@ footer a:hover{color:var(--tx)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+/* ── BRAND LOGO ELEMENTS ── */
+.pc-logo{width:36px;height:36px;margin-bottom:10px;flex-shrink:0;display:block}
+.pc-logo svg{width:100%;height:100%;display:block}
+.rc-logo{width:40px;height:40px;margin-bottom:10px;flex-shrink:0;display:block}
+.rc-logo svg{width:100%;height:100%;display:block}
+.plat-icon{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-right:10px}
+.plat-icon svg{width:100%;height:100%;display:block}
+.plat-link{gap:0}
+.plat-link .plat-name{flex:1}
+.sup-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;flex-shrink:0;vertical-align:middle}
 /* ── TIMELINE FILTER BTN ── */
 .tl-filter{
   background:var(--s2);border:1px solid var(--bd);
@@ -715,6 +748,10 @@ footer a:hover{color:var(--tx)}
      HERO
 ════════════════════════════════════════════════ -->
 <div id="hero">
+  <div class="hero-logo-wrap">
+    <img src="band-logo.jpg" class="hero-logo-img" alt="" aria-hidden="true">
+  </div>
+  <img src="band-logo.jpg" class="hero-logo-badge" alt="Project Redshift">
   <div class="hero-inner">
     <div class="hero-eyebrow">Incoming — 5th Single · 2026 Comeback</div>
     <h1 class="hero-title">Project<br><span class="r">Redshift</span></h1>
