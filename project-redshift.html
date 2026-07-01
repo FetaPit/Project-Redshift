@@ -114,7 +114,10 @@ nav::after{
 }
 .int-btn:hover{border-color:var(--redbrd);color:var(--red)}
 .int-btn.on{border-color:var(--redbrd);color:var(--red);background:var(--redbg)}
-@media(max-width:760px){.nav-links{display:none}}
+@media(max-width:760px){
+  .nav-links a{font-size:10px;padding:0 7px}
+  .nav-back,.nav-merch,.int-btn,.nav-sep{display:none}
+}
 
 /* ── HERO ── */
 #hero{
